@@ -147,12 +147,16 @@ h2 {
 /* Article page */
 .article-layout { display: flex; gap: 32px; align-items: flex-start; }
 .article-layout article { flex: 1; min-width: 0; }
-.article-toc { width: 220px; flex-shrink: 0; position: sticky; top: 80px; font-size: 14px; line-height: 1.8; border-left: 2px solid #e0e0e0; padding-left: 16px; }
-.toc-title { font-weight: 900; color: var(--primary); margin-bottom: 8px; font-size: 16px; }
-.article-toc ul { list-style: none; padding: 0; }
-.article-toc li { margin: 2px 0; padding-left: 0; }
-.article-toc a { color: var(--text-light); text-decoration: none; transition: color 0.15s; }
-.article-toc a:hover, .article-toc a.active { color: var(--primary); font-weight: 900; }
+.article-toc { width: 240px; flex-shrink: 0; position: sticky; top: 80px; font-size: 14px; line-height: 1.8; }
+.toc-title { font-weight: 900; color: var(--primary); margin-bottom: 8px; font-size: 16px; border-left: 2px solid var(--primary); padding-left: 12px; }
+.article-toc ul { list-style: none; padding: 0; margin: 0; }
+.article-toc ul ul { padding-left: 16px; border-left: 1px solid #e0e0e0; margin-left: 4px; }
+.article-toc ul ul ul { padding-left: 14px; border-left: 1px solid #eee; margin-left: 4px; }
+.article-toc li { margin: 0; padding: 1px 0; }
+.article-toc a { color: var(--text-light); text-decoration: none; transition: color 0.15s; font-weight: 400; }
+.article-toc > ul > li > a { font-weight: 600; color: #555; }
+.article-toc ul ul > li > a { font-weight: 400; font-size: 13px; }
+.article-toc a:hover, .article-toc a.active { color: var(--primary); }
 
 article { background: var(--card-bg); padding: 40px; border-radius: 0; }
 .article-header {
@@ -237,7 +241,7 @@ footer { text-align: center; padding: 24px; color: var(--text-light); font-size:
 @media (max-width: 640px) {
     main { padding: 24px 16px; } .hero { padding: 24px 0; } .hero h1 { font-size: 28px; }
     .article-layout { flex-direction: column; }
-    .article-toc { width: 100%; position: static; }
+    .article-toc { width: 100%; position: static; border: none; padding: 0; }
     article { padding: 24px; }
     .project-grid { grid-template-columns: 1fr; }
 }
