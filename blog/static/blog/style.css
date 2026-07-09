@@ -150,8 +150,8 @@ h2 {
 .article-toc { width: 240px; flex-shrink: 0; position: sticky; top: 80px; font-size: 14px; line-height: 1.8; }
 .toc-title { font-weight: 900; color: var(--primary); margin-bottom: 8px; font-size: 16px; border-left: 2px solid var(--primary); padding-left: 12px; }
 .article-toc ul { list-style: none; padding: 0; margin: 0; }
-.article-toc ul ul { padding-left: 16px; border-left: 1px solid #e0e0e0; margin-left: 4px; }
-.article-toc ul ul ul { padding-left: 14px; border-left: 1px solid #eee; margin-left: 4px; }
+.article-toc ul ul { padding-left: 14px; border-left: 1px solid #e0e0e0; margin: 4px 0 4px 6px; }
+.article-toc ul ul ul { padding-left: 14px; border-left: 1px solid #eee; margin: 2px 0 2px 4px; }
 .article-toc li { margin: 0; padding: 1px 0; }
 .article-toc a { color: var(--text-light); text-decoration: none; transition: color 0.15s; font-weight: 400; }
 .article-toc > ul > li > a { font-weight: 600; color: #555; }
