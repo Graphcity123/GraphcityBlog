@@ -1,11 +1,11 @@
 @font-face {
     font-family: "HarmonyOS Sans SC";
-    src: url('../blog/fonts/HarmonyOS_Sans_SC_Regular.ttf') format('truetype');
+    src: url('/GraphcityBlog/static/blog/fonts/HarmonyOS_Sans_SC_Regular.ttf') format('truetype');
     font-weight: 400;
 }
 @font-face {
     font-family: "HarmonyOS Sans SC";
-    src: url('../blog/fonts/HarmonyOS_Sans_SC_Black.ttf') format('truetype');
+    src: url('/GraphcityBlog/static/blog/fonts/HarmonyOS_Sans_SC_Black.ttf') format('truetype');
     font-weight: 900;
 }
 

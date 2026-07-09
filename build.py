@@ -37,7 +37,7 @@ def build():
     static_dst = SITE / 'static' / 'blog'
     shutil.copytree(static_src, static_dst)
     css = (static_dst / 'style.css').read_text(encoding='utf-8')
-    css = css.replace("url('/static/", "url('../")
+    css = css.replace("url('/static/", "url('/GraphcityBlog/static/")
     (static_dst / 'style.css').write_text(css, encoding='utf-8')
 
     # Django test client 渲染模板
@@ -51,9 +51,9 @@ def build():
         if image_base:
             import re as _re
             html = _re.sub(r'src="(?!https?://)([^"]+)"', rf'src="{image_base}\1"', html)
-        # GitHub Pages subdirectory fix: convert absolute paths to relative
-        html = html.replace('href="/', 'href="./')
-        html = html.replace('src="/', 'src="./')
+        # GitHub Pages subdirectory fix
+        html = html.replace('href="/', 'href="/GraphcityBlog/')
+        html = html.replace('src="/', 'src="/GraphcityBlog/')
         html = html.replace('<head>', '<head><base href="/GraphcityBlog/">')
         dst = SITE / path
         dst.parent.mkdir(parents=True, exist_ok=True)
@@ -106,8 +106,8 @@ def build():
             'content': body_html,
             'toc': toc_html,
         })
-        html = html.replace('href="/', 'href="../')
-        html = html.replace('src="/', 'src="../')
+        html = html.replace('href="/', 'href="/GraphcityBlog/')
+        html = html.replace('src="/', 'src="/GraphcityBlog/')
         html = html.replace('<head>', '<head><base href="/GraphcityBlog/">')
         dst = SITE / 'project' / name / 'index.html'
         dst.parent.mkdir(parents=True, exist_ok=True)
