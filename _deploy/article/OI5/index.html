@@ -425,6 +425,17 @@
         </div>
         <p>&copy; 2026 Graphcity</p>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+    <script>
+        // 禁用 B 站外链自动播放
+        document.querySelectorAll('iframe[src*="bilibili"]').forEach(f => {
+            if (f.src.includes('autoplay=')) {
+                f.src = f.src.replace(/([?&])autoplay=1/, '$1autoplay=0');
+            } else {
+                f.src += (f.src.includes('?') ? '&' : '?') + 'autoplay=0';
+            }
+        });
+    </script>
     <script>
         const themes = {
             teal:    { primary:'#339596', primaryDark:'#277576', codeBg:'#1a2e2f', codeText:'#d6e2f5', shadowRgb:'51,149,150', badgeBg:'#eaf4f4' },
