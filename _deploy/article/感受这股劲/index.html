@@ -15,6 +15,7 @@
             <a class="brand" href="./">Graphcity Blog</a>
             <div class="nav-links">
                 <a href="./">文章</a>
+                <a href="./#projects">项目</a>
                 <a href="./about/">关于</a>
             </div>
         </div>
@@ -30,9 +31,10 @@
     </div>
 </header>
 
-<article>
-    <div class="article-body">
-        <h2 id="jpg">感受这股劲.jpg</h2>
+<div class="article-layout">
+    <article>
+        <div class="article-body">
+            <h2 id="jpg">感受这股劲.jpg</h2>
 <blockquote>
 <p><strong>热身题</strong></p>
 <p>已知抛物线：<span class="arithmatex">\(y=x^2\)</span>，直线 <span class="arithmatex">\(l\)</span> 交抛物线于 <span class="arithmatex">\(A,B\)</span> 两点。分别过 <span class="arithmatex">\(A,B\)</span> 作抛物线的切线，两条切线交点为 <span class="arithmatex">\(Q\)</span>。若 <span class="arithmatex">\(AQ\)</span> 垂直于 <span class="arithmatex">\(BQ\)</span>，求 <span class="arithmatex">\(Q\)</span> 的轨迹方程。</p>
@@ -94,8 +96,18 @@
 <li>曲线系。虽然我一直只是知道有这么个东西，但是有可能这三道题中我们偷偷地使用了它。</li>
 <li>韦达定理。三道题中最终的过程都跟 <span class="arithmatex">\(val_1+val_2\)</span> 和 <span class="arithmatex">\(val_1\times val_2\)</span> 这两个东西紧密相关。虽然我暂且还不知道这两个东西到底能不能跟韦达定理扯上关系，但毫无疑问它们肯定非常有用。</li>
 </ol>
-    </div>
-</article>
+        </div>
+    </article>
+    <aside class="article-toc">
+        <div class="toc-title">目录</div>
+        <div class="toc">
+<ul>
+<li><a href="#jpg">感受这股劲.jpg</a></li>
+</ul>
+</div>
+
+    </aside>
+</div>
 
 <div class="back-link">
     <a href="./">← 返回文章列表</a>
@@ -116,6 +128,27 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
     <script>
+        // TOC 滚动高亮
+        (function() {
+            const tocLinks = document.querySelectorAll('.article-toc a[href^="#"]');
+            if (!tocLinks.length) return;
+            const headings = [];
+            tocLinks.forEach(a => {
+                const h = document.querySelector(a.getAttribute('href'));
+                if (h) headings.push({ el: h, link: a });
+            });
+            const observer = new IntersectionObserver(entries => {
+                let active = null;
+                entries.forEach(e => { if (e.isIntersecting) active = e.target; });
+                if (active) {
+                    tocLinks.forEach(a => a.classList.remove('active'));
+                    const match = headings.find(h => h.el === active);
+                    if (match) match.link.classList.add('active');
+                }
+            }, { rootMargin: '-80px 0px -70% 0px' });
+            headings.forEach(h => observer.observe(h.el));
+        })();
+
         // 禁用 B 站外链自动播放
         document.querySelectorAll('iframe[src*="bilibili"]').forEach(f => {
             if (f.src.includes('autoplay=')) {

@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head><base href="/GraphcityBlog/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OI 后日谈 2 — Graphcity Blog</title>
+    <link rel="stylesheet" href="./static/blog/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
+    
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <a class="brand" href="./">Graphcity Blog</a>
+            <div class="nav-links">
+                <a href="./">文章</a>
+                <a href="./#projects">项目</a>
+                <a href="./about/">关于</a>
+            </div>
+        </div>
+    </nav>
+    <main>
+        
+<header class="article-header">
+    <div class="article-header-bar"></div>
+    <div class="article-header-body">
+        <h1>OI 后日谈 2</h1>
+        <time>2024-10-25</time>
+        
+    </div>
+</header>
+
+<div class="article-layout">
+    <article>
+        <div class="article-body">
+            <h2 id="oi">序言. 幻想中的「OI 后日谈」</h2>
+<p>在省选之后，我就幻想过自己在集训队之后的生活。那个时候就已经构思出了「OI 后日谈」的一些雏形。</p>
+<p>在「幻想中的 OI 后日谈」里面，我想过补完之前没写的游记，分享自己喜欢的游戏，音乐，综艺节目 <span class="arithmatex">\(\cdots\cdots\)</span>，可能还有一些闲话。</p>
+<p>不过如你所见，现在它的内容变成了这样——日复一日的学习中一些有趣的事情，或是之前一些不为人知的现实 / 情感经历，又或是自己的学习情况。至于上一段讲的那些内容，还是写进我的「高考后日谈」里面吧。</p>
+<p>仔细想想，这样的「OI 后日谈」，其实也还不错——更加有烟火气，亲切感，<del>当然文笔可能也会更好</del>。</p>
+<p>还有半个月就到一年一度的 CSP 了，再过一个月就是可能会决定很多人未来走向的 NOIP。听说这次代码好像不会公开，这又会给考后的日子蒙上一层紧张的氛围。下一届也是比较艰难而且命运多舛的一届，经历了教练组的不断变革，赛制的不断更新，<del>还有凭空多出的浙江省队。</del></p>
+<p>不过尽力而为就好。高考已经不再是决定人生命运的十字路口，而是通向众多选择中的一把钥匙，更何况小小的信息学竞赛。去年已经拿到银牌的同学，可以考虑开始背单词，毕竟不管是强基还是保送都还是需要比较好的英语基础的。没有拿牌的也不用着急，<del>相信进湖南省队对你们来说应该不难。</del></p>
+<p><del>高二学弟如果 CSP 成绩没到我的 vp 成绩建议先自我反思一下</del></p>
+<p>最近看了看高二学弟们做的题目，只能说是宝刀未老。感觉学习高考数学对 OI 也是挺有帮助的啊。</p>
+<p>马上就要到 CTT 了，祝所有参加 CTT 的同学玩得开心！CTT 是一段非常好的能够调整自我的时间，只有每天上午一场，还是 IOI 赛制的比赛，下午和晚上的时间都是可以自由支配的。因为是跟集训队去比，不会有太大的竞争压力和繁重的学习任务，还可以面基和贴贴！CTT 的题目质量相比于平常的模拟赛质量还是高一些，做起来应该会比较爽。住宿环境应该也会比较好！</p>
+<h2 id="part-i">Part I. 夏令回想</h2>
+<p>我每次上下学路上都会经过一个汉堡摊。看到这个汉堡摊，我总会想起一些往事：</p>
+<p>那是 NOI 的最后一天，排名和奖牌尘埃落定。本来以为是第二天下午才走，结果因为第二天就要上文化课所以飞机临时改签，行程非常匆忙。闭幕式我也没啥心情看，感觉 OI 里面所有官方组织的文艺汇演都挺千篇一律且枯燥的。让我最深刻的文艺汇演还是 NOI2022（我的机器人朋友）还有 WC2024，真的非常享受那种其乐融融的氛围，而不是听震耳欲聋的敲鼓声还有全闭麦的演唱。</p>
+<p>NOI 的那一周我都没有怎么用过电脑——也许是某些糟心的事情，也许是考试的压力，也许是考完后没有动力去打游戏。那一天的下午，我久违地再次打开电脑，准备和陪伴我三年的游戏，陪伴我六年的 OI 还有我最珍视的朋友们暂时告别。</p>
+<p>那个下午非常匆忙，匆忙到我连版本活动都没有做完。然后我就短暂的告别了，独自前往千里之外的飞机场。整个过程非常平静，没有眼泪，也没有拥抱，就是一挥手，一告别的事。</p>
+<p>由于整个过程非常紧急，从我出发到我回家，全程都是我一个人在行动——一个人拖行李，一个人吃晚饭，一个人上飞机，座位旁边没有我熟悉的人，一个人下飞机，一个人坐地铁，一个人回家。</p>
+<p>晚饭是在机场里面找的一个地方吃的，价格非常贵。那是一家汉堡店，一个汉堡五十块钱，它的饮料甚至还没有加糖。想找一点东西下饭，于是点开 B 站，刷到了下面这则视频：</p>
+<iframe src=".//player.bilibili.com/player.html?isOutside=true&aid=1706221422&bvid=BV1bT421k7kA&cid=1620451917&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+
+<p>《崩坏三》是我省选之后才接触到的游戏，<del>多亏了我身边的那一群舰伥</del>。而我真正开始去体验它的剧情，则是在 GDCPC2024 的时候。那是《歌手 2024》直播之前的一段时间，由于没事做我就打开了这款被我尘封已久的游戏。</p>
+<p>但我从没想到，这个八年前的老东西，能够给我如此大的，不管是物理上的还是精神上的震撼。它绝对是我今年玩过的最值得一试的手游（甚至和绝区零相比，当然绝区零也不错）。这款游戏真的是让我感受到了一些非常独特的体验：每一章独立的单曲和动画短片，非常可爱的番剧（强推！），以及所有人对美好和希望的追求，这一股向上的劲是让我感触最为深刻的。</p>
+<p>虽然我从 NOI 之后就暂时退坑了，但是我对它的印象和记忆丝毫没有褪去。</p>
+<p>一想到自己孤零零在机场，看到视频里面大家欢聚在沙滩，一起游玩打闹——一边是我向往的生活，一边是冰冷的现实。这种巨大的反差感最终形成了 ptsd。</p>
+<p>拿了银牌就只配一个人被这样对待吗？至少不管怎么说，我也是这个金字塔的前面 150 名。</p>
+<p>——我只是拿了个银牌，而不是进监狱了。</p>
+<p>实际上，在我预想的情况中，不管是我拿了什么牌子，取得了什么名次，至少得有个人来接我吧。</p>
+<p>——可惜现实是如此的残酷。</p>
+<p>当然我还是比较坚强的，自始至终我也没落下过一滴眼泪。</p>
+<p>——但我不知道，过去省下的眼泪，是否会在未来聚集成洪水喷涌而出。</p>
+<p>说到这个，就不得不提 NOI 之前最糟糕的一个月。说实话，提到集训的时候，我一开始是十分惊喜的。我的第一次集训是去杭州，那个时候恰逢亚运会和世界杯，我们住在酒店里，每天白天打比赛，晚上回来可以一起打游戏，也可以熬夜看世界杯。那次集训我的收获真的非常大，第一次去尝试，并且做出来我以前碰都不敢碰的集训队互测题。跟高二的大家，和高一的大家（除了一个人以外）都结下了深厚的友谊，尤其是和 @Sampson_YW，@Sentoayaka 和 @Dawn_Sdy。</p>
+<p>当然后面的集训有环境比较艰难的，比如中山纪中的集训；也有特别棒的，比如人大附中的集训。人大附中的集训是我今年最开心的一段时光，集训的时间相较平常大幅度地减小，让大家都有更多的时间关注与自己的生活，自己的兴趣爱好。环境也是跟酒店住宿相同，还不用自己开流量。我还记得晚上和 @Sampson_YW，@xlwang，@sycqwq，@Hjcc 一起全民 K 歌，一起联机打糖豆人 <del>还因为声音太大被投诉</del>，在凌晨一点看《2023年最差的10首歌》，看到 ”月亮代表我的心理有问题“，还有寝室排行榜 <span class="arithmatex">\(\cdots\cdots\)</span>。</p>
+<p>或许，在 NOI 之前的一段时间，不管是教练还是选手，更应该关注的是自己的情绪状态，而不是自己的学习成绩。</p>
+<p>但是广东集训是彻底的非常糟糕透顶的。没有人会想在 NOI 之前的一个月连考 17 天，而且模拟赛的质量也不好评价；也没人想在 NOI 的前一个月被你的教练查水表，住在连桌子都没有的，只有两个房门口的充电插头的，连电脑都要坐在地上垫着一个行李箱去玩的寝室。</p>
+<p>广东集训是我第一次大哭，是我从学 OI 以来的第一次。于是在我忍了十几天之后，终于忍无可忍作出了一个完全正确，不可反驳的决定——在绝区零开服之后的那几天上午放弃考试打游戏。</p>
+<p>一些比较好的事情是，这个事情没有人阻拦，而且大家都得到了这样的喘息的窗口。比较不好的事情是，这样的喘息有没有真正解决情绪方面的问题还要打一个问号。</p>
+<p>对所有的学弟们提个醒：<strong>禁止在 NOI 前一个月，进行长时间，高强度，环境差的线下集训</strong>。</p>
+<p>我认为英语阅读里面的一段话讲的很对：</p>
+<blockquote>
+<p>I'm always cautious of the tired saying, "If it dosen't kill you, it'll make you stronger." I mean, what about polio? Or loads of other horrible things that if you survive, you're left scarred in one way or another.</p>
+<p>我总是对这一句已经令人厌烦的俗语表示谨慎态度：“杀不死你的，会让你更强大。” 那小儿麻痹症呢？或者还有很多糟糕的事情，如果你幸存下来，你会以某种甚至更多种方式留下伤痕。</p>
+</blockquote>
+<p>当然这段文字写出来并不是在责怪我的教练，相反，我对我的教练 @zaixianmojulao 非常感激。是她给了我一个机会让我在初二接触到雅礼信息学最顶尖的人才；在平常，她对我们这一届都是非常宽松的，也让大家相处的非常好。至少平常的情绪价值，我认为是给到了的。说实话，OI 里面教练完全就是吉祥物，尤其是在最后一年。只要能够不帮倒忙，能够帮忙做一些情绪上和生活上的帮助，我认为这样的教练是非常称职的。</p>
+<p>NOI 的前一个月大家，不管是选手还是教练都是新手，都是人生中的「第一次」；大家都需要放手一搏，大家都是神经紧绷。但是有了这一次之后，我们雅礼不能再发生第二次这样的事情。「秦人不暇自哀，而后人哀之；后人哀之而不鉴之，亦使后人而复哀后人也。」（《阿房宫赋》）我也不希望这一届，下一届，或者下几届，再去被其它教练充当所谓的「试验田」，被人为地划分阶级，白白当作弃子浪费掉。</p>
+<p>当然它也不是责怪广二的或是其它地方的同学们。在成都集训的时候，@ZSH_ZSH 主动找到了我的 qq 并加了好友。从那之后，我们一起讨论题目，讨论生活。不只是他，所有参与集训的同学们都是非常友善的，大家的相处也很和谐。</p>
+<p>那问题出在哪里呢？</p>
+<p>我很喜欢《崩坏三》第二部里面的一个设定：在一个名为琅丘的城市，人们靠着一种叫做「影子」的东西谋生：在一年一度的「嵬集」中，用「影子」的力量凭空创造出来物质。「影子」则来源于人内心的恐惧。有一些人可以操控「影子」的力量：支配他人的心灵，创造出一片虚拟的空间，又或者起到吉祥物的作用。但从另一个角度来说，「影子」也在无形中支配着所有的琅丘人。但人们已经长久习惯于「影子」，并没有意识到这一点。又或者说，他们已经没有办法摆脱「影子」生活了。</p>
+<p>实际上这个「影子」也可以反映到我们的现实生活：心里面的焦虑，埋怨，愤怒都有可能变成操控我们的「影子」。尽管现实中的「影子」还没有强大到改变物质世界，但它真的可以实实在在地从精神上影响一个甚至一群的人。如何摆脱「影子」？大家都要携手并进，共同努力。</p>
+<p>这就是我的「夏令回想」。</p>
+<p>接下来是这个夏令之后发生的一些事情。</p>
+<h2 id="part-ii-">Part II. 夏令回响 - 续</h2>
+<p>我的父亲一直以来都是比较支持我的，基本上学 OI 的时候我想晚自习请假都能够请到，包括有心理问题的时候也是他牵头去找心理医生咨询。在 HNOI2023 的时候，我因为被 E_space 坑了 90pts 与省队失之交臂。那是我第一次感受到如此的挫折。</p>
+<p>我从来都没有想过自己的命运，有的时候也会被一个人随手造的数据所掌控。那一周的晚自习我都没来。也是在那个时候，我第一次有了去找心理医生的念头。</p>
+<p>不得不说，不论是我爸还是心理医生，在我学 OI 的这些时光里面都给了非常大的精神支持。包括 NOI 的前一周，他也毫不犹豫地答应了带一家人跟我一起提前去成都。</p>
+<p>当然提前去成都这个决策，虽然这个是大家妥协之后的结果，但最终效果好像也不太好。我是一个非常想家的人，尤其是在非常重要的时刻之前。这个家不仅是家庭，不仅是一个固定的地点，而且还留有着生活气息和一些珍贵的记忆。说得更大一点，「回家」这个行为的仪式感，是我认为不可或缺的。</p>
+<p>说实话，从到广东的第一天，我就开始想家了。</p>
+<p>在绝区零开服的前两天，我实在忍受不了那里糟糕的学习安排，先是在晚自习偷偷跑到走廊上打电话给我爸，再在晚自习结束后跑到寝室楼下打电话给心理医生。电话的内容只有一句话——我受够了，我要休息。当时甚至已经作好了打算：如果请假没有成功，也不去机房了。</p>
+<p>结果就是，请假成功了，大家都可以休息了。请假成功的时候，我感觉父亲的形象是如此的伟岸。</p>
+<p>但是 NOI 结束之后，一切似乎有了天翻地覆的改变。</p>
+<p>他居然开始担心起我的前途了。</p>
+<p>他专门花了一个周末下午抽空拜访我。那个下午简直就是一个噩梦。从「强基分数不断提高，你不一定真的能考得上」再到「你如果考不上就算了，读个普通的大学也挺好」；从毫无实际意义地塞给我根本没有任何用处的资料，到准备直接把我电脑拖走。</p>
+<p>我读出来了他对我的不信任，从迷信所谓的强基分析和家长见闻，再到试图在我明确不同意的情况下把电脑拖走。那个晚上，我一直在思考：为什么会这样？</p>
+<p>也许是关于未来，关于高考，关于强基的不确定，但我无从得知。从结果上来看，他似乎变了一个人。</p>
+<p>说实话，我一直很讨厌这种「贷款焦虑」的行为，这种行为在我看来就是一种 PUA。它让一个人在短时间需要消化未来产生的大量焦虑，再试图用各种方式安慰，这不管是在身体上还是精神上都是比较难以承受的。</p>
+<p>在两天后的晚自习，他甚至还找来了班主任试图强制搬走我的电脑。我也不知道为啥他对这个东西有极深的执念，搞得好像家里面多了一台电脑我的学习就玩完了一样。</p>
+<p>于是我在那天晚上，又一次拨通了心理医生的电话。这一次，不是解决我的精神内耗，而是解决我爸的精神内耗。</p>
+<p>成果显著。对于到底搬不搬电脑的问题成功拖到了那周六的晚上。在周六晚上，心理医生决定组一个三人会议，直面聊聊这个问题。</p>
+<p>聊的过程不多赘述，最后的结果就是，我拿到了自己的日常生活的主动权。</p>
+<p>令我惊喜的时候，他也在慢慢恢复原来的样子。</p>
+<p>以前遇到心理问题的总是我，没想到这次却变成他了。</p>
+<p>我又想起了英语阅读里面的一段话：</p>
+<blockquote>
+<p>At first I wondered how I'd raised such a dominator. Then I remembered how often I threw the golden rule of parenting at Nathaniel and his siblings when they were young. Now it was payback time.</p>
+<p>Our role change gave me the hope for his future parenting ability. "You did it! I'm really proud," he said, smiling, as if I'd just learned to ride a bike. It was then that I knew for sure that the son also rises to fatherhood.</p>
+<p>一开始，我还在想自己是怎么培养出这样一个（家庭的）支配者的。然后我就想起了在 Nathaniel 和他的兄弟姐妹们年幼的时候，总是把自己的教养传递给他们。现在是回报的时刻了。</p>
+<p>我们家庭关系的改变给了我他在未来生活中长大成人，养儿育女的希望。“你做到了！我真为你骄傲！” 他说着，挂着笑容，就像我学习骑自行车的时候（我的父亲对我的那样）。在那一刻，我确信了他也已经成了一位合格的大人。</p>
+</blockquote>
+<p>「成为一名大人」，这个在我们童年时还感觉离自己很遥远的事情，如今确快要成为现实了。拥有自己的主见和独立性，自己解决一些家庭上的问题，是我们长大成人的过程中必须要过的一关。我也很庆幸至少我还有权利表达出自己的看法，这放在一些家庭里面可能就不太行了。</p>
+<p>不管怎么说，这件事还是顺利解决了。再接下去，就是「OI 后日谈 1」里面的内容了。</p>
+<h2 id="part-iii">Part III. 回顾与展望</h2>
+<ul>
+<li><strong>进红榜啦！！！！！！！</strong></li>
+</ul>
+<p>我觉得这次进红榜的主要原因在于「临时抱佛脚」啊。在考试前的一周，我专门花了几节自习课专门补了补化学的有机和生物选择性必修的考试内容。没有想到啊，成效显著，有机有了质的突破，从对一道题变成了对四道题，我的化学及格啦！！！</p>
+<p>生物也是大进步，我终于能看懂题目了！！！！！</p>
+<p>物理也是大退步，选择题 -12！！！！！！但是终于及格啦！！！！！！！</p>
+<p>数学也是大退步，多选第二题 -6，填空第二题 -5，倒数两题只做了第一问。但是进年级前一百啦！！！</p>
+<p>英语也是大退步，两篇作文合砍 9+18，完形填空 -6，大作文还被仲裁了（分数 +1）。但是阅读全对！！！！！</p>
+<p>语文不好评价，如果我真的急了会直接做饭给出题人吃的。</p>
+<ul>
+<li>我参加校运会，真的假的？</li>
+</ul>
+<p>说来惭愧，自从读初中之后，校运会的一个项目我都没有参加过，就连校运会我也从初三开始参加完开幕式直接就跑了。但我真没想到的是，下一次参与运动会项目，居然是在高三。</p>
+<p>一开始我是完全拒绝参加校运会的。但是招架不住班主任的强制征兵和 @Sentoayaka 的煽风点火，我参加了我们班能够参加的所有项目——50m接力和拔河。顺带还在接力项目把 @yehaodxv 拖下水了，大成功！</p>
+<p>先略过开幕式的入场，领导讲话，文艺汇演等环节，直接跳到教师运动会。</p>
+<p>教师运动会挺有意思的，第一次看到我们数学老师，英语老师和化学老师 <del>出洋相</del>，当然 <del>也少不了我们的教练</del>。为啥不让我们也玩一玩？</p>
+<p>然后是迎面接力。结果是不出意料的最后一名，但是没有掉棒，大胜利！！！！！！</p>
+<p>实名举报 @Sentoayaka 逃课迎面接力。</p>
+<p>恭喜 @yehaodxv 大人在校运会的迎面接力项目中的出色表现和勇敢拼搏！特此，热烈庆祝雅礼中学高三 2201 班唯一的光—— @yehaodxv 凯旋归来！</p>
+<p>然后是拔河。我们在两场拔河比赛中总共坚持了 3s 和 6s。</p>
+<p>来到了体育场的内侧，而现在和我一起在等待 2201 班拔河队出来的，还有我身后这一圈这里这么多的绳迷！大家都在等待 2201 班的出来。那么 2201 的拔河比赛是已经结束了，虽然很遗憾没有能够取得让大家都满意的一个结果，但是我们的绳迷，在雅礼篮球场的现场，41 名的绳迷，他们不离不弃地陪伴着 2201 班，走到了最后一秒！</p>
+<p>对得起我们吗？？！RNM，退钱！！！！！！！！！！！！！！！！</p>
+<p>对得起我们吗？？？？？对得起我们吗！！！！！！！！！！！！！！！！！退钱！！！</p>
+<p>现场绳迷的情绪是非常激动的，而现在此时此刻，我们每个人的心里面，那份感情是五味杂陈的，而。。很难用，其实很难用言语去表述，但是我还是想要问大家几个问题，我想问问看这儿的绳迷，你们觉得今天这样子的一个结果，是感到失望吗？</p>
+<p>一点战术都没有，什么战术都没有，很失望很失望！！！太失望啦！！！！！非常非常失望！！！！我们感到愤怒！！！！！！！！！！！</p>
+<p>我知道大家可能现在都有失望或者愤怒的情绪，但是我们的拔河比赛才刚刚进行了两场，接下来还有——已经输咧！！！已经结束咧！！！！！已经结束咧！！！！！！！！！！！</p>
+<p><strong>最终结果：班级三等奖</strong></p>
+<p>意外之喜了属于是。</p>
+<p><img alt="" src="https://cdn.luogu.com.cn/upload/image_hosting/t36r4zj9.png" /></p>
+<p>这是我在某一个晚自习无聊的时候画的，我也不知道为啥要放上去。</p>
+<p>祝大家 CSP2024 玩得开心！每个人都要 AK！！！</p>
+        </div>
+    </article>
+    <aside class="article-toc">
+        <div class="toc-title">目录</div>
+        <div class="toc">
+<ul>
+<li><a href="#oi">序言. 幻想中的「OI 后日谈」</a></li>
+<li><a href="#part-i">Part I. 夏令回想</a></li>
+<li><a href="#part-ii-">Part II. 夏令回响 - 续</a></li>
+<li><a href="#part-iii">Part III. 回顾与展望</a></li>
+</ul>
+</div>
+
+    </aside>
+</div>
+
+<div class="back-link">
+    <a href="./">← 返回文章列表</a>
+</div>
+
+    </main>
+    <footer>
+        <div class="theme-switcher">
+            <span class="theme-dot" data-theme="teal" style="background:#339596" title="青绿"></span>
+            <span class="theme-dot" data-theme="blue" style="background:#3360AB" title="蓝色"></span>
+            <span class="theme-dot" data-theme="rose" style="background:#d4627c" title="玫红"></span>
+            <span class="theme-dot" data-theme="orange" style="background:#e08a3e" title="橘橙"></span>
+            <span class="theme-dot" data-theme="purple" style="background:#7c5aa8" title="紫色"></span>
+            <span class="theme-dot" data-theme="green" style="background:#4a9c5d" title="草绿"></span>
+            <span class="theme-dot" data-theme="slate" style="background:#5a7a8a" title="灰蓝"></span>
+        </div>
+        <p>&copy; 2026 Graphcity</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+    <script>
+        // TOC 滚动高亮
+        (function() {
+            const tocLinks = document.querySelectorAll('.article-toc a[href^="#"]');
+            if (!tocLinks.length) return;
+            const headings = [];
+            tocLinks.forEach(a => {
+                const h = document.querySelector(a.getAttribute('href'));
+                if (h) headings.push({ el: h, link: a });
+            });
+            const observer = new IntersectionObserver(entries => {
+                let active = null;
+                entries.forEach(e => { if (e.isIntersecting) active = e.target; });
+                if (active) {
+                    tocLinks.forEach(a => a.classList.remove('active'));
+                    const match = headings.find(h => h.el === active);
+                    if (match) match.link.classList.add('active');
+                }
+            }, { rootMargin: '-80px 0px -70% 0px' });
+            headings.forEach(h => observer.observe(h.el));
+        })();
+
+        // 禁用 B 站外链自动播放
+        document.querySelectorAll('iframe[src*="bilibili"]').forEach(f => {
+            if (f.src.includes('autoplay=')) {
+                f.src = f.src.replace(/([?&])autoplay=1/, '$1autoplay=0');
+            } else {
+                f.src += (f.src.includes('?') ? '&' : '?') + 'autoplay=0';
+            }
+        });
+    </script>
+    <script>
+        const themes = {
+            teal:    { primary:'#339596', primaryDark:'#277576', codeBg:'#1a2e2f', codeText:'#d6e2f5', shadowRgb:'51,149,150', badgeBg:'#eaf4f4' },
+            blue:    { primary:'#3360AB', primaryDark:'#254a85', codeBg:'#1a2540', codeText:'#d0dcf0', shadowRgb:'51,96,171', badgeBg:'#eef2fa' },
+            rose:    { primary:'#d4627c', primaryDark:'#a3435c', codeBg:'#2f1a22', codeText:'#f0d6e0', shadowRgb:'212,98,124', badgeBg:'#faf0f4' },
+            orange:  { primary:'#e08a3e', primaryDark:'#b06828', codeBg:'#2f2218', codeText:'#f0e2d4', shadowRgb:'224,138,62', badgeBg:'#faf4ec' },
+            purple:  { primary:'#7c5aa8', primaryDark:'#5c3e86', codeBg:'#1f1a2f', codeText:'#dcd4f0', shadowRgb:'124,90,168', badgeBg:'#f4f0fa' },
+            green:   { primary:'#4a9c5d', primaryDark:'#357a44', codeBg:'#182a1e', codeText:'#d4f0dc', shadowRgb:'74,156,93', badgeBg:'#eefaf0' },
+            slate:   { primary:'#5a7a8a', primaryDark:'#3f5d6b', codeBg:'#1a242a', codeText:'#d4e0e8', shadowRgb:'90,122,138', badgeBg:'#f0f4f6' },
+        };
+        const saved = localStorage.getItem('blog-theme') || 'teal';
+        function applyTheme(name) {
+            const t = themes[name];
+            const r = document.querySelector(':root');
+            r.style.setProperty('--primary', t.primary);
+            r.style.setProperty('--primary-dark', t.primaryDark);
+            r.style.setProperty('--code-bg', t.codeBg);
+            r.style.setProperty('--code-text', t.codeText);
+            r.style.setProperty('--shadow-rgb', t.shadowRgb);
+            r.style.setProperty('--badge-bg', t.badgeBg);
+            document.querySelectorAll('.theme-dot').forEach(d => d.classList.toggle('active', d.dataset.theme === name));
+            localStorage.setItem('blog-theme', name);
+        }
+        applyTheme(saved);
+        document.querySelectorAll('.theme-dot').forEach(dot => {
+            dot.onclick = () => applyTheme(dot.dataset.theme);
+        });
+
+        document.querySelectorAll('pre').forEach(pre => {
+            const btn = document.createElement('button');
+            btn.className = 'copy-btn';
+            btn.textContent = '复制';
+            btn.onclick = () => {
+                navigator.clipboard.writeText(pre.textContent).then(() => {
+                    btn.textContent = '已复制';
+                    setTimeout(() => btn.textContent = '复制', 1500);
+                });
+            };
+            pre.style.position = 'relative';
+            pre.appendChild(btn);
+        });
+    </script>
+</body>
+</html>

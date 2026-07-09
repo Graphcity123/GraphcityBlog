@@ -15,6 +15,7 @@
             <a class="brand" href="../">Graphcity Blog</a>
             <div class="nav-links">
                 <a href="../">文章</a>
+                <a href="../#projects">项目</a>
                 <a href="../about/">关于</a>
             </div>
         </div>
@@ -31,9 +32,10 @@
     </div>
 </header>
 
-<article>
-    <div class="article-body">
-        <h1 id="singer2026">Singer2026 — 歌手信息检索系统</h1>
+<div class="article-layout">
+    <article>
+        <div class="article-body">
+            <h1 id="singer2026">Singer2026 — 歌手信息检索系统</h1>
 <p>清华大学程序设计训练（Python）2026 暑期课程 · 实验一：爬虫与信息检索</p>
 <p>基于 Django 的全栈 Web 应用，爬取网易云音乐歌手/歌曲数据，提供浏览、搜索、评论、收藏等社交功能。</p>
 <h2 id="_1">相关文档</h2>
@@ -413,8 +415,50 @@ python<span class="w"> </span>crawl_hot_songs.py
 </ul>
 <hr />
 <p><em>截止日期：2026 年 7 月 13 日</em></p>
-    </div>
-</article>
+        </div>
+    </article>
+    <aside class="article-toc">
+        <div class="toc-title">目录</div>
+        <div class="toc">
+<ul>
+<li><a href="#singer2026">Singer2026 — 歌手信息检索系统</a><ul>
+<li><a href="#_1">相关文档</a></li>
+<li><a href="#_2">相关链接</a></li>
+<li><a href="#_3">数据规模</a></li>
+<li><a href="#_4">功能特性</a><ul>
+<li><a href="#_5">浏览与搜索</a></li>
+<li><a href="#_6">用户系统</a></li>
+<li><a href="#_7">评论系统</a></li>
+<li><a href="#_8">管理员功能</a></li>
+</ul>
+</li>
+<li><a href="#_9">技术栈</a></li>
+<li><a href="#_10">项目结构</a></li>
+<li><a href="#_11">数据模型</a></li>
+<li><a href="#_12">快速开始（本地开发）</a><ul>
+<li><a href="#_13">环境要求</a></li>
+<li><a href="#_14">安装与运行</a></li>
+</ul>
+</li>
+<li><a href="#_15">爬虫工具</a><ul>
+<li><a href="#_16">使用方法</a></li>
+<li><a href="#_17">特性</a></li>
+</ul>
+</li>
+<li><a href="#_18">部署</a><ul>
+<li><a href="#_19">关键环境变量</a></li>
+<li><a href="#pa-wsgi">PA WSGI 配置</a></li>
+</ul>
+</li>
+<li><a href="#url">URL 路由</a></li>
+<li><a href="#_20">管理员</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+    </aside>
+</div>
 
 <div class="back-link">
     <a href="../">← 返回首页</a>
@@ -435,6 +479,27 @@ python<span class="w"> </span>crawl_hot_songs.py
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
     <script>
+        // TOC 滚动高亮
+        (function() {
+            const tocLinks = document.querySelectorAll('.article-toc a[href^="#"]');
+            if (!tocLinks.length) return;
+            const headings = [];
+            tocLinks.forEach(a => {
+                const h = document.querySelector(a.getAttribute('href'));
+                if (h) headings.push({ el: h, link: a });
+            });
+            const observer = new IntersectionObserver(entries => {
+                let active = null;
+                entries.forEach(e => { if (e.isIntersecting) active = e.target; });
+                if (active) {
+                    tocLinks.forEach(a => a.classList.remove('active'));
+                    const match = headings.find(h => h.el === active);
+                    if (match) match.link.classList.add('active');
+                }
+            }, { rootMargin: '-80px 0px -70% 0px' });
+            headings.forEach(h => observer.observe(h.el));
+        })();
+
         // 禁用 B 站外链自动播放
         document.querySelectorAll('iframe[src*="bilibili"]').forEach(f => {
             if (f.src.includes('autoplay=')) {

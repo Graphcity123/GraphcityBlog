@@ -15,6 +15,7 @@
             <a class="brand" href="./">Graphcity Blog</a>
             <div class="nav-links">
                 <a href="./">文章</a>
+                <a href="./#projects">项目</a>
                 <a href="./about/">关于</a>
             </div>
         </div>
@@ -30,9 +31,10 @@
     </div>
 </header>
 
-<article>
-    <div class="article-body">
-        <h1 id="part-0-hnoi2025">Part 0. HNOI2025 解题报告</h1>
+<div class="article-layout">
+    <article>
+        <div class="article-body">
+            <h1 id="part-0-hnoi2025">Part 0. HNOI2025 解题报告</h1>
 <p><del>三月份写完的居然拖到现在才发</del></p>
 <p>这次没有反思环节。大家都是好样的。</p>
 <p>2025 年的省选绝对是对心理的一次巨大的考验：D1T2 的 6s 时限，D2T1 的大模拟，还是 Day2 两道计数的罚坐，都需要非常强的抗压能力和应变能力。同时，D2T1 比较水的样例和 D1T2 比较水的数据也让最终的排名多了很多随机成分。</p>
@@ -198,8 +200,21 @@
 <p><img alt="" src="./content/articles/OI4/IMG_5643.png" /></p>
 <p>写到这里突然想起来了我要跑步还有一个原因：初三的时候，我们的体育老师经常给我们布置绕着操场跑 8~9 圈的任务。很遗憾的是，每一次我要么是跑三圈就结束了，要么根本就没跑。我也不知道从来没有跑过完整的九圈是不是我心里的一个遗憾，但以前的我绝对想不到的是这个东西第一次完成发生在高考的前 40 天。</p>
 <p>生活，很神奇吧。</p>
-    </div>
-</article>
+        </div>
+    </article>
+    <aside class="article-toc">
+        <div class="toc-title">目录</div>
+        <div class="toc">
+<ul>
+<li><a href="#part-0-hnoi2025">Part 0. HNOI2025 解题报告</a></li>
+<li><a href="#part-i">Part I. 信息学大厦，正在崩塌！</a></li>
+<li><a href="#part-ii">Part II. 语文课代表，濒临撤职！</a></li>
+<li><a href="#part-iii">Part III. 从机房到田径场</a></li>
+</ul>
+</div>
+
+    </aside>
+</div>
 
 <div class="back-link">
     <a href="./">← 返回文章列表</a>
@@ -220,6 +235,27 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
     <script>
+        // TOC 滚动高亮
+        (function() {
+            const tocLinks = document.querySelectorAll('.article-toc a[href^="#"]');
+            if (!tocLinks.length) return;
+            const headings = [];
+            tocLinks.forEach(a => {
+                const h = document.querySelector(a.getAttribute('href'));
+                if (h) headings.push({ el: h, link: a });
+            });
+            const observer = new IntersectionObserver(entries => {
+                let active = null;
+                entries.forEach(e => { if (e.isIntersecting) active = e.target; });
+                if (active) {
+                    tocLinks.forEach(a => a.classList.remove('active'));
+                    const match = headings.find(h => h.el === active);
+                    if (match) match.link.classList.add('active');
+                }
+            }, { rootMargin: '-80px 0px -70% 0px' });
+            headings.forEach(h => observer.observe(h.el));
+        })();
+
         // 禁用 B 站外链自动播放
         document.querySelectorAll('iframe[src*="bilibili"]').forEach(f => {
             if (f.src.includes('autoplay=')) {

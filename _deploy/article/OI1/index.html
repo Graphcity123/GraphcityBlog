@@ -15,6 +15,7 @@
             <a class="brand" href="./">Graphcity Blog</a>
             <div class="nav-links">
                 <a href="./">文章</a>
+                <a href="./#projects">项目</a>
                 <a href="./about/">关于</a>
             </div>
         </div>
@@ -30,9 +31,10 @@
     </div>
 </header>
 
-<article>
-    <div class="article-body">
-        <p>更新一下证明自己还活着（</p>
+<div class="article-layout">
+    <article>
+        <div class="article-body">
+            <p>更新一下证明自己还活着（</p>
 <h2 id="_1">序言. 斐波那契数列</h2>
 <p>省流：我在数学课上开挂了。</p>
 <p>我们的数学一轮进度很快啊，已经复习到数列了。</p>
@@ -160,8 +162,21 @@ $$
 <p>数学的话，真正到了高三才发现它与 OI 的关联比我想象中要大得多。我退役之后总想着把之前的东西给忘掉，但是现在我又想着尽力把它留存下来。OI 里面很多知识都是相当具有前瞻性的，可能可以切中未来很多年的高考最后一题。当然高考数学跟 OI 也有很多区别，<del>比如圆锥曲线短轴长度应该是 2b</del>。不过这些东西都是简单的，真正难的部分（除了导数）在学 OI 的时候就应该已经把它啃掉了。</p>
 <p>物化生的话，我只能说，不急。不过这次化学确实给我了很大的惊喜，最后一道实验题只错了一个空，里面的计算也算对了。<del>（至于它上面一道的有机题，我也是对了一个空）</del></p>
 <p>总的来说，我觉得银牌或者退役绝对不能算是自己没有进队的一种「亡羊补牢」。至少从位移来说，大家起点是一样的，终点也是一样的，位移自然也是一样的，只不过可能有一条狭窄的独木桥，和一旁蜿蜒曲折的山路。我更喜欢把高三看成成年之前的一场「期末考试」，全方位地考验你十八年的成果。99% 的人在高中都会经历这个过程，当然肯定也会有人不需要经历它。既然已经决定踏上高三，那就在分别前祝福他们，然后脚踏实地，给这场「期末考试」交出一张漂亮的答卷。</p>
-    </div>
-</article>
+        </div>
+    </article>
+    <aside class="article-toc">
+        <div class="toc-title">目录</div>
+        <div class="toc">
+<ul>
+<li><a href="#_1">序言. 斐波那契数列</a></li>
+<li><a href="#part-i-oi">Part I. 高考中的 OI</a></li>
+<li><a href="#part-ii">Part II. 数学高联：猜结论人生巅峰</a></li>
+<li><a href="#part-iii">Part III. 回顾与展望</a></li>
+</ul>
+</div>
+
+    </aside>
+</div>
 
 <div class="back-link">
     <a href="./">← 返回文章列表</a>
@@ -182,6 +197,27 @@ $$
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
     <script>
+        // TOC 滚动高亮
+        (function() {
+            const tocLinks = document.querySelectorAll('.article-toc a[href^="#"]');
+            if (!tocLinks.length) return;
+            const headings = [];
+            tocLinks.forEach(a => {
+                const h = document.querySelector(a.getAttribute('href'));
+                if (h) headings.push({ el: h, link: a });
+            });
+            const observer = new IntersectionObserver(entries => {
+                let active = null;
+                entries.forEach(e => { if (e.isIntersecting) active = e.target; });
+                if (active) {
+                    tocLinks.forEach(a => a.classList.remove('active'));
+                    const match = headings.find(h => h.el === active);
+                    if (match) match.link.classList.add('active');
+                }
+            }, { rootMargin: '-80px 0px -70% 0px' });
+            headings.forEach(h => observer.observe(h.el));
+        })();
+
         // 禁用 B 站外链自动播放
         document.querySelectorAll('iframe[src*="bilibili"]').forEach(f => {
             if (f.src.includes('autoplay=')) {

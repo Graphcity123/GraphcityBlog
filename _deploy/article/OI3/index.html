@@ -15,6 +15,7 @@
             <a class="brand" href="./">Graphcity Blog</a>
             <div class="nav-links">
                 <a href="./">文章</a>
+                <a href="./#projects">项目</a>
                 <a href="./about/">关于</a>
             </div>
         </div>
@@ -30,9 +31,10 @@
     </div>
 </header>
 
-<article>
-    <div class="article-body">
-        <h1 id="part-i-graphcity">Part I. 探究：Graphcity 的记忆系统</h1>
+<div class="article-layout">
+    <article>
+        <div class="article-body">
+            <h1 id="part-i-graphcity">Part I. 探究：Graphcity 的记忆系统</h1>
 <blockquote>
 <p><strong>案例一</strong></p>
 <p>词义辨析：contact / contest / content / context / contract / contrast</p>
@@ -366,8 +368,21 @@
 <p>好在这些错误都在检查的时候发现了，<del>要不然就出大事了。</del> </p>
 <p>不过，现在的任务应该是好好休息一下，考试的时候确实有点太紧张了。</p>
 <p><strong>（Update：我的寒假作业可能并不想让我好好休息）</strong></p>
-    </div>
-</article>
+        </div>
+    </article>
+    <aside class="article-toc">
+        <div class="toc-title">目录</div>
+        <div class="toc">
+<ul>
+<li><a href="#part-i-graphcity">Part I. 探究：Graphcity 的记忆系统</a></li>
+<li><a href="#part-ii">Part II. 人物赏析：浅羽悠真</a></li>
+<li><a href="#part-iii">Part III. 漫谈：高考数学中的应试与思想性</a></li>
+<li><a href="#part-iv">Part IV. 回顾与展望：覆灭重生</a></li>
+</ul>
+</div>
+
+    </aside>
+</div>
 
 <div class="back-link">
     <a href="./">← 返回文章列表</a>
@@ -388,6 +403,27 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
     <script>
+        // TOC 滚动高亮
+        (function() {
+            const tocLinks = document.querySelectorAll('.article-toc a[href^="#"]');
+            if (!tocLinks.length) return;
+            const headings = [];
+            tocLinks.forEach(a => {
+                const h = document.querySelector(a.getAttribute('href'));
+                if (h) headings.push({ el: h, link: a });
+            });
+            const observer = new IntersectionObserver(entries => {
+                let active = null;
+                entries.forEach(e => { if (e.isIntersecting) active = e.target; });
+                if (active) {
+                    tocLinks.forEach(a => a.classList.remove('active'));
+                    const match = headings.find(h => h.el === active);
+                    if (match) match.link.classList.add('active');
+                }
+            }, { rootMargin: '-80px 0px -70% 0px' });
+            headings.forEach(h => observer.observe(h.el));
+        })();
+
         // 禁用 B 站外链自动播放
         document.querySelectorAll('iframe[src*="bilibili"]').forEach(f => {
             if (f.src.includes('autoplay=')) {
