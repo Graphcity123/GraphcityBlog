@@ -1,5 +1,4 @@
 {% extends 'blog/base.html' %}
-{% load blog_tags %}
 
 {% block title %}{{ title }} — Graphcity Blog{% endblock %}
 
@@ -13,11 +12,19 @@
     </div>
 </header>
 
-<article>
-    <div class="article-body">
-        {{ content|markdown }}
-    </div>
-</article>
+<div class="article-layout">
+    <article>
+        <div class="article-body">
+            {{ content }}
+        </div>
+    </article>
+    {% if toc %}
+    <aside class="article-toc">
+        <div class="toc-title">目录</div>
+        {{ toc }}
+    </aside>
+    {% endif %}
+</div>
 
 <div class="back-link">
     <a href="{% url 'home' %}">← 返回文章列表</a>

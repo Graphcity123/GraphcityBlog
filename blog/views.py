@@ -1,10 +1,26 @@
 import re
 import json
 import urllib.request
+import markdown
 from pathlib import Path
 from django.conf import settings
 from django.shortcuts import render
 from django.http import Http404
+from django.utils.safestring import mark_safe
+
+
+def _render_markdown(text):
+    """渲染 Markdown 为 HTML，同时提取目录。"""
+    md = markdown.Markdown(
+        extensions=[
+            'fenced_code', 'codehilite', 'tables', 'toc',
+            'pymdownx.tilde', 'pymdownx.arithmatex', 'attr_list', 'md_in_html',
+        ],
+        extension_configs={'pymdownx.arithmatex': {'generic': True}},
+    )
+    body = md.convert(text)
+    toc = md.toc if hasattr(md, 'toc') else ''
+    return mark_safe(body), mark_safe(toc)
 
 
 def _parse_front_matter(text):
@@ -60,15 +76,17 @@ def article(request, slug):
     if not filepath.exists():
         raise Http404('文章不存在')
     text = filepath.read_text(encoding='utf-8')
-    meta, content = _parse_front_matter(text)
+    meta, md_content = _parse_front_matter(text)
     # 相对路径图片→本地路径，外链跳过
     image_base = f'/content/articles/{slug}/'
-    content = re.sub(r'\]\((?!https?://)([^)]+)\)', rf']({image_base}\1)', content)
+    md_content = re.sub(r'\]\((?!https?://)([^)]+)\)', rf']({image_base}\1)', md_content)
+    body_html, toc_html = _render_markdown(md_content)
     return render(request, 'blog/article.html', {
         'title': meta.get('title', slug),
         'date': meta.get('date', ''),
         'tags': meta.get('tags', ''),
-        'content': content,
+        'content': body_html,
+        'toc': toc_html,
     })
 
 
