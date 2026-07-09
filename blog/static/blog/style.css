@@ -147,12 +147,12 @@ h2 {
 /* Article page */
 .article-layout { display: flex; gap: 32px; align-items: flex-start; }
 .article-layout article { flex: 1; min-width: 0; }
-.article-toc { width: 220px; flex-shrink: 0; position: sticky; top: 80px; font-size: 14px; line-height: 1.8; }
+.article-toc { width: 220px; flex-shrink: 0; position: sticky; top: 80px; font-size: 14px; line-height: 1.8; border-left: 2px solid #e0e0e0; padding-left: 16px; }
 .toc-title { font-weight: 900; color: var(--primary); margin-bottom: 8px; font-size: 16px; }
 .article-toc ul { list-style: none; padding: 0; }
-.article-toc li { margin: 2px 0; }
-.article-toc a { color: var(--text-light); text-decoration: none; }
-.article-toc a:hover { color: var(--primary); }
+.article-toc li { margin: 2px 0; padding-left: 0; }
+.article-toc a { color: var(--text-light); text-decoration: none; transition: color 0.15s; }
+.article-toc a:hover, .article-toc a.active { color: var(--primary); font-weight: 900; }
 
 article { background: var(--card-bg); padding: 40px; border-radius: 0; }
 .article-header {

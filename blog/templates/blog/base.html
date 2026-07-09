@@ -36,6 +36,27 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
     <script>
+        // TOC 滚动高亮
+        (function() {
+            const tocLinks = document.querySelectorAll('.article-toc a[href^="#"]');
+            if (!tocLinks.length) return;
+            const headings = [];
+            tocLinks.forEach(a => {
+                const h = document.querySelector(a.getAttribute('href'));
+                if (h) headings.push({ el: h, link: a });
+            });
+            const observer = new IntersectionObserver(entries => {
+                let active = null;
+                entries.forEach(e => { if (e.isIntersecting) active = e.target; });
+                if (active) {
+                    tocLinks.forEach(a => a.classList.remove('active'));
+                    const match = headings.find(h => h.el === active);
+                    if (match) match.link.classList.add('active');
+                }
+            }, { rootMargin: '-80px 0px -70% 0px' });
+            headings.forEach(h => observer.observe(h.el));
+        })();
+
         // 禁用 B 站外链自动播放
         document.querySelectorAll('iframe[src*="bilibili"]').forEach(f => {
             if (f.src.includes('autoplay=')) {
