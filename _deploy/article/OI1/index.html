@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head><base href="/GraphcityBlog/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OI 后日谈 1 — Graphcity Blog</title>
+    <link rel="stylesheet" href="/static/blog/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
+    
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <a class="brand" href="/">Graphcity Blog</a>
+            <div class="nav-links">
+                <a href="/">文章</a>
+                <a href="/about/">关于</a>
+            </div>
+        </div>
+    </nav>
+    <main>
+        
+<header class="article-header">
+    <div class="article-header-bar"></div>
+    <div class="article-header-body">
+        <h1>OI 后日谈 1</h1>
+        <time>2024-09-14</time>
+        
+    </div>
+</header>
+
+<article>
+    <div class="article-body">
+        <p>更新一下证明自己还活着（</p>
+<h2 id="_1">序言. 斐波那契数列</h2>
+<p>省流：我在数学课上开挂了。</p>
+<p>我们的数学一轮进度很快啊，已经复习到数列了。</p>
+<p>感觉 OIer 在数论和组合这方面具有天然的优势啊（甚至和数学组相比）。毕竟是打了六年交道的东西，确实很难不熟悉。</p>
+<p>一节数学课上面，数学老师让我们证明这样一个式子：
+$$
+a_{m+n}=a_{m-1}a_n+a_ma_{n+1}
+$$
+其中 $a$ 是斐波那契数列。</p>
+<p>正常的做法是先观察出来 $a_{m+1}=a_{m-1}+a_m$，$a_{m+2}=a_{m-1}+2a_m$，然后观察到 $a_{m+k}=A\times a_{m-1}+B\times a_m$ 的形式，进行递推。</p>
+<p>不过我们当时确实没人观察到这一点啊。</p>
+<p>然后这个时候我就开挂了。</p>
+<p>不知道为啥，我就想到了用矩阵来推这个东西。写了一下之后，发现还真可以！</p>
+<p>然后就抱着跃跃欲试的心态进行了登台展示。</p>
+<p>（配图：“老师，我有一个非常大胆的想法”）</p>
+<p>$$
+\begin{aligned}
+\begin{bmatrix}a_{n-1} &amp; a_n\end{bmatrix}\times \begin{bmatrix}0 &amp; 1 \ 1 &amp; 1\end{bmatrix}=\begin{bmatrix}a_n &amp; a_{n+1}\end{bmatrix}\
+\end{aligned}
+$$</p>
+<p>$$
+\begin{aligned}
+\begin{bmatrix}a_{m-1} &amp; a_{m}\end{bmatrix}\times \begin{bmatrix}a_{n} \ a_{n+1}\end{bmatrix}&amp;=\begin{bmatrix}a_{m-1}a_n+a_ma_{n+1}\end{bmatrix}\
+&amp;=(\begin{bmatrix}1 &amp; 1\end{bmatrix}\times \begin{bmatrix}0 &amp; 1 \ 1 &amp; 1\end{bmatrix}^{m-1})\times (\begin{bmatrix}0 &amp; 1 \ 1 &amp; 1\end{bmatrix}^{n}\times \begin{bmatrix}1 \ 1\end{bmatrix})\
+&amp;=\begin{bmatrix}1 &amp; 1\end{bmatrix}\times \begin{bmatrix}0 &amp; 1 \ 1 &amp; 1\end{bmatrix}^{m+n-1}\times \begin{bmatrix}1 \ 1\end{bmatrix}\
+&amp;=\begin{bmatrix}a_{m+n-2} &amp; a_{m+n-1}\end{bmatrix}\times \begin{bmatrix}1 \ 1\end{bmatrix}\
+&amp;=[a_{m+n}]
+\end{aligned}
+$$</p>
+<p>（配图：用了两块黑板推这个东西）</p>
+<p>推的时候非常激动啊，推完之后直接把粉笔一扔然后扬长而去了。当时自己确实有一种事了拂衣去，深藏功与名的感觉（）而且这个解法确实非常妙啊，非常的有美感。</p>
+<p>也是在那一刻，我充分认识到了 OI 生活给我带来的宝贵收获。退役了并不意味着从零开始学文化课。相反，在 OI 中学到的解决问题的能力和思考问题的方法都是非常重要的宝藏。~~（比如数学最后一题可以直接秒杀）~~，在 OI 中锻炼出来的耐心和直觉也是在文化课过程中十分稀缺的。</p>
+<p>正比如这次用矩阵递推的方式来求这个公式，相信这个不仅是在数学竞赛还是平常的文化课学习都是一个比较刁钻的角度，但是在 OI 确实比较习以为常的。作为五大竞赛里面唯一不跟文化科目相挂钩的科目，其必有自身的灵活性和特殊性。不管是退役了还是继续在信息学竞赛发光发热，六年的学习过程所带来的无形的财富也一定会成为自己的加分项和高光点。</p>
+<h2 id="part-i-oi">Part I. 高考中的 OI</h2>
+<p>省流：典</p>
+<p>说实话，感觉我在学 OI 的时候，很多时候期望题都变成一个非常套路化的题目了，无非就是用线性性瞎搞搞，或者找个组合意义，然后结合一些 DP 或者计数或者组合的知识来解决。</p>
+<p>没想到这个东西在高考更加典啊。</p>
+<blockquote>
+<p>甲口袋有一白两黑三个球，乙口袋有一黑两白三个球，每次操作随机旋转甲中一个球和乙中一个球交换。问 $E(X_n)$ 表示 $n$ 次操作之后甲口袋中球的期望。</p>
+</blockquote>
+<p>如果这是一道 OI 题，第一步显然就是利用线性性分别计算每个球的贡献。在这里也一样。</p>
+<p>设 $a_n$ 表示一个黑球 $n$ 次后还在原位置的概率。$a_0=1$。</p>
+<p>$a_n=\dfrac{2}{3}a_{n-1}+\dfrac{1}{3}(1-a_{n-1})$</p>
+<p>$3a_n=a_{n-1}+1$</p>
+<p>$a_n-\dfrac{1}{2}=\dfrac{a_{n-1}-\frac{1}{2}}{3}$</p>
+<p>$a_n=(a_0-\dfrac{1}{2})\times \dfrac{1}{3^n}+\dfrac{1}{2}=\dfrac{1}{2\times 3^n}+\dfrac{1}{2}$</p>
+<p>$E(X_n)=a_n+2(1-a_n)=2-a_n=\dfrac{3}{2}-\dfrac{1}{2\times 3^n}$</p>
+<p>然后就解决了。</p>
+<p>不过这还不是最典的。</p>
+<blockquote>
+<p><img alt="" src="https://cdn.luogu.com.cn/upload/image_hosting/glsjwpsq.png" /></p>
+</blockquote>
+<p><img alt="" src="https://cdn.luogu.com.cn/upload/image_hosting/7vkk9z7f.png" /></p>
+<p>抵制手推动态规划题进入高考。</p>
+<p>不过我们实际上还有更典的。</p>
+<blockquote>
+<p><img alt="" src="https://cdn.luogu.com.cn/upload/image_hosting/9h8skuhy.png" /></p>
+</blockquote>
+<p>（3）：注意到 $a_1$ 一定在 $a_1,a_2,a_3$ 中的第二个，这个的概率为 $\dfrac{1}{3}$，所以 $P_m&lt;\dfrac{1}{3}$。</p>
+<p>证毕。</p>
+<p>无语住了。</p>
+<h2 id="part-ii">Part II. 数学高联：猜结论人生巅峰</h2>
+<p>刚才的那些都只能算是 OI 的一点小技巧。</p>
+<p>真正发挥出 OI 思想的，还得是数学高联。</p>
+<blockquote>
+<p><strong>2024 数学高联一试压轴</strong></p>
+<p>两个复数 $z,w$ 满足 $z+w=2$，最小化 $|z^2-2w|+|w^2-2z|$ 的值。</p>
+</blockquote>
+<p>$$
+\begin{aligned}
+|z^2-2w|+|w^2-2z| &amp;=|z^2-2(2-z)|+|(2-z)^2-2z|\
+&amp;=|z^2+2z-4|+|z^2-6z+4|\
+&amp;=|(z+1)^2-5|+|(z-3)^2-5|\
+&amp;=|(z+1+\sqrt 5)(z+1-\sqrt 5)|+|(z-3+\sqrt 5)(z-3-\sqrt 5)|\
+&amp;=|(t+2+\sqrt 5)(t+2-\sqrt 5)|+|(t-2+\sqrt 5)(t-2-\sqrt 5)| &amp;&amp; (t=z-1)\
+&amp;=|(t+2+\sqrt 5)|\times |(t+2-\sqrt 5)|+|(t-2+\sqrt 5)|\times |(t-2-\sqrt 5)|
+\end{aligned}
+$$</p>
+<p>然后你注意到这四个向量都是 $t$ 左右平移之后的结果。根据调整法，显然将 $t$ 纵向平移至 $x$ 值最优，此时 $t$ 是实数。</p>
+<p>然后你把那四个向量对应的点和 $t$ 对应的点标出来，考虑 $y$ 轴在哪里是最优的。根据调整法 $y$ 轴肯定在 $[t+2-\sqrt 5,t-2+\sqrt 5]$ 这一段最优。</p>
+<p>一个经典的错误就是令 $t=0$ 得出来最小值为 2，实际上这并不是最优的。</p>
+<p>考虑继续调整。每次让 $y$ 轴向 $t$ 移动 $\Delta y$ 的距离算变化量，发现还得是取到两端最优。</p>
+<p>然后就可以得到 $8\sqrt 5-16$ 的最小值。</p>
+<p>然后就是下午的二试。</p>
+<p>说实话，我在学 OI 的时候自认为自己：构造依托答辩，根本找不到性质，根本猜不出结论，罚坐大师。</p>
+<p>但是在二试，我达到了自己猜结论实力的巅峰。</p>
+<blockquote>
+<p><strong>2024 数学高联二试 A</strong></p>
+<p>给定正整数 $r$，构造一个公比为 $r$ 的无穷等比数列，要求里面每一项其权值最小值最大。定义一个数的权值为离它最近的整数到它的距离。</p>
+</blockquote>
+<p>实际上我二试一开始因为太困了（当天晚上凌晨三点睡的）然后就趴了两个小时。</p>
+<p>一觉醒来，发现自己好像会 $r$ 为奇数的情况了。不就是 $a_1=\dfrac{1}{2}$ 吗？这样就能达到最大值 $\dfrac{1}{2}$。</p>
+<p>然后 $r$ 为偶数的情况，就猜一个跟 $\dfrac{1}{2}$ 尽量接近的数字，尝试去构造一个分数。</p>
+<p>注意到 $r$ 跟 $r+1$ 互质，然后就猜一个 $\dfrac{\frac{r}{2}}{r+1}=\dfrac{r}{2r+2}$，这个数字在等比数列会左右横跳，而且超级接近 $\dfrac{1}{2}$。</p>
+<p>但是由于我确实不会证，所以装模作样的写了点过程。</p>
+<p>出完考场之后，发现自己居然对了！！！</p>
+<p>有点太厉害了。</p>
+<blockquote>
+<p><strong>2024 数学高考二试 C</strong></p>
+<p>有一个 $3\times n$ 的网格，定义一个联通块的权值是黑格子减去白格子个数的绝对值。你需要构造一个网格，使得最大权值最小。</p>
+</blockquote>
+<p>说实话，我是完全不会的。</p>
+<p>但是我知道网格图可以黑白染色。</p>
+<p>我也知道黑白染色之后可以取到 $n$。</p>
+<p>然后我就写上去了。</p>
+<p>你知道的，我在考场上一刻都没有以为这个东西是正确答案。</p>
+<p>但是它确实是的。So Surprise。</p>
+<p>补一个完整证明：</p>
+<p>若第二行黑白分别有 $a,b$ 个，一三行合起来黑白共有 $c,d$ 个。如果我们全选第二行，然后分别选择第一三行的所有黑色 / 所有白色，那么两种方案就是 $a+c-b$ 和 $d+b-a$。注意到两个加起来等于 $2n$，说明如果这两个不相等，那么必有一个绝对值大于 $n$。黑白染色对应着两个相等的方案。然后就证完了。</p>
+<p>~~没准我把过程补了还能混个省队~~</p>
+<p>不过说实话，这些结论放到 OI 题里面应该都是比较浅显的，~~充分说明了现在我们 OI 真的是太卷啦~~</p>
+<p>所以说 OI 里面专门针对直觉和构造这一类的训练还是比较必要的，以后可能会有大用。</p>
+<h2 id="part-iii">Part III. 回顾与展望</h2>
+<p>说实话，在我还在学 OI 的时候，常常认为高三是痛苦的，进集训队是快乐的——高三有很大的学业压力，几乎重头开始的文化课，写不完的作业，只有一次机会的高考 $\cdots\cdots$</p>
+<p>不过就现在而言，相比于无止境的内耗和焦虑，OI 现在越来越差的环境和氛围，还有一些抽象的人物（我不好评价，祝高一学弟未来顺利），高三反倒还解决了一些长久以来的问题。有了很多志同道合的，尤其是原信息组几个月没见的同学。文化课的脑力消耗也远远比不上 OI。每天至少能够学习一些新东西，慢慢地精神内耗也就减缓了。</p>
+<p>我在 NOI 的那一周根本没有心思打游戏，回来复健的那一周也一样。实际上高三并不是所谓的「没有休息」或者说「玩命学习」，至少我觉得这样一定不是一个高效率的学习方式。现在我每天可能还会上线看一眼，我觉得游戏带来的情绪价值是其它东西比不了的。</p>
+<p>不过还好，我算是最早一批开始重返文化课的选手。我有差不多一个月的时间，一天只有四门科目，有一些空闲的时间去赶上物化生的一轮进度。</p>
+<p>入学考的成绩也是比较超乎预期的，居然进了年级 600 名，还是化学 28pts 的情况下，很厉害。这次虽然各科挂分都比较严重，但是居然到了 400 名，也是挺意外的。每一科都有至少 5pts 的提升，但是我相信自己真正的进步肯定远不止这 5pts。</p>
+<p>最近一个月，我觉得最主要的，也是贯穿始终的一个关键词，那就是「信心」。</p>
+<p>这种信心不是盲目的自信，而是在一次次的突破中凝练而成的动力。高三也是我人生中第一次，可能也是唯一一次当上语文课代表（因为一次小小的巧合），受到了我们语文老师和班主任的「特殊关照」。先暂且不谈这种关照我是否喜欢并且愿意接受，能够体会到这种当课代表的感觉还是很奇特的。我的语文作文之前几次总是因为各种各样的原因（偏题，论述不充分等）从 45 一路下滑，不过这次月考居然上了 49.5，属实是意外之喜。默写从之前的一个空都填不出来，再到这次月考的全对，~~确实对得起我赤壁赋背到凌晨一点~~。</p>
+<p>我刚开始可能和英语老师比较疏远，至少是有些害怕的。尤其是第一节英语课的时候，那节课真的是灾祸频发，包括但不限于单词不会填，句子翻译不出来，~~还有被同桌 @Sentoayaka 打手板~~，还有后面作文的「多喝热水」事件。</p>
+<p>（配图：下次找个机会把我第一次读后续写贴出来）</p>
+<p>不过我们的英语老师确实是一个有意思的人。她的讲课风格很有意思，在渐渐地熟悉之后，上课会有一种非常亲切的感觉。看到自己完型从错一半到错两个，作文从以前写不出来到能够达到 24 分，~~虽然语法填空 -10.5~~，但是还是很高兴的。</p>
+<p><img alt="" src="https://cdn.luogu.com.cn/upload/image_hosting/mznrr4cs.png" /></p>
+<p>数学的话，真正到了高三才发现它与 OI 的关联比我想象中要大得多。我退役之后总想着把之前的东西给忘掉，但是现在我又想着尽力把它留存下来。OI 里面很多知识都是相当具有前瞻性的，可能可以切中未来很多年的高考最后一题。当然高考数学跟 OI 也有很多区别，~~比如圆锥曲线短轴长度应该是 2b~~。不过这些东西都是简单的，真正难的部分（除了导数）在学 OI 的时候就应该已经把它啃掉了。</p>
+<p>物化生的话，我只能说，不急。不过这次化学确实给我了很大的惊喜，最后一道实验题只错了一个空，里面的计算也算对了。~~（至于它上面一道的有机题，我也是对了一个空）~~</p>
+<p>总的来说，我觉得银牌或者退役绝对不能算是自己没有进队的一种「亡羊补牢」。至少从位移来说，大家起点是一样的，终点也是一样的，位移自然也是一样的，只不过可能有一条狭窄的独木桥，和一旁蜿蜒曲折的山路。我更喜欢把高三看成成年之前的一场「期末考试」，全方位地考验你十八年的成果。99% 的人在高中都会经历这个过程，当然肯定也会有人不需要经历它。既然已经决定踏上高三，那就在分别前祝福他们，然后脚踏实地，给这场「期末考试」交出一张漂亮的答卷。</p>
+    </div>
+</article>
+
+<div class="back-link">
+    <a href="/">← 返回文章列表</a>
+</div>
+
+    </main>
+    <footer>
+        <div class="theme-switcher">
+            <span class="theme-dot" data-theme="teal" style="background:#339596" title="青绿"></span>
+            <span class="theme-dot" data-theme="blue" style="background:#3360AB" title="蓝色"></span>
+            <span class="theme-dot" data-theme="rose" style="background:#d4627c" title="玫红"></span>
+            <span class="theme-dot" data-theme="orange" style="background:#e08a3e" title="橘橙"></span>
+            <span class="theme-dot" data-theme="purple" style="background:#7c5aa8" title="紫色"></span>
+            <span class="theme-dot" data-theme="green" style="background:#4a9c5d" title="草绿"></span>
+            <span class="theme-dot" data-theme="slate" style="background:#5a7a8a" title="灰蓝"></span>
+        </div>
+        <p>&copy; 2026 Graphcity</p>
+    </footer>
+    <script>
+        const themes = {
+            teal:    { primary:'#339596', primaryDark:'#277576', codeBg:'#1a2e2f', codeText:'#d6e2f5', shadowRgb:'51,149,150', badgeBg:'#eaf4f4' },
+            blue:    { primary:'#3360AB', primaryDark:'#254a85', codeBg:'#1a2540', codeText:'#d0dcf0', shadowRgb:'51,96,171', badgeBg:'#eef2fa' },
+            rose:    { primary:'#d4627c', primaryDark:'#a3435c', codeBg:'#2f1a22', codeText:'#f0d6e0', shadowRgb:'212,98,124', badgeBg:'#faf0f4' },
+            orange:  { primary:'#e08a3e', primaryDark:'#b06828', codeBg:'#2f2218', codeText:'#f0e2d4', shadowRgb:'224,138,62', badgeBg:'#faf4ec' },
+            purple:  { primary:'#7c5aa8', primaryDark:'#5c3e86', codeBg:'#1f1a2f', codeText:'#dcd4f0', shadowRgb:'124,90,168', badgeBg:'#f4f0fa' },
+            green:   { primary:'#4a9c5d', primaryDark:'#357a44', codeBg:'#182a1e', codeText:'#d4f0dc', shadowRgb:'74,156,93', badgeBg:'#eefaf0' },
+            slate:   { primary:'#5a7a8a', primaryDark:'#3f5d6b', codeBg:'#1a242a', codeText:'#d4e0e8', shadowRgb:'90,122,138', badgeBg:'#f0f4f6' },
+        };
+        const saved = localStorage.getItem('blog-theme') || 'teal';
+        function applyTheme(name) {
+            const t = themes[name];
+            const r = document.querySelector(':root');
+            r.style.setProperty('--primary', t.primary);
+            r.style.setProperty('--primary-dark', t.primaryDark);
+            r.style.setProperty('--code-bg', t.codeBg);
+            r.style.setProperty('--code-text', t.codeText);
+            r.style.setProperty('--shadow-rgb', t.shadowRgb);
+            r.style.setProperty('--badge-bg', t.badgeBg);
+            document.querySelectorAll('.theme-dot').forEach(d => d.classList.toggle('active', d.dataset.theme === name));
+            localStorage.setItem('blog-theme', name);
+        }
+        applyTheme(saved);
+        document.querySelectorAll('.theme-dot').forEach(dot => {
+            dot.onclick = () => applyTheme(dot.dataset.theme);
+        });
+
+        document.querySelectorAll('pre').forEach(pre => {
+            const btn = document.createElement('button');
+            btn.className = 'copy-btn';
+            btn.textContent = '复制';
+            btn.onclick = () => {
+                navigator.clipboard.writeText(pre.textContent).then(() => {
+                    btn.textContent = '已复制';
+                    setTimeout(() => btn.textContent = '复制', 1500);
+                });
+            };
+            pre.style.position = 'relative';
+            pre.appendChild(btn);
+        });
+    </script>
+</body>
+</html>

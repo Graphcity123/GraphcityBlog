@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head><base href="/GraphcityBlog/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>感受这股劲.jpg — Graphcity Blog</title>
+    <link rel="stylesheet" href="/static/blog/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
+    
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <a class="brand" href="/">Graphcity Blog</a>
+            <div class="nav-links">
+                <a href="/">文章</a>
+                <a href="/about/">关于</a>
+            </div>
+        </div>
+    </nav>
+    <main>
+        
+<header class="article-header">
+    <div class="article-header-bar"></div>
+    <div class="article-header-body">
+        <h1>感受这股劲.jpg</h1>
+        <time>2025-11-12</time>
+        
+    </div>
+</header>
+
+<article>
+    <div class="article-body">
+        <h2 id="jpg">感受这股劲.jpg</h2>
+<blockquote>
+<p><strong>热身题</strong></p>
+<p>已知抛物线：$y=x^2$，直线 $l$ 交抛物线于 $A,B$ 两点。分别过 $A,B$ 作抛物线的切线，两条切线交点为 $Q$。若 $AQ$ 垂直于 $BQ$，求 $Q$ 的轨迹方程。</p>
+</blockquote>
+<p>令 $A(x_1,y_1),B(x_2,y_2),Q(x_0,y_0)$，那么两条切线的斜率分别为 $2x_1,2x_2$，所以有 $2x_1\times 2x_2=-1$，$x_1x_2=-\dfrac{1}{4}$。</p>
+<p>同时有 $l_{AB}: xx_0=\dfrac{1}{2}(y+y_0)$，那么 $A,B$ 一定满足 $xx_0=\dfrac{1}{2}(x^2+y_0)$，这是一个一元二次方程，根据韦达定理，$x_1x_2=y_0=-\dfrac{1}{4}$。所以 $Q$ 的轨迹方程就是 $y=-\dfrac{1}{4}$。</p>
+<p>所以我们就 $\cdots\cdots$ 解决了？为什么这么快？</p>
+<p>我们再来看一道热身题：</p>
+<blockquote>
+<p><strong>热身题 - 变式</strong></p>
+<p>已知抛物线：$y=x^2$，$R$ 为抛物线上任意一点，作圆 $W: x^2+(y-2)^2=1$ 的两条切线分别交抛物线于 $A,B$ 两点。试判断直线 $AB$ 与圆 $W$ 的关系。</p>
+</blockquote>
+<p>答案肯定是相切。~~如果不是相切就不会这样考你了~~</p>
+<p>但是为什么呢？</p>
+<p>令 $R(x_0,y_0),A(x_1,y_1),B(x_2,y_2)$。</p>
+<p>构造过 $R,A$ 的直线。先从方程 $(x-x_0)(x-x_1)=0$ 开始。$x^2-(x_0+x_1)x+x_0x_1=0$。代入 $y=x^2$，就可以得到 $y-(x_0+x_1)x+x_0x_1=0$。这个就是 $l_{RA}$ 的方程了。</p>
+<p>由于它与圆相切，想到点到直线的距离公式。$d(W,l_{RA})=\dfrac{|x_0x_1+2|}{\sqrt{(x_0+x_1)^2+1}}=1$，整理一下，就是 $(x_0x_1+2)^2=(x_0+x_1)^2+1$，$(x_0^2-1)x_1^2+2x_0x_1+3-x_0^2=0$。</p>
+<p>注意到这个对于 $x_2$ 也是成立的，代入 $y=x^2$，可以得到 $(x_0^2-1)y+2x_0x+3-x_0^2=0$，这个就是 $l_{AB}$ 的方程。</p>
+<p>再算一次点到直线的距离看看：$d(W,l_{AB})=\dfrac{|2(x_0^2-1)+3-x_0^2|}{\sqrt{4x_0^2+(x_0^2-1)^2}}$。为了方便，代入 $y_0=x_0^2$，原式等于 $\dfrac{|2(y-1)+3-y|}{\sqrt{4y+(y-1)^2}}=\dfrac{y+1}{\sqrt{y^2+2y+1}}=1$，成立！</p>
+<p>所以我们就 $\cdots\cdots$ 解决了？为什么这么快？</p>
+<p>我们再来看一道有点难度的题目：</p>
+<blockquote>
+<p><strong>Test Yourself！</strong></p>
+<p>若椭圆 $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1\ (a&gt;b&gt;0)$ 的两个焦点和两个顶点共圆，则称它为「完美椭圆」。已知 $E$ 为「完美椭圆」，且 $E$ 与 $l_1:x+\sqrt 6y=4$，$l_2:x-\sqrt 6y=4$ 均相切。</p>
+<ol>
+<li>求 $E$ 的方程。</li>
+<li>已知动点 $P$ 在 $E$ 的第一象限上运动，$l_P$ 和 $P$ 相切，和 $l_1,l_2$ 分别交于 $C,D$。设右焦点为 $F_1$，请证明 $\angle CF_1D$ 为定值，并求其正切值。</li>
+</ol>
+<p>注意：本题在网上的答案几乎 <strong>都是错误的</strong>。</p>
+</blockquote>
+<p>第一问是高考特色：给出一个完全没有用，用完即扔，对解题没有任何指导意义的新定义。</p>
+<p>$E:\dfrac{x^2}{4}+\dfrac{y^2}{2}=1$。</p>
+<p>重点是第二问。正切值给定提示比较明显，你需要求出 $CF_1$ 和 $F_1D$ 这两条直线的斜率。</p>
+<p>令 $P(x_0,y_0),C(x_1,y_1),D(x_2,y_2)$。</p>
+<p>我们先想办法把 $C$ 和 $D$ 凑到一块去。注意到 $l_1,l_2$ 两条直线的方程非常相似，可以利用平方的方法把正负号消掉，就可以得到一个方程：$6y^2=(4-x)^2$。对于 $l_P$，我们又有一个方程 $l_P:xx_0+2yy_0=4$，也就是 $y=\dfrac{4-xx_0}{2y_0}$。</p>
+<p>把 $y$ 代入二次方程中，可以得到：$(3x_0^2-2y_0^2)x^2+(16y_0^2-24x_0)x+(48-32y_0^2)=0$。</p>
+<p>为了简化这个式子，我们需要把 $x_0,y_0$ 其中的一个消掉。注意到 $y_0$ 出现的次数全是二次，所以我们这里选择消掉 $y_0$。椭圆曲线中有 $2y_0^2=4-x_0^2$，代入得到 $(x_0^2-1)x^2+(-2x_0^2-6x_0+8)x+4(x_0^2-1)=0$。</p>
+<p>注意到中间的式子可以因式分解，同除 $x_0-1$ 可得 $(x_0+1)x^2-2(x_0+4)x+4(x_0+1)=0$。</p>
+<p>看看我们得到了什么？$x_1x_2=4$！！！这下稳了。</p>
+<blockquote>
+<p><strong>仿射变换可以得到相同的结果。</strong></p>
+<p><img alt="" src="https://cdn.luogu.com.cn/upload/image_hosting/ou0kju9n.png" /></p>
+<p>我们把每个点的 $y$ 坐标扩大到原来的 $\sqrt 2$ 倍，这样椭圆就可以变成一个半径为 2 的圆。两条直线就会变成 $l_1:x+\sqrt 3y=4$ 和 $l_2:x-\sqrt 3y=4$。可以发现，这两条直线与 $x$ 轴形成的夹角刚好是 $30^\circ$！</p>
+<p>同时我们注意到：$OD,OE$ 分别是 $\angle AOC,\angle COB$ 的角平分线。又因为 $\angle AOB=180^\circ-\angle DRB=120^\circ$，所以 $\angle DOE=60^\circ$。</p>
+<p>令 $\angle DOR=\theta$，那么 $\angle EOR=60^\circ-\theta$。同时，对于 $D,E$ 两点，有 $\sqrt 3|y_i|=4-x_i$，同除 $x_i$，令 $k_i=\dfrac{y_i}{x_i}=\begin{cases}\tan\theta &amp; i=1\ \tan(60^\circ-\theta) &amp;i=2\end{cases}$，有 $\sqrt 3k_i=\dfrac{4}{x_i}-1$。</p>
+<p>代入 $\tan\angle DOE=\dfrac{k_1+k_2}{1-k_1k_2}=\sqrt 3$，也就是 $\sqrt 3(k_1+k_2)=3-3k_1k_2$，$\dfrac{4}{x_1}-2+\dfrac{4}{x_2}-2=3-(\dfrac{4}{x_1}-1)(\dfrac{4}{x_2}-1)$。</p>
+<p>最终化简得到 $x_1x_2=4$。</p>
+</blockquote>
+<p>$CF_1,DF_1$ 的斜率分别为 $k_1=\dfrac{y_1}{x_1-\sqrt 2}$ 和 $k_2=\dfrac{y_2}{x_2-\sqrt 2}$。</p>
+<p>现在我们有两个方法，一个是代入 $\tan\theta=\dfrac{k_1-k_2}{1+k_1k_2}$ 然后使用非对称韦达。另一种是直接带入 $x_2=\dfrac{4}{x_1}$ 然后爆算。这两种方法都可以算出来答案是 $\tan\theta=-(\sqrt 3+\dfrac{\sqrt{6}}{2})$。</p>
+<p>有没有一些更加简单的办法呢？</p>
+<p>我们考虑代入 $y_1=\dfrac{4-x_1}{\sqrt 6}$，$y_2=\dfrac{4-x_2}{-\sqrt 6}$，然后带入进 $\tan \theta$ 的表达式，可以发现它其实就是在求这样一个东西：令 $t_i=\dfrac{4-x_i}{x_i-\sqrt 2}$，则 $\tan\theta=\sqrt 6\times \dfrac{t_1+t_2}{-6+t_1t_2}$。</p>
+<p>整理一下，可以得到 $x_i=\dfrac{4+\sqrt 2t_i}{t_i+1}$，结合 $x_1x_2=4$ 有 $2t_1t_2-12=(4\sqrt 2+4)(t_1+t_2)$，解得 $\dfrac{t_1+t_2}{t_1t_2-6}=-\dfrac{1}{2\sqrt 2+2}$，有 $\tan\theta=-(\sqrt 3+\dfrac{\sqrt{6}}{2})$！！！</p>
+<p>我们一起来感受这股劲：为什么我们可以通过这样一些巧妙的办法解决这三道问题呢？</p>
+<p>回顾这三道题中解法的关键一步：我们通过方程把两个不同的点连接了起来。</p>
+<p>为什么我们可以这样做？这里给出三种可能的解释：</p>
+<ol>
+<li>对称性。三道题中 $x_1,x_2$ 的形式上有非常多的对称之处。</li>
+<li>曲线系。虽然我一直只是知道有这么个东西，但是有可能这三道题中我们偷偷地使用了它。</li>
+<li>韦达定理。三道题中最终的过程都跟 $val_1+val_2$ 和 $val_1\times val_2$ 这两个东西紧密相关。虽然我暂且还不知道这两个东西到底能不能跟韦达定理扯上关系，但毫无疑问它们肯定非常有用。</li>
+</ol>
+    </div>
+</article>
+
+<div class="back-link">
+    <a href="/">← 返回文章列表</a>
+</div>
+
+    </main>
+    <footer>
+        <div class="theme-switcher">
+            <span class="theme-dot" data-theme="teal" style="background:#339596" title="青绿"></span>
+            <span class="theme-dot" data-theme="blue" style="background:#3360AB" title="蓝色"></span>
+            <span class="theme-dot" data-theme="rose" style="background:#d4627c" title="玫红"></span>
+            <span class="theme-dot" data-theme="orange" style="background:#e08a3e" title="橘橙"></span>
+            <span class="theme-dot" data-theme="purple" style="background:#7c5aa8" title="紫色"></span>
+            <span class="theme-dot" data-theme="green" style="background:#4a9c5d" title="草绿"></span>
+            <span class="theme-dot" data-theme="slate" style="background:#5a7a8a" title="灰蓝"></span>
+        </div>
+        <p>&copy; 2026 Graphcity</p>
+    </footer>
+    <script>
+        const themes = {
+            teal:    { primary:'#339596', primaryDark:'#277576', codeBg:'#1a2e2f', codeText:'#d6e2f5', shadowRgb:'51,149,150', badgeBg:'#eaf4f4' },
+            blue:    { primary:'#3360AB', primaryDark:'#254a85', codeBg:'#1a2540', codeText:'#d0dcf0', shadowRgb:'51,96,171', badgeBg:'#eef2fa' },
+            rose:    { primary:'#d4627c', primaryDark:'#a3435c', codeBg:'#2f1a22', codeText:'#f0d6e0', shadowRgb:'212,98,124', badgeBg:'#faf0f4' },
+            orange:  { primary:'#e08a3e', primaryDark:'#b06828', codeBg:'#2f2218', codeText:'#f0e2d4', shadowRgb:'224,138,62', badgeBg:'#faf4ec' },
+            purple:  { primary:'#7c5aa8', primaryDark:'#5c3e86', codeBg:'#1f1a2f', codeText:'#dcd4f0', shadowRgb:'124,90,168', badgeBg:'#f4f0fa' },
+            green:   { primary:'#4a9c5d', primaryDark:'#357a44', codeBg:'#182a1e', codeText:'#d4f0dc', shadowRgb:'74,156,93', badgeBg:'#eefaf0' },
+            slate:   { primary:'#5a7a8a', primaryDark:'#3f5d6b', codeBg:'#1a242a', codeText:'#d4e0e8', shadowRgb:'90,122,138', badgeBg:'#f0f4f6' },
+        };
+        const saved = localStorage.getItem('blog-theme') || 'teal';
+        function applyTheme(name) {
+            const t = themes[name];
+            const r = document.querySelector(':root');
+            r.style.setProperty('--primary', t.primary);
+            r.style.setProperty('--primary-dark', t.primaryDark);
+            r.style.setProperty('--code-bg', t.codeBg);
+            r.style.setProperty('--code-text', t.codeText);
+            r.style.setProperty('--shadow-rgb', t.shadowRgb);
+            r.style.setProperty('--badge-bg', t.badgeBg);
+            document.querySelectorAll('.theme-dot').forEach(d => d.classList.toggle('active', d.dataset.theme === name));
+            localStorage.setItem('blog-theme', name);
+        }
+        applyTheme(saved);
+        document.querySelectorAll('.theme-dot').forEach(dot => {
+            dot.onclick = () => applyTheme(dot.dataset.theme);
+        });
+
+        document.querySelectorAll('pre').forEach(pre => {
+            const btn = document.createElement('button');
+            btn.className = 'copy-btn';
+            btn.textContent = '复制';
+            btn.onclick = () => {
+                navigator.clipboard.writeText(pre.textContent).then(() => {
+                    btn.textContent = '已复制';
+                    setTimeout(() => btn.textContent = '复制', 1500);
+                });
+            };
+            pre.style.position = 'relative';
+            pre.appendChild(btn);
+        });
+    </script>
+</body>
+</html>

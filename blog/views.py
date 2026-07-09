@@ -1,5 +1,5 @@
-import json
 import re
+import json
 import urllib.request
 from pathlib import Path
 from django.conf import settings
@@ -7,30 +7,39 @@ from django.shortcuts import render
 from django.http import Http404
 
 
+def _parse_front_matter(text):
+    """解析 YAML front matter，返回 (meta, content)。"""
+    meta = {}
+    content = text
+    if text.startswith('---'):
+        parts = text.split('---', 2)
+        if len(parts) >= 3:
+            for line in parts[1].strip().split('\n'):
+                if ':' in line:
+                    k, v = line.split(':', 1)
+                    meta[k.strip()] = v.strip()
+            content = parts[2].strip()
+    return meta, content
+
+
 def _load_articles():
-    """读取 content/articles/ 下所有 .md 文件，解析 front matter，按日期倒序。"""
+    """读取 content/articles/*/index.md，按日期倒序。"""
     articles_dir = settings.CONTENT_DIR / 'articles'
     articles = []
-    for f in sorted(articles_dir.glob('*.md'), reverse=True):
-        text = f.read_text(encoding='utf-8')
-        meta = {}
-        content = text
-        if text.startswith('---'):
-            parts = text.split('---', 2)
-            if len(parts) >= 3:
-                for line in parts[1].strip().split('\n'):
-                    if ':' in line:
-                        k, v = line.split(':', 1)
-                        meta[k.strip()] = v.strip()
-                content = parts[2].strip()
-        m = re.match(r'(\d{4}-\d{2}-\d{2})-(.+)', f.stem)
+    for folder in sorted(articles_dir.glob('*/'), reverse=True):
+        md_file = folder / 'index.md'
+        if not md_file.exists():
+            continue
+        text = md_file.read_text(encoding='utf-8')
+        meta, content = _parse_front_matter(text)
         articles.append({
-            'slug': f.stem,
-            'title': meta.get('title', f.stem),
-            'date': meta.get('date', m.group(1) if m else ''),
+            'slug': folder.name,
+            'title': meta.get('title', folder.name),
+            'date': meta.get('date', ''),
             'tags': meta.get('tags', ''),
             'content': content,
         })
+    articles.sort(key=lambda a: a['date'], reverse=True)
     return articles
 
 
@@ -47,24 +56,17 @@ def home(request):
 
 
 def article(request, slug):
-    filepath = settings.CONTENT_DIR / 'articles' / f'{slug}.md'
+    filepath = settings.CONTENT_DIR / 'articles' / slug / 'index.md'
     if not filepath.exists():
         raise Http404('文章不存在')
     text = filepath.read_text(encoding='utf-8')
-    meta = {}
-    content = text
-    if text.startswith('---'):
-        parts = text.split('---', 2)
-        if len(parts) >= 3:
-            for line in parts[1].strip().split('\n'):
-                if ':' in line:
-                    k, v = line.split(':', 1)
-                    meta[k.strip()] = v.strip()
-            content = parts[2].strip()
-    m = re.match(r'(\d{4}-\d{2}-\d{2})-(.+)', slug)
+    meta, content = _parse_front_matter(text)
+    # 相对路径图片→本地路径，外链跳过
+    image_base = f'/content/articles/{slug}/'
+    content = re.sub(r'\]\((?!https?://)([^)]+)\)', rf']({image_base}\1)', content)
     return render(request, 'blog/article.html', {
         'title': meta.get('title', slug),
-        'date': meta.get('date', m.group(1) if m else ''),
+        'date': meta.get('date', ''),
         'tags': meta.get('tags', ''),
         'content': content,
     })
@@ -82,16 +84,21 @@ def project(request, name):
     readme_url = f'https://raw.githubusercontent.com/{proj["repo"]}/master/README.md'
     try:
         with urllib.request.urlopen(readme_url) as resp:
-            content = resp.read().decode('utf-8')
+            readme_content = resp.read().decode('utf-8')
     except Exception:
-        content = f'无法加载 README。\n\n直接访问：[{proj["url"]}]({proj["url"]})'
+        try:
+            readme_url = f'https://raw.githubusercontent.com/{proj["repo"]}/main/README.md'
+            with urllib.request.urlopen(readme_url) as resp:
+                readme_content = resp.read().decode('utf-8')
+        except Exception:
+            readme_content = f'无法加载 README。\n\n直接访问：[{proj["url"]}]({proj["url"]})'
 
     return render(request, 'blog/project.html', {
         'title': proj['name'],
         'url': proj['url'],
         'lang': proj.get('lang', ''),
         'desc': proj.get('desc', ''),
-        'content': content,
+        'content': readme_content,
     })
 
 
