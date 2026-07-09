@@ -18,12 +18,10 @@
             {{ content }}
         </div>
     </article>
-    {% if toc %}
     <aside class="article-toc">
         <div class="toc-title">目录</div>
-        {{ toc }}
+        {% if toc and toc|length > 50 %}{{ toc }}{% else %}<a href="#" class="toc-fallback">{{ title }}</a>{% endif %}
     </aside>
-    {% endif %}
 </div>
 
 <div class="back-link">

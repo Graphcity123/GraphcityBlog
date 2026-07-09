@@ -45,7 +45,7 @@ nav {
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 .nav-inner {
-    max-width: 1000px;
+    max-width: 1100px;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -65,19 +65,17 @@ nav {
 /* Main */
 main {
     flex: 1;
-    max-width: 1000px;
     width: 100%;
-    margin: 0 auto;
-    padding: 40px 20px;
+    padding: 40px 24px;
 }
 
 /* Hero */
-.hero { text-align: center; padding: 48px 0 32px; }
+.hero { text-align: center; padding: 48px 0 32px; max-width: 960px; margin: 0 auto; }
 .hero h1 { font-size: 36px; color: var(--primary); }
 .hero-sub { font-size: 18px; color: var(--text-light); margin-top: 8px; }
 
 /* Sections */
-section { margin-bottom: 48px; }
+section { margin-bottom: 48px; max-width: 960px; margin-left: auto; margin-right: auto; }
 h2 {
     font-size: 22px;
     color: var(--primary);
@@ -147,8 +145,21 @@ h2 {
 /* Article page */
 .article-layout { display: flex; gap: 32px; align-items: flex-start; }
 .article-layout article { flex: 1; min-width: 0; }
-.article-toc { width: 240px; flex-shrink: 0; position: sticky; top: 80px; font-size: 14px; line-height: 1.8; }
-.toc-title { font-weight: 900; color: var(--primary); margin-bottom: 8px; font-size: 16px; border-left: 2px solid var(--primary); padding-left: 12px; }
+.article-toc { position: sticky; top: 80px; max-width: 240px; flex-shrink: 0; font-size: 14px; line-height: 1.8; border-left: 2px solid var(--primary); padding-left: 14px; }
+.article-layout:not(:has(.article-toc)) { max-width: 960px; margin: 0 auto; }
+
+@media (min-width: 1240px) {
+    .article-layout:has(.article-toc) { justify-content: center; }
+    .article-layout:has(.article-toc) article { flex: 0 0 960px; }
+}
+.article-layout:not(:has(.article-toc)) { grid-template-columns: 1fr; max-width: 960px; margin: 0 auto; }
+
+@media (min-width: 1240px) {
+    .article-layout:has(.article-toc) { grid-template-columns: minmax(0, 960px) auto; justify-content: center; }
+}
+.article-layout:not(:has(.article-toc)) { max-width: 960px; margin: 0 auto; }
+.toc-title { font-weight: 900; color: var(--primary); margin-bottom: 8px; font-size: 16px; }
+.toc-fallback { font-size: 14px; color: var(--text-light); font-weight: 400; text-decoration: none; }
 .article-toc ul { list-style: none; padding: 0; margin: 0; }
 .article-toc ul ul { padding-left: 14px; border-left: 1px solid #e0e0e0; margin: 4px 0 4px 6px; }
 .article-toc ul ul ul { padding-left: 14px; border-left: 1px solid #eee; margin: 2px 0 2px 4px; }
@@ -158,12 +169,15 @@ h2 {
 .article-toc ul ul > li > a { font-weight: 400; font-size: 13px; }
 .article-toc a:hover, .article-toc a.active { color: var(--primary); }
 
-article { background: var(--card-bg); padding: 40px; border-radius: 0; }
+article { background: var(--card-bg); padding: 32px 40px; border-radius: 0; }
 .article-header {
     display: flex;
     align-items: flex-start;
     gap: 24px;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
 }
 .article-header-bar {
     width: 8px;
@@ -227,7 +241,7 @@ pre:hover .copy-btn { opacity: 1; }
 .proj-desc { font-size: 15px; color: var(--text-light); margin-top: 10px; }
 .proj-link { font-size: 13px; color: var(--primary); word-break: break-all; display: inline-block; margin-top: 6px; }
 
-.back-link { margin-top: 24px; }
+.back-link { margin-top: 24px; max-width: 1100px; margin-left: auto; margin-right: auto; }
 .back-link a { color: var(--primary); text-decoration: none; font-size: 15px; }
 .empty { color: var(--text-light); font-size: 15px; }
 
@@ -238,10 +252,14 @@ pre:hover .copy-btn { opacity: 1; }
 
 footer { text-align: center; padding: 24px; color: var(--text-light); font-size: 13px; }
 
+@media (min-width: 1240px) {
+    .article-layout:has(.article-toc) { justify-content: center; }
+}
+
 @media (max-width: 640px) {
     main { padding: 24px 16px; } .hero { padding: 24px 0; } .hero h1 { font-size: 28px; }
     .article-layout { flex-direction: column; }
-    .article-toc { width: 100%; position: static; border: none; padding: 0; }
+    .article-toc { position: static; width: 100%; border: none; padding: 0; margin-top: 24px; }
     article { padding: 24px; }
     .project-grid { grid-template-columns: 1fr; }
 }
