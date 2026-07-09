@@ -32,10 +32,13 @@ def build():
         else:
             item.unlink()
 
-    # 复制静态文件
+    # 复制静态文件并修复 CSS 路径
     static_src = BASE / 'blog' / 'static' / 'blog'
     static_dst = SITE / 'static' / 'blog'
     shutil.copytree(static_src, static_dst)
+    css = (static_dst / 'style.css').read_text(encoding='utf-8')
+    css = css.replace("url('/static/", "url('../")
+    (static_dst / 'style.css').write_text(css, encoding='utf-8')
 
     # Django test client 渲染模板
     from django.test import Client
@@ -48,7 +51,9 @@ def build():
         if image_base:
             import re as _re
             html = _re.sub(r'src="(?!https?://)([^"]+)"', rf'src="{image_base}\1"', html)
-        # GitHub Pages subdirectory fix
+        # GitHub Pages subdirectory fix: convert absolute paths to relative
+        html = html.replace('href="/', 'href="./')
+        html = html.replace('src="/', 'src="./')
         html = html.replace('<head>', '<head><base href="/GraphcityBlog/">')
         dst = SITE / path
         dst.parent.mkdir(parents=True, exist_ok=True)
@@ -98,6 +103,8 @@ def build():
             'desc': p.get('desc', ''),
             'content': markdown_filter(readme_content),
         })
+        html = html.replace('href="/', 'href="../')
+        html = html.replace('src="/', 'src="../')
         html = html.replace('<head>', '<head><base href="/GraphcityBlog/">')
         dst = SITE / 'project' / name / 'index.html'
         dst.parent.mkdir(parents=True, exist_ok=True)
