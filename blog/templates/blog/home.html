@@ -1,0 +1,46 @@
+{% extends 'blog/base.html' %}
+{% load blog_tags %}
+
+{% block title %}Graphcity Blog{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Graphcity Blog</h1>
+    <p class="hero-sub">写点东西，做点项目。</p>
+</section>
+
+<section class="articles">
+    <h2>文章</h2>
+    {% if articles %}
+    <div class="article-list">
+        {% for a in articles %}
+        <a href="{% url 'article' a.slug %}" class="article-card">
+            <div class="art-bar"></div>
+            <div class="art-body">
+                <span class="art-title">{{ a.title }}</span>
+                <span class="art-date">{{ a.date }}</span>
+                {% if a.tags %}<span class="art-tags">{{ a.tags }}</span>{% endif %}
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="empty">还没有文章。在 <code>content/articles/</code> 下添加 .md 文件即可。</p>
+    {% endif %}
+</section>
+
+{% if projects %}
+<section class="projects">
+    <h2>项目</h2>
+    <div class="project-grid">
+        {% for p in projects %}
+        <a href="{% url 'project' p.name %}" class="project-card">
+            <h3>{{ p.name }}</h3>
+            <p>{{ p.desc }}</p>
+            <span class="proj-lang">{{ p.lang }}</span>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+{% endblock %}

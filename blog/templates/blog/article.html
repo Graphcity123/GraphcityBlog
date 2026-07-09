@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %}
+{% load blog_tags %}
+
+{% block title %}{{ title }} — Graphcity Blog{% endblock %}
+
+{% block content %}
+<header class="article-header">
+    <div class="article-header-bar"></div>
+    <div class="article-header-body">
+        <h1>{{ title }}</h1>
+        {% if date %}<time>{{ date }}</time>{% endif %}
+        {% if tags %}<div class="tags">{{ tags }}</div>{% endif %}
+    </div>
+</header>
+
+<article>
+    <div class="article-body">
+        {{ content|markdown }}
+    </div>
+</article>
+
+<div class="back-link">
+    <a href="{% url 'home' %}">← 返回文章列表</a>
+</div>
+{% endblock %}

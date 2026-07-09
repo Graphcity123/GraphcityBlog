@@ -1,0 +1,26 @@
+{% extends 'blog/base.html' %}
+{% load blog_tags %}
+
+{% block title %}{{ title }} — Graphcity Blog{% endblock %}
+
+{% block content %}
+<header class="article-header">
+    <div class="article-header-bar"></div>
+    <div class="article-header-body">
+        <h1>{{ title }}</h1>
+        {% if lang %}<div class="proj-tags"><span class="proj-lang">{{ lang }}</span></div>{% endif %}
+        {% if desc %}<p class="proj-desc">{{ desc }}</p>{% endif %}
+        <a href="{{ url }}" class="proj-link" target="_blank">{{ url }}</a>
+    </div>
+</header>
+
+<article>
+    <div class="article-body">
+        {{ content|markdown }}
+    </div>
+</article>
+
+<div class="back-link">
+    <a href="{% url 'home' %}">← 返回首页</a>
+</div>
+{% endblock %}

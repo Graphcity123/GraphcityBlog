@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Singer2026",
+    "url": "https://github.com/Graphcity123/Singer2026",
+    "repo": "Graphcity123/Singer2026",
+    "desc": "歌手信息检索系统 — 清华大学程序设计训练实验一。爬取网易云音乐数据，Django Web 应用，含用户系统、收藏、评论点赞、数据分析。",
+    "lang": "Python"
+  },
+  {
+    "name": "graphcity_blog",
+    "url": "https://github.com/Graphcity123/graphcity_blog",
+    "repo": "Graphcity123/graphcity_blog",
+    "desc": "个人博客（即本站）。Django + Markdown 渲染，无数据库依赖，极简架构。",
+    "lang": "Python"
+  }
+]
