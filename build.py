@@ -21,10 +21,16 @@ def build():
     from blog.views import _load_articles
     from blog.templatetags.blog_tags import markdown_filter
 
-    # 清空输出目录
-    if SITE.exists():
-        shutil.rmtree(SITE)
-    SITE.mkdir()
+    # 清空输出目录（保留 .git）
+    if not SITE.exists():
+        SITE.mkdir()
+    for item in sorted(SITE.iterdir()):
+        if item.name == '.git':
+            continue
+        if item.is_dir():
+            shutil.rmtree(item)
+        else:
+            item.unlink()
 
     # 复制静态文件
     static_src = BASE / 'blog' / 'static' / 'blog'
@@ -35,9 +41,13 @@ def build():
     from django.test import Client
     client = Client()
 
-    def render_to_file(url, path):
+    def render_to_file(url, path, image_base=None):
         resp = client.get(url)
         html = resp.content.decode('utf-8')
+        # Fix article image paths for static build (skip external URLs)
+        if image_base:
+            import re as _re
+            html = _re.sub(r'src="(?!https?://)([^"]+)"', rf'src="{image_base}\1"', html)
         # GitHub Pages subdirectory fix
         html = html.replace('<head>', '<head><base href="/GraphcityBlog/">')
         dst = SITE / path
@@ -49,10 +59,16 @@ def build():
     # 首页
     render_to_file('/', 'index.html')
 
-    # 文章页
+    # 文章页 + 复制文章附件
     articles = _load_articles()
     for a in articles:
-        render_to_file(f'/article/{a["slug"]}/', f'article/{a["slug"]}/index.html')
+        slug = a['slug']
+        render_to_file(f'/article/{slug}/', f'article/{slug}/index.html')
+        # 复制文章附件（图片等）到部署目录
+        article_dir = BASE / 'content' / 'articles' / slug
+        dst_dir = SITE / 'content' / 'articles' / slug
+        if article_dir.exists():
+            shutil.copytree(article_dir, dst_dir, dirs_exist_ok=True)
 
     # 项目页 — 预取 README
     projects_path = BASE / 'content' / 'projects.json'

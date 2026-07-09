@@ -7,10 +7,10 @@
     "lang": "Python"
   },
   {
-    "name": "graphcity_blog",
-    "url": "https://github.com/Graphcity123/graphcity_blog",
-    "repo": "Graphcity123/graphcity_blog",
-    "desc": "个人博客（即本站）。Django + Markdown 渲染，无数据库依赖，极简架构。",
+    "name": "GraphcityBlog",
+    "url": "https://github.com/Graphcity123/GraphcityBlog",
+    "repo": "Graphcity123/GraphcityBlog",
+    "desc": "个人博客（即本站）。Django + Markdown + 7 种主题色，支持 LaTeX、代码高亮、图片网格、GitHub Pages 部署。",
     "lang": "Python"
   }
 ]
