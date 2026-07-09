@@ -111,12 +111,14 @@ def project(request, name):
         except Exception:
             readme_content = f'无法加载 README。\n\n直接访问：[{proj["url"]}]({proj["url"]})'
 
+    body_html, toc_html = _render_markdown(readme_content)
     return render(request, 'blog/project.html', {
         'title': proj['name'],
         'url': proj['url'],
         'lang': proj.get('lang', ''),
         'desc': proj.get('desc', ''),
-        'content': readme_content,
+        'content': body_html,
+        'toc': toc_html,
     })
 
 

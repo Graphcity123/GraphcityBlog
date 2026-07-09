@@ -94,14 +94,17 @@ def build():
             except Exception:
                 readme_content = f'无法加载 README。\n\n直接访问：[{p["url"]}]({p["url"]})'
 
-        # 用 Django 模板渲染项目页
+        # 用 Django 模板渲染项目页（含 TOC）
+        from blog.views import _render_markdown
+        body_html, toc_html = _render_markdown(readme_content)
         from django.template.loader import render_to_string
         html = render_to_string('blog/project.html', {
             'title': p['name'],
             'url': p['url'],
             'lang': p.get('lang', ''),
             'desc': p.get('desc', ''),
-            'content': markdown_filter(readme_content),
+            'content': body_html,
+            'toc': toc_html,
         })
         html = html.replace('href="/', 'href="../')
         html = html.replace('src="/', 'src="../')
