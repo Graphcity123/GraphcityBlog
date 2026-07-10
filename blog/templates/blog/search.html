@@ -214,24 +214,27 @@
         }
     }
 
-    var form = document.querySelector('main .search-form');
-    if (form) {
-        form.onsubmit = function(e) {
-            e.preventDefault();
-            var q = form.querySelector('.search-input').value.trim();
-            if (!q) return;
-            updateTitle(q);
-            updateURL(q);
-            currentTab = 'all';
-            doSearch(q).then(render);
-        };
-    }
+    // 仅静态站点启用客户端搜索，开发服务器走 Django 后端
+    if (getBase() === '/GraphcityBlog') {
+        var form = document.querySelector('main .search-form');
+        if (form) {
+            form.onsubmit = function(e) {
+                e.preventDefault();
+                var q = form.querySelector('.search-input').value.trim();
+                if (!q) return;
+                updateTitle(q);
+                updateURL(q);
+                currentTab = 'all';
+                doSearch(q).then(render);
+            };
+        }
 
-    var params = new URLSearchParams(location.search);
-    var q = params.get('q');
-    if (q && !document.querySelector('.search-results .article-list, .search-results .project-grid')) {
-        updateTitle(q);
-        doSearch(q).then(render);
+        var params = new URLSearchParams(location.search);
+        var q = params.get('q');
+        if (q && !document.querySelector('.search-results .article-list, .search-results .project-grid')) {
+            updateTitle(q);
+            doSearch(q).then(render);
+        }
     }
 })();
 </script>
