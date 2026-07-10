@@ -182,6 +182,15 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
     <script>
+        // 目录兜底：没有任何链接时显示文章标题
+        (function() {
+            const toc = document.querySelector('.article-toc');
+            if (!toc) return;
+            const links = toc.querySelectorAll('a[href^="#"]');
+            const fallback = toc.querySelector('.toc-fallback-list');
+            if (fallback) fallback.style.display = links.length ? 'none' : '';
+        })();
+
         // TOC 滚动高亮
         (function() {
             const tocAside = document.querySelector('.article-toc');

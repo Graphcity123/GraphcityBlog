@@ -7,7 +7,7 @@
 <header class="article-header">
     <div class="article-header-bar"></div>
     <div class="article-header-body">
-        <h1>{{ title }}</h1>
+        <h1 id="article-title">{{ title }}</h1>
         {% if tags %}<div class="tags">{% for tag in tags|split:", " %}<a href="{% url 'archive_tag' tag=tag %}?tab=article" class="tag-pill" style="text-decoration:none">{{ tag }}</a>{% endfor %}</div>{% endif %}
         {% if date %}<time>{{ date }}</time>{% endif %}
     </div>
@@ -22,6 +22,7 @@
     <aside class="article-toc">
         <div class="toc-title">目录</div>
         {{ toc|default:'' }}
+        <ul class="toc-fallback-list" style="display:none"><li><a href="#article-title" class="toc-fallback">{{ title }}</a></li></ul>
     </aside>
 </div>
 

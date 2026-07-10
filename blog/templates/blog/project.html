@@ -6,7 +6,7 @@
 <header class="article-header">
     <div class="article-header-bar"></div>
     <div class="article-header-body">
-        <h1>{{ title }}</h1>
+        <h1 id="article-title">{{ title }}</h1>
         {% if lang %}<div class="proj-tags"><a href="{% url 'archive_tag' tag=lang %}?tab=project" class="proj-lang" style="text-decoration:none">{{ lang }}</a></div>{% endif %}
         {% if desc %}<p class="proj-desc">{{ desc }}</p>{% endif %}
         <p class="proj-link"><strong>项目地址：</strong><a href="{{ url }}" target="_blank">{{ url }}</a></p>
@@ -22,6 +22,7 @@
     <aside class="article-toc">
         <div class="toc-title">目录</div>
         {{ toc|default:'' }}
+        <ul class="toc-fallback-list" style="display:none"><li><a href="#article-title" class="toc-fallback">{{ title }}</a></li></ul>
     </aside>
 </div>
 

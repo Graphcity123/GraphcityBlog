@@ -32,7 +32,7 @@
 <header class="article-header">
     <div class="article-header-bar"></div>
     <div class="article-header-body">
-        <h1>从夯到拉锐评青花大学课程 2</h1>
+        <h1 id="article-title">从夯到拉锐评青花大学课程 2</h1>
         <div class="tags"><a href="/GraphcityBlog/archive/%E7%94%9F%E6%B4%BB/?tab=article" class="tag-pill" style="text-decoration:none">生活</a><a href="/GraphcityBlog/archive/%E6%95%99%E5%AD%A6%E8%AF%84%E4%BB%B7/?tab=article" class="tag-pill" style="text-decoration:none">教学评价</a></div>
         <time>2026-06-10</time>
     </div>
@@ -119,6 +119,7 @@
 </ul>
 </div>
 
+        <ul class="toc-fallback-list" style="display:none"><li><a href="#article-title" class="toc-fallback">从夯到拉锐评青花大学课程 2</a></li></ul>
     </aside>
 </div>
 
@@ -142,6 +143,15 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
     <script>
+        // 目录兜底：没有任何链接时显示文章标题
+        (function() {
+            const toc = document.querySelector('.article-toc');
+            if (!toc) return;
+            const links = toc.querySelectorAll('a[href^="#"]');
+            const fallback = toc.querySelector('.toc-fallback-list');
+            if (fallback) fallback.style.display = links.length ? 'none' : '';
+        })();
+
         // TOC 滚动高亮
         (function() {
             const tocAside = document.querySelector('.article-toc');

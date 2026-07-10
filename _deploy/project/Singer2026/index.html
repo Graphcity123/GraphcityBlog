@@ -32,7 +32,7 @@
 <header class="article-header">
     <div class="article-header-bar"></div>
     <div class="article-header-body">
-        <h1>Singer2026</h1>
+        <h1 id="article-title">Singer2026</h1>
         <div class="proj-tags"><a href="/GraphcityBlog/archive/Python/?tab=project" class="proj-lang" style="text-decoration:none">Python</a></div>
         <p class="proj-desc">歌手信息检索系统 — 清华大学程序设计训练实验一。爬取网易云音乐数据，Django Web 应用，含用户系统、收藏、评论点赞、数据分析。</p>
         <p class="proj-link"><strong>项目地址：</strong><a href="https://github.com/Graphcity123/Singer2026" target="_blank">https://github.com/Graphcity123/Singer2026</a></p>
@@ -464,6 +464,7 @@ python<span class="w"> </span>crawl_hot_songs.py
 </ul>
 </div>
 
+        <ul class="toc-fallback-list" style="display:none"><li><a href="#article-title" class="toc-fallback">Singer2026</a></li></ul>
     </aside>
 </div>
 
@@ -487,6 +488,15 @@ python<span class="w"> </span>crawl_hot_songs.py
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
     <script>
+        // 目录兜底：没有任何链接时显示文章标题
+        (function() {
+            const toc = document.querySelector('.article-toc');
+            if (!toc) return;
+            const links = toc.querySelectorAll('a[href^="#"]');
+            const fallback = toc.querySelector('.toc-fallback-list');
+            if (fallback) fallback.style.display = links.length ? 'none' : '';
+        })();
+
         // TOC 滚动高亮
         (function() {
             const tocAside = document.querySelector('.article-toc');

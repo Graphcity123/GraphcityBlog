@@ -32,7 +32,7 @@
 <header class="article-header">
     <div class="article-header-bar"></div>
     <div class="article-header-body">
-        <h1>OI 后日谈 2</h1>
+        <h1 id="article-title">OI 后日谈 2</h1>
         <div class="tags"><a href="/GraphcityBlog/archive/OI%E5%90%8E%E6%97%A5%E8%B0%88/?tab=article" class="tag-pill" style="text-decoration:none">OI后日谈</a></div>
         <time>2024-10-25</time>
     </div>
@@ -165,6 +165,7 @@
 </ul>
 </div>
 
+        <ul class="toc-fallback-list" style="display:none"><li><a href="#article-title" class="toc-fallback">OI 后日谈 2</a></li></ul>
     </aside>
 </div>
 
@@ -188,6 +189,15 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
     <script>
+        // 目录兜底：没有任何链接时显示文章标题
+        (function() {
+            const toc = document.querySelector('.article-toc');
+            if (!toc) return;
+            const links = toc.querySelectorAll('a[href^="#"]');
+            const fallback = toc.querySelector('.toc-fallback-list');
+            if (fallback) fallback.style.display = links.length ? 'none' : '';
+        })();
+
         // TOC 滚动高亮
         (function() {
             const tocAside = document.querySelector('.article-toc');

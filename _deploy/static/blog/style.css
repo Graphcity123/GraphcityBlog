@@ -187,7 +187,7 @@ h2 {
 }
 .article-layout:not(:has(.article-toc)) { max-width: 960px; margin: 0 auto; }
 .toc-title { font-weight: 900; color: var(--primary); margin-bottom: 8px; font-size: 16px; }
-.toc-fallback { font-size: 14px; color: var(--text-light); font-weight: 400; text-decoration: none; }
+.toc-fallback { font-size: 14px; color: var(--text-light); font-weight: 400 !important; text-decoration: none; }
 .article-toc ul { list-style: none; padding: 0; margin: 0; }
 .article-toc ul ul { padding-left: 14px; border-left: 1px solid #e0e0e0; margin: 4px 0 4px 6px; }
 .article-toc ul ul ul { padding-left: 14px; border-left: 1px solid #eee; margin: 2px 0 2px 4px; }
@@ -230,6 +230,7 @@ article { background: var(--card-bg); padding: 32px 40px; border-radius: 0; }
 
 .article-body { font-size: 16px; }
 .article-body h1 { scroll-margin-top: 72px; }
+#article-title { scroll-margin-top: 72px; }
 
 .article-body h2 { margin-top: 32px; margin-bottom: 12px; border: none; font-size: 24px; color: #444; scroll-margin-top: 72px; }
 .article-body h3 { margin-top: 24px; font-size: 20px; scroll-margin-top: 72px; }

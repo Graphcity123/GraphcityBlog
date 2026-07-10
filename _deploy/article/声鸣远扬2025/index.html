@@ -32,7 +32,7 @@
 <header class="article-header">
     <div class="article-header-bar"></div>
     <div class="article-header-body">
-        <h1>从「慕强」到「伪叙事」：当音乐选秀不再比拼唱歌</h1>
+        <h1 id="article-title">从「慕强」到「伪叙事」：当音乐选秀不再比拼唱歌</h1>
         <div class="tags"><a href="/GraphcityBlog/archive/%E7%94%9F%E6%B4%BB/?tab=article" class="tag-pill" style="text-decoration:none">生活</a></div>
         <time>2025-12-22</time>
     </div>
@@ -100,6 +100,7 @@
 </ul>
 </div>
 
+        <ul class="toc-fallback-list" style="display:none"><li><a href="#article-title" class="toc-fallback">从「慕强」到「伪叙事」：当音乐选秀不再比拼唱歌</a></li></ul>
     </aside>
 </div>
 
@@ -123,6 +124,15 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
     <script>
+        // 目录兜底：没有任何链接时显示文章标题
+        (function() {
+            const toc = document.querySelector('.article-toc');
+            if (!toc) return;
+            const links = toc.querySelectorAll('a[href^="#"]');
+            const fallback = toc.querySelector('.toc-fallback-list');
+            if (fallback) fallback.style.display = links.length ? 'none' : '';
+        })();
+
         // TOC 滚动高亮
         (function() {
             const tocAside = document.querySelector('.article-toc');
