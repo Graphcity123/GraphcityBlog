@@ -253,9 +253,10 @@ def search(request):
     })
 
 
-def archive(request):
+def archive(request, tag=''):
     """归档页：按 tag 筛选文章和项目，分 tab 展示。"""
-    tag = request.GET.get('tag', '').strip()
+    if not tag:
+        tag = request.GET.get('tag', '').strip()
     tab = request.GET.get('tab', 'all')
     articles_result = []
     projects_result = []

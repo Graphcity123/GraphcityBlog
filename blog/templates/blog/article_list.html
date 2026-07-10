@@ -22,7 +22,7 @@
                 <div class="art-body">
                     <span class="art-title">{{ a.title }}</span>
                     <span class="art-date">{{ a.date }}</span>
-                    {% if a.tags %}<span class="art-tags">{% for tag in a.tags|split:", " %}<a href="{% url 'archive' %}?tag={{ tag|urlencode }}" class="tag-pill">{{ tag }}</a>{% endfor %}</span>{% endif %}
+                    {% if a.tags %}<span class="art-tags">{% for tag in a.tags|split:", " %}<a href="{% url 'archive_tag' tag=tag %}" class="tag-pill">{{ tag }}</a>{% endfor %}</span>{% endif %}
                 </div>
             </div>
             {% endfor %}

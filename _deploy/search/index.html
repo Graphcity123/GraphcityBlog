@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Graphcity Blog</title>
+    <title>搜索</title>
     <link rel="stylesheet" href="/GraphcityBlog/static/blog/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
     
@@ -29,86 +29,20 @@
     </nav>
     <main>
         
-<section class="hero">
-    <h1>Graphcity Blog</h1>
-    <p class="hero-sub">写点东西，做点项目。</p>
-</section>
-
-<section class="articles">
-    <h2>文章</h2>
-    
-    <div class="article-list">
-        
-        <div class="article-card" onclick="location.href='/article/hello-world/'">
-            <div class="art-bar"></div>
-            <div class="art-body">
-                <span class="art-title">个人主页，堂堂回归！</span>
-                <span class="art-date">2026-07-10</span>
-                
-            </div>
-        </div>
-        
-        <div class="article-card" onclick="location.href='/article/%E5%A4%A7%E4%B8%80%E4%B8%8B%E8%AF%84%E6%95%99/'">
-            <div class="art-bar"></div>
-            <div class="art-body">
-                <span class="art-title">从夯到拉锐评青花大学课程 2</span>
-                <span class="art-date">2026-06-10</span>
-                <span class="art-tags"><a href="/GraphcityBlog/archive/%E7%94%9F%E6%B4%BB/" class="tag-pill">生活</a><a href="/GraphcityBlog/archive/%E6%95%99%E5%AD%A6%E8%AF%84%E4%BB%B7/" class="tag-pill">教学评价</a></span>
-            </div>
-        </div>
-        
-        <div class="article-card" onclick="location.href='/article/2026%E6%84%9A%E4%BA%BA%E8%8A%82/'">
-            <div class="art-bar"></div>
-            <div class="art-body">
-                <span class="art-title">改论文改到穿越，我在蒙德城参加情系雅礼蓝</span>
-                <span class="art-date">2026-04-01</span>
-                <span class="art-tags"><a href="/GraphcityBlog/archive/%E7%94%9F%E6%B4%BB/" class="tag-pill">生活</a></span>
-            </div>
-        </div>
-        
-        <div class="article-card" onclick="location.href='/article/%E5%A4%9A%E5%85%83%E5%BE%AE%E7%A7%AF%E5%88%86/'">
-            <div class="art-bar"></div>
-            <div class="art-body">
-                <span class="art-title">多元微积分单核攻略，简单好抄</span>
-                <span class="art-date">2026-03-10</span>
-                <span class="art-tags"><a href="/GraphcityBlog/archive/%E6%95%B0%E5%AD%A6/" class="tag-pill">数学</a></span>
-            </div>
-        </div>
-        
-        <div class="article-card" onclick="location.href='/article/%E5%A4%A7%E4%B8%80%E4%B8%8A%E8%AF%84%E6%95%99/'">
-            <div class="art-bar"></div>
-            <div class="art-body">
-                <span class="art-title">从夯到拉锐评青花大学课程 1</span>
-                <span class="art-date">2026-01-09</span>
-                <span class="art-tags"><a href="/GraphcityBlog/archive/%E7%94%9F%E6%B4%BB/" class="tag-pill">生活</a><a href="/GraphcityBlog/archive/%E6%95%99%E5%AD%A6%E8%AF%84%E4%BB%B7/" class="tag-pill">教学评价</a></span>
-            </div>
-        </div>
-        
+<header class="article-header header-thick">
+    <div class="article-header-bar"></div>
+    <div class="article-header-body">
+        <h1>搜索</h1>
     </div>
-    <a href="/GraphcityBlog/articles/" class="more-link">更多文章 →</a>
-    
-</section>
+</header>
+
+<form class="search-form" method="get" action="/search/">
+    <input class="search-input" type="text" name="q" value="" placeholder="搜索文章、项目…" autofocus>
+    <button class="search-btn" type="submit">搜索</button>
+</form>
 
 
-<section class="projects" id="projects">
-    <h2>项目</h2>
-    <div class="project-grid">
-        
-        <div class="project-card" onclick="location.href='/project/Singer2026/'">
-            <h3>Singer2026</h3>
-            <p>歌手信息检索系统 — 清华大学程序设计训练实验一。爬取网易云音乐数据，Django Web 应用，含用户系统、收藏、评论点赞、数据分析。</p>
-            <a href="/GraphcityBlog/archive/Python/" class="proj-lang">Python</a>
-        </div>
-        
-        <div class="project-card" onclick="location.href='/project/GraphcityBlog/'">
-            <h3>GraphcityBlog</h3>
-            <p>个人博客（即本站）。Django + Markdown + 7 种主题色，支持 LaTeX、代码高亮、图片网格、GitHub Pages 部署。</p>
-            <a href="/GraphcityBlog/archive/Python/" class="proj-lang">Python</a>
-        </div>
-        
-    </div>
-    <a href="/GraphcityBlog/projects/" class="more-link">更多项目 →</a>
-</section>
+    <p class="search-empty">输入关键词，搜索文章和项目</p>
 
 
     </main>

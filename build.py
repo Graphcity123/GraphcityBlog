@@ -115,6 +115,33 @@ def build():
     # 关于页
     render_to_file('/about/', 'about/index.html')
 
+    # 文章列表页
+    render_to_file('/articles/', 'articles/index.html')
+    render_to_file('/articles/?page=1', 'articles/page/1/index.html')
+
+    # 项目列表页
+    render_to_file('/projects/', 'projects/index.html')
+
+    # 搜索页
+    render_to_file('/search/', 'search/index.html')
+
+    # 归档页（标签云）
+    render_to_file('/archive/', 'archive/index.html')
+    # 为每个标签生成归档页
+    all_tags = set()
+    for a in articles:
+        for t in a['tags'].split(','):
+            t = t.strip()
+            if t:
+                all_tags.add(t)
+    for p in projects:
+        lang = p.get('lang', '').strip()
+        if lang:
+            all_tags.add(lang)
+    for tag in sorted(all_tags):
+        from urllib.parse import quote
+        render_to_file(f'/archive/{quote(tag, safe="")}/', f'archive/{quote(tag, safe="")}/index.html')
+
     # 复制 CNAME（如果有）
     cname = BASE / 'CNAME'
     if cname.exists():
