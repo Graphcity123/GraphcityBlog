@@ -488,12 +488,12 @@ python<span class="w"> </span>crawl_hot_songs.py
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
     <script>
-        // 目录兜底：没有任何链接时显示文章标题
+        // 目录兜底：除兜底链接外没有其他链接时显示文章标题
         (function() {
             const toc = document.querySelector('.article-toc');
             if (!toc) return;
-            const links = toc.querySelectorAll('a[href^="#"]');
             const fallback = toc.querySelector('.toc-fallback-list');
+            const links = toc.querySelectorAll('a[href^="#"]:not(.toc-fallback)');
             if (fallback) fallback.style.display = links.length ? 'none' : '';
         })();
 
