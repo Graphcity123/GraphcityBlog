@@ -85,7 +85,7 @@
 
     function getBase() {
         const path = location.pathname;
-        return path.endsWith('/search/') ? '' : '/GraphcityBlog';
+        return path.startsWith('/GraphcityBlog/') || path === '/GraphcityBlog' ? '/GraphcityBlog' : '';
     }
 
     async function loadIndex() {
