@@ -1,0 +1,35 @@
+{% extends 'blog/base.html' %}
+{% load blog_tags %}
+
+{% block title %}文章 — Graphcity Blog{% endblock %}
+
+{% block content %}
+<header class="article-header header-thick">
+    <div class="article-header-bar"></div>
+    <div class="article-header-body">
+        <h1>文章</h1>
+    </div>
+</header>
+
+<p class="search-summary">共 {{ total }} 篇</p>
+
+{% if page %}
+    <div class="search-results">
+        <div class="article-list">
+            {% for a in page %}
+            <div class="article-card" onclick="location.href='{% url 'article' a.slug %}'">
+                <div class="art-bar"></div>
+                <div class="art-body">
+                    <span class="art-title">{{ a.title }}</span>
+                    <span class="art-date">{{ a.date }}</span>
+                    {% if a.tags %}<span class="art-tags">{% for tag in a.tags|split:", " %}<a href="{% url 'archive' %}?tag={{ tag|urlencode }}" class="tag-pill">{{ tag }}</a>{% endfor %}</span>{% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% include 'blog/_pagination.html' %}
+    </div>
+{% else %}
+    <p class="search-empty">还没有文章</p>
+{% endif %}
+{% endblock %}

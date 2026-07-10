@@ -14,32 +14,57 @@
         <div class="nav-inner">
             <a class="brand" href="/GraphcityBlog/">Graphcity Blog</a>
             <div class="nav-links">
-                <a href="/GraphcityBlog/">文章</a>
-                <a href="/GraphcityBlog/#projects">项目</a>
+                <a href="/GraphcityBlog/articles/">文章</a>
+                <a href="/GraphcityBlog/projects/">项目</a>
+                <a href="/GraphcityBlog/archive/">归档</a>
                 <a href="/GraphcityBlog/about/">关于</a>
+            </div>
+            <div class="nav-right">
+                <form action="/search/" method="get" class="search-form">
+                    <input type="text" name="q" placeholder="搜索文章、项目…" value="">
+                    <button type="submit">搜索</button>
+                </form>
             </div>
         </div>
     </nav>
     <main>
         
-<section class="hero">
-    <h1>关于</h1>
-    <p class="hero-sub">个人博客，记录学习与创作。</p>
-</section>
+<header class="article-header header-thick">
+    <div class="article-header-bar"></div>
+    <div class="article-header-body">
+        <h1>关于</h1>
+    </div>
+</header>
 
-<article>
-    <h2>关于本站</h2>
-    <p>基于 Django 构建的极简博客。文章以 Markdown 文件形式存储，无需数据库。</p>
+<article class="about-content">
+    <div class="article-body">
+        <h2>关于本站</h2>
+        <p>基于 Django 构建的个人博客。文章以 Markdown 文件存储，无需数据库，一键构建静态站点部署到 GitHub Pages。</p>
 
-    <h2>技术栈</h2>
-    <ul>
-        <li>后端：Django 6.0</li>
-        <li>内容：Markdown + YAML front matter</li>
-        <li>部署：PythonAnywhere</li>
-    </ul>
+        <h2>功能</h2>
+        <ul>
+            <li><strong>Markdown 渲染</strong>：LaTeX 数学公式、JetBrains Mono 代码高亮、删除线、表格</li>
+            <li><strong>8 种主题色</strong>：青绿 / 蓝 / 玫红 / 橘橙 / 紫 / 草绿 / 灰蓝 / 天蓝，一键切换</li>
+            <li><strong>智能搜索</strong>：多关键词加权打分，文章和项目分 tab 展示</li>
+            <li><strong>标签归档</strong>：点击标签胶囊跳转归档页，标签云浏览</li>
+            <li><strong>侧边目录</strong>：自动生成，滚动高亮</li>
+            <li><strong>文章 & 项目主页</strong>：独立列表页，带翻页导航</li>
+        </ul>
 
-    <h2>联系</h2>
-    <p>GitHub：<a href="https://github.com/Graphcity123" target="_blank">@Graphcity123</a></p>
+        <h2>技术栈</h2>
+        <ul>
+            <li><strong>后端</strong>：Django 6.0</li>
+            <li><strong>内容</strong>：Markdown + YAML front matter</li>
+            <li><strong>前端</strong>：纯 CSS（HarmonyOS Sans SC 字体），无 JS 框架</li>
+            <li><strong>部署</strong>：PythonAnywhere / GitHub Pages</li>
+        </ul>
+
+        <h2>链接</h2>
+        <ul>
+            <li>GitHub：<a href="https://github.com/Graphcity123" target="_blank">@Graphcity123</a></li>
+            <li>博客源码：<a href="https://github.com/Graphcity123/GraphcityBlog" target="_blank">Graphcity123/GraphcityBlog</a></li>
+        </ul>
+    </div>
 </article>
 
     </main>
@@ -52,6 +77,7 @@
             <span class="theme-dot" data-theme="purple" style="background:#7c5aa8" title="紫色"></span>
             <span class="theme-dot" data-theme="green" style="background:#4a9c5d" title="草绿"></span>
             <span class="theme-dot" data-theme="slate" style="background:#5a7a8a" title="灰蓝"></span>
+            <span class="theme-dot" data-theme="sky" style="background:#4A90D9" title="天蓝"></span>
         </div>
         <p>&copy; 2026 Graphcity</p>
     </footer>
@@ -59,23 +85,29 @@
     <script>
         // TOC 滚动高亮
         (function() {
-            const tocLinks = document.querySelectorAll('.article-toc a[href^="#"]');
-            if (!tocLinks.length) return;
-            const headings = [];
-            tocLinks.forEach(a => {
-                const h = document.querySelector(a.getAttribute('href'));
-                if (h) headings.push({ el: h, link: a });
+            const tocAside = document.querySelector('.article-toc');
+            if (!tocAside) return;
+            const headings = document.querySelectorAll('.article-body h1[id], .article-body h2[id], .article-body h3[id], .article-body h4[id]');
+            if (!headings.length) return;
+            const tocMap = {};
+            tocAside.querySelectorAll('a[href^="#"]').forEach(a => {
+                const id = a.getAttribute('href').slice(1);
+                tocMap[id] = a;
             });
-            const observer = new IntersectionObserver(entries => {
-                let active = null;
-                entries.forEach(e => { if (e.isIntersecting) active = e.target; });
-                if (active) {
-                    tocLinks.forEach(a => a.classList.remove('active'));
-                    const match = headings.find(h => h.el === active);
-                    if (match) match.link.classList.add('active');
-                }
-            }, { rootMargin: '-80px 0px -70% 0px' });
-            headings.forEach(h => observer.observe(h.el));
+            function update() {
+                const scrollTop = window.scrollY + 100;
+                let activeId = null;
+                headings.forEach(h => {
+                    if (h.getBoundingClientRect().top + window.scrollY <= scrollTop) activeId = h.id;
+                });
+                tocAside.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+                if (activeId && tocMap[activeId]) tocMap[activeId].classList.add('active');
+            }
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) { requestAnimationFrame(() => { update(); ticking = false; }); ticking = true; }
+            });
+            update();
         })();
 
         // 禁用 B 站外链自动播放
@@ -96,6 +128,7 @@
             purple:  { primary:'#7c5aa8', primaryDark:'#5c3e86', codeBg:'#1f1a2f', codeText:'#dcd4f0', shadowRgb:'124,90,168', badgeBg:'#f4f0fa' },
             green:   { primary:'#4a9c5d', primaryDark:'#357a44', codeBg:'#182a1e', codeText:'#d4f0dc', shadowRgb:'74,156,93', badgeBg:'#eefaf0' },
             slate:   { primary:'#5a7a8a', primaryDark:'#3f5d6b', codeBg:'#1a242a', codeText:'#d4e0e8', shadowRgb:'90,122,138', badgeBg:'#f0f4f6' },
+            sky:     { primary:'#4A90D9', primaryDark:'#3570ad', codeBg:'#19253a', codeText:'#d4e2f4', shadowRgb:'74,144,217', badgeBg:'#eef3fa' },
         };
         const saved = localStorage.getItem('blog-theme') || 'teal';
         function applyTheme(name) {

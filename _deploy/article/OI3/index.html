@@ -14,9 +14,16 @@
         <div class="nav-inner">
             <a class="brand" href="/GraphcityBlog/">Graphcity Blog</a>
             <div class="nav-links">
-                <a href="/GraphcityBlog/">文章</a>
-                <a href="/GraphcityBlog/#projects">项目</a>
+                <a href="/GraphcityBlog/articles/">文章</a>
+                <a href="/GraphcityBlog/projects/">项目</a>
+                <a href="/GraphcityBlog/archive/">归档</a>
                 <a href="/GraphcityBlog/about/">关于</a>
+            </div>
+            <div class="nav-right">
+                <form action="/search/" method="get" class="search-form">
+                    <input type="text" name="q" placeholder="搜索文章、项目…" value="">
+                    <button type="submit">搜索</button>
+                </form>
             </div>
         </div>
     </nav>
@@ -26,8 +33,8 @@
     <div class="article-header-bar"></div>
     <div class="article-header-body">
         <h1>OI 后日谈 3</h1>
+        <div class="tags"><a href="/GraphcityBlog/archive/?tag=OI%E5%90%8E%E6%97%A5%E8%B0%88&tab=article" class="tag-pill" style="text-decoration:none">OI后日谈</a></div>
         <time>2025-01-22</time>
-        
     </div>
 </header>
 
@@ -182,9 +189,7 @@
 <p>前情提要：</p>
 <p><img alt="1" src="/GraphcityBlog/content/articles/OI3/1.png" /></p>
 <p><img alt="2" src="/GraphcityBlog/content/articles/OI3/2.png" /></p>
-<ul>
-<li><strong>「悠真精神」及其实践</strong></li>
-</ul>
+<h4 id="_1">「悠真精神」及其实践</h4>
 <p>可以用一张图来概括浅羽悠真所体现出的「悠真精神」：</p>
 <p><img alt="youzhen" src="/GraphcityBlog/content/articles/OI3/youzhen.jpg" /></p>
 <p>显然应该要横着读而不是竖着读。</p>
@@ -227,9 +232,7 @@
 <p>他随时都有以骸化的风险。头上的发带是他师傅的遗物，颈部的装饰是为了掩盖密布的针孔，身上散发出的香草味则是长期服药留下的药味。当有人问及他的身体时，他也总是微微一笑地带过。</p>
 <p>他常常申请病假，没有人知道他用这些假期做了什么，但多半不是在休息。</p>
 <p>以太适性衰竭综合征的患者通常寿命较短，现有案例中寿命最长的患者在 26 岁那年去世。目前尚未存在完全治愈该疾病的方法。</p>
-<ul>
-<li><strong>循此苦旅，终抵繁星</strong></li>
-</ul>
+<h4 id="_2">循此苦旅，终抵繁星</h4>
 <p>大家如果注意过的话，我的洛谷主页 slogan 已经在一个月之前就换成了这句话。</p>
 <p>为什么呢？其实我不知道。</p>
 <p>很多时候我都比较难用言语去表达我的喜爱之情，比如现在。</p>
@@ -279,9 +282,7 @@
 <p>一个臭名昭著的例子就是今年的八省联考：</p>
 <p><img alt="8" src="/GraphcityBlog/content/articles/OI3/8.png" /></p>
 <p>出题人疑似有点太喜欢拓扑了。这么考完全是出题人没有能力的体现。</p>
-<ul>
-<li><strong>新定义：创新与问题并存</strong></li>
-</ul>
+<h4 id="_3">新定义：创新与问题并存</h4>
 <p>在高考从 22 题改成 19 题的第二年，无数的新定义题出现在了各大月考，联考和高考试卷中。一方面，这是高考数学试图摆脱应试技巧，模版作答和二级结论的尝试，但另一方面也同样带来了很大的问题。</p>
 <p>一个优势在于：能够分配在难题的时间更多了。删掉一道多选，填空和大题，就意味着我们可以投入更多时间和精力到难题上面。思考时间将会更加充分，也可以减少在简单题上的失误概率。</p>
 <p>另一个优势在于：好的新定义题的确可以很有思想性。比如去年的新高考 I 卷和今年的长沙市联考，思路没有很难（想到 key observation 就可以解决问题），也没有超脱高考考纲，更没有无脑照搬大学知识。</p>
@@ -293,13 +294,9 @@
 <li>有相当多的新定义题三个小问之间毫无关联，或者几乎没有提示性。如果第三问非常脑筋急转弯，这就是一个灾难。</li>
 <li>阅卷过程中出现的问题。当你的解法与参考答案不一样时，你的分数完全取决于阅卷人的知识水平和他的精神状态。传统的按步骤给分在解法千奇百怪的新定义题面前并不适用。一个比较正常的解决办法是出一道解法相对单一的题目，但很显然月考和联考的出题人暂时还做不到这一点。</li>
 <li>为啥还有专门针对新定义题出的教辅啊？？？真的有任何用吗？？？？？？？</li>
-<li>
-<p>其实我也不知道老师是怎么备课这种新定义题的。我们的数学老师是直接针对特定的题目出成专题然后 <del>出无穷多个变式</del>。这个能不能做到举一反三，触类旁通的效果是未知的（这个也会引出后面的一个问题）。更重要的是，我到现在还没看到两道有关联的新定义题啊？？？</p>
-</li>
-<li>
-<p><strong>高中数学教育：应试与思想平衡</strong></p>
-</li>
+<li>其实我也不知道老师是怎么备课这种新定义题的。我们的数学老师是直接针对特定的题目出成专题然后 <del>出无穷多个变式</del>。这个能不能做到举一反三，触类旁通的效果是未知的（这个也会引出后面的一个问题）。更重要的是，我到现在还没看到两道有关联的新定义题啊？？？</li>
 </ol>
+<h4 id="_4">高中数学教育：应试与思想平衡</h4>
 <p>我感觉高中数学老师都有一个特点：高考走到哪，他们就走到哪。</p>
 <p>这样做的好处是显而易见的。在传统的高考模式中，这样做显然是最保险且有效的措施。</p>
 <p>但是现在好像出了一点问题：高考好像走在了他们前面比较远。</p>
@@ -311,9 +308,7 @@
 <p>（传送门：<a href="https://www.luogu.com.cn/article/wnew69w0">感受这股劲.jpg</a>，<a href="https://www.luogu.com.cn/article/z3prmunt">利用橘子洲大桥跨过湘江</a>，<a href="https://www.luogu.com.cn/article/6lx3piza">利用调整法解决一系列极值点偏移问题</a>）</p>
 <p>对于新定义题，实际上教学的最好方法可能就是——跟竞赛教练一样，找一些优秀的，具有教育意义的题目然后给学生去做。不去刻意进行教学可能就是最好的教学。</p>
 <p>我特别喜欢一个讲座的标题：《信息学奥赛中的直觉与证明》，出自 WC2022 的第一课堂。<del>尽管里面的内容我可能已经忘得差不多了</del>，但是这个标题我是百分之百认可的。hint，或者说直觉，就是解决一道题目最最最重要的东西。有了一个正确的直觉真的可以秒了一切。</p>
-<ul>
-<li><strong>我们的学习是否会过拟合化？</strong></li>
-</ul>
+<h4 id="_5">我们的学习是否会过拟合化？</h4>
 <p>这是我在 B 站看到的一个很有意思的观点。如果把我们的大脑看成 AI（实际上可能就是的），把学习当作喂数据的话，我们的学习是否会过拟合化？</p>
 <p>这个问题其实我以前一直也想过。对此我给出的答案是肯定的。如果大量去做同质化严重，缺乏思想性和教育意义的题目，思维很有可能会被固化。</p>
 <p>这个就呼应了我前文提到的一个事情：对于新定义的某一道特定题目，会不会真正加深我们对于这道题目蕴含的理论的理解？其实我觉得不太会。</p>
@@ -375,8 +370,17 @@
         <div class="toc">
 <ul>
 <li><a href="#part-i-graphcity">Part I. 探究：Graphcity 的记忆系统</a></li>
-<li><a href="#part-ii">Part II. 人物赏析：浅羽悠真</a></li>
-<li><a href="#part-iii">Part III. 漫谈：高考数学中的应试与思想性</a></li>
+<li><a href="#part-ii">Part II. 人物赏析：浅羽悠真</a><ul>
+<li><a href="#_1">「悠真精神」及其实践</a></li>
+<li><a href="#_2">循此苦旅，终抵繁星</a></li>
+</ul>
+</li>
+<li><a href="#part-iii">Part III. 漫谈：高考数学中的应试与思想性</a><ul>
+<li><a href="#_3">新定义：创新与问题并存</a></li>
+<li><a href="#_4">高中数学教育：应试与思想平衡</a></li>
+<li><a href="#_5">我们的学习是否会过拟合化？</a></li>
+</ul>
+</li>
 <li><a href="#part-iv">Part IV. 回顾与展望：覆灭重生</a></li>
 </ul>
 </div>
@@ -398,6 +402,7 @@
             <span class="theme-dot" data-theme="purple" style="background:#7c5aa8" title="紫色"></span>
             <span class="theme-dot" data-theme="green" style="background:#4a9c5d" title="草绿"></span>
             <span class="theme-dot" data-theme="slate" style="background:#5a7a8a" title="灰蓝"></span>
+            <span class="theme-dot" data-theme="sky" style="background:#4A90D9" title="天蓝"></span>
         </div>
         <p>&copy; 2026 Graphcity</p>
     </footer>
@@ -405,23 +410,29 @@
     <script>
         // TOC 滚动高亮
         (function() {
-            const tocLinks = document.querySelectorAll('.article-toc a[href^="#"]');
-            if (!tocLinks.length) return;
-            const headings = [];
-            tocLinks.forEach(a => {
-                const h = document.querySelector(a.getAttribute('href'));
-                if (h) headings.push({ el: h, link: a });
+            const tocAside = document.querySelector('.article-toc');
+            if (!tocAside) return;
+            const headings = document.querySelectorAll('.article-body h1[id], .article-body h2[id], .article-body h3[id], .article-body h4[id]');
+            if (!headings.length) return;
+            const tocMap = {};
+            tocAside.querySelectorAll('a[href^="#"]').forEach(a => {
+                const id = a.getAttribute('href').slice(1);
+                tocMap[id] = a;
             });
-            const observer = new IntersectionObserver(entries => {
-                let active = null;
-                entries.forEach(e => { if (e.isIntersecting) active = e.target; });
-                if (active) {
-                    tocLinks.forEach(a => a.classList.remove('active'));
-                    const match = headings.find(h => h.el === active);
-                    if (match) match.link.classList.add('active');
-                }
-            }, { rootMargin: '-80px 0px -70% 0px' });
-            headings.forEach(h => observer.observe(h.el));
+            function update() {
+                const scrollTop = window.scrollY + 100;
+                let activeId = null;
+                headings.forEach(h => {
+                    if (h.getBoundingClientRect().top + window.scrollY <= scrollTop) activeId = h.id;
+                });
+                tocAside.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+                if (activeId && tocMap[activeId]) tocMap[activeId].classList.add('active');
+            }
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) { requestAnimationFrame(() => { update(); ticking = false; }); ticking = true; }
+            });
+            update();
         })();
 
         // 禁用 B 站外链自动播放
@@ -442,6 +453,7 @@
             purple:  { primary:'#7c5aa8', primaryDark:'#5c3e86', codeBg:'#1f1a2f', codeText:'#dcd4f0', shadowRgb:'124,90,168', badgeBg:'#f4f0fa' },
             green:   { primary:'#4a9c5d', primaryDark:'#357a44', codeBg:'#182a1e', codeText:'#d4f0dc', shadowRgb:'74,156,93', badgeBg:'#eefaf0' },
             slate:   { primary:'#5a7a8a', primaryDark:'#3f5d6b', codeBg:'#1a242a', codeText:'#d4e0e8', shadowRgb:'90,122,138', badgeBg:'#f0f4f6' },
+            sky:     { primary:'#4A90D9', primaryDark:'#3570ad', codeBg:'#19253a', codeText:'#d4e2f4', shadowRgb:'74,144,217', badgeBg:'#eef3fa' },
         };
         const saved = localStorage.getItem('blog-theme') || 'teal';
         function applyTheme(name) {

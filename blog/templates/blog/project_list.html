@@ -1,0 +1,31 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}项目 — Graphcity Blog{% endblock %}
+
+{% block content %}
+<header class="article-header header-thick">
+    <div class="article-header-bar"></div>
+    <div class="article-header-body">
+        <h1>项目</h1>
+    </div>
+</header>
+
+<p class="search-summary">共 {{ total }} 个</p>
+
+{% if page %}
+    <div class="search-results">
+        <div class="project-grid">
+            {% for p in page %}
+            <div class="project-card" onclick="location.href='{% url 'project' p.name %}'">
+                <h3>{{ p.name }}</h3>
+                <p>{{ p.desc }}</p>
+                <a href="{% url 'archive' %}?tag={{ p.lang|urlencode }}" class="proj-lang">{{ p.lang }}</a>
+            </div>
+            {% endfor %}
+        </div>
+        {% include 'blog/_pagination.html' %}
+    </div>
+{% else %}
+    <p class="search-empty">还没有项目</p>
+{% endif %}
+{% endblock %}

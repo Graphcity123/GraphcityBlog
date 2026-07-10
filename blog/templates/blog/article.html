@@ -1,4 +1,5 @@
 {% extends 'blog/base.html' %}
+{% load blog_tags %}
 
 {% block title %}{{ title }} — Graphcity Blog{% endblock %}
 
@@ -7,8 +8,8 @@
     <div class="article-header-bar"></div>
     <div class="article-header-body">
         <h1>{{ title }}</h1>
+        {% if tags %}<div class="tags">{% for tag in tags|split:", " %}<a href="{% url 'archive' %}?tag={{ tag|urlencode }}&tab=article" class="tag-pill" style="text-decoration:none">{{ tag }}</a>{% endfor %}</div>{% endif %}
         {% if date %}<time>{{ date }}</time>{% endif %}
-        {% if tags %}<div class="tags">{{ tags }}</div>{% endif %}
     </div>
 </header>
 
@@ -20,7 +21,7 @@
     </article>
     <aside class="article-toc">
         <div class="toc-title">目录</div>
-        {% if toc and toc|length > 50 %}{{ toc }}{% else %}<a href="#" class="toc-fallback">{{ title }}</a>{% endif %}
+        {{ toc|default:'' }}
     </aside>
 </div>
 

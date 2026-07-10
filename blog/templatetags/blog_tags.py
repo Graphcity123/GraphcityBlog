@@ -5,6 +5,12 @@ from django.utils.safestring import mark_safe
 register = template.Library()
 
 
+@register.filter(name='split')
+def split_filter(value, sep=','):
+    """按分隔符拆分字符串为列表。"""
+    return [s.strip() for s in value.split(sep) if s.strip()]
+
+
 @register.filter(name='markdown')
 def markdown_filter(text):
     """将 Markdown 文本渲染为 HTML。"""
@@ -19,5 +25,7 @@ def markdown_filter(text):
         ],
         extension_configs={
             'pymdownx.arithmatex': {'generic': True},
+            'pymdownx.tilde': {'smart_delete': False},
+            'codehilite': {'guess_lang': False, 'css_class': 'codehilite'},
         },
     ))

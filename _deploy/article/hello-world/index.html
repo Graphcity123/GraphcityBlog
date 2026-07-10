@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World — Graphcity Blog</title>
+    <title>个人主页，堂堂回归！ — Graphcity Blog</title>
     <link rel="stylesheet" href="/GraphcityBlog/static/blog/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
     
@@ -14,9 +14,16 @@
         <div class="nav-inner">
             <a class="brand" href="/GraphcityBlog/">Graphcity Blog</a>
             <div class="nav-links">
-                <a href="/GraphcityBlog/">文章</a>
-                <a href="/GraphcityBlog/#projects">项目</a>
+                <a href="/GraphcityBlog/articles/">文章</a>
+                <a href="/GraphcityBlog/projects/">项目</a>
+                <a href="/GraphcityBlog/archive/">归档</a>
                 <a href="/GraphcityBlog/about/">关于</a>
+            </div>
+            <div class="nav-right">
+                <form action="/search/" method="get" class="search-form">
+                    <input type="text" name="q" placeholder="搜索文章、项目…" value="">
+                    <button type="submit">搜索</button>
+                </form>
             </div>
         </div>
     </nav>
@@ -25,39 +32,55 @@
 <header class="article-header">
     <div class="article-header-bar"></div>
     <div class="article-header-body">
-        <h1>Hello World</h1>
-        <time>2026-07-09</time>
+        <h1>个人主页，堂堂回归！</h1>
         
+        <time>2026-07-10</time>
     </div>
 </header>
 
 <div class="article-layout">
     <article>
         <div class="article-body">
-            <h2 id="_1">欢迎</h2>
-<p>这是我的个人博客。所有文章以 Markdown 格式存放在 <code>content/articles/</code> 目录下，无需数据库。</p>
-<h2 id="_2">代码示例</h2>
-<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">greet</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Hello, </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">!&quot;</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">greet</span><span class="p">(</span><span class="s2">&quot;World&quot;</span><span class="p">))</span>
-</code></pre></div>
-
-<h2 id="_3">功能</h2>
+            <h1 id="_1">个人主页，堂堂回归！</h1>
+<p>旧版个人主页已经很久没有更新了。正好趁这个暑假，重新搭一个博客，把想写的东西都写下来。</p>
+<h2 id="_2">这个博客</h2>
+<p>之前用 Hexo 搭过一个博客，写了一段时间就荒废了。这次用 Django 重新写了一个，自己掌控每一个细节。</p>
+<p><strong>功能方面：</strong></p>
 <ul>
-<li>文章列表 + 详情</li>
-<li>项目展示（GitHub）</li>
-<li>极简，无需数据库</li>
+<li>文章采用 Markdown 格式，支持 LaTeX 公式、代码高亮、删除线</li>
+<li>8 种主题色，点击切换</li>
+<li>标签归档 + 智能搜索</li>
+<li>项目页自动拉取 GitHub README</li>
+<li>侧边目录，滚动高亮</li>
+<li>一键构建静态站点，部署到 GitHub Pages</li>
 </ul>
+<p>博客本身是开源的：<a href="https://github.com/Graphcity123/GraphcityBlog">Graphcity123/GraphcityBlog</a></p>
+<h2 id="_3">我在做什么</h2>
+<ul>
+<li><strong>歌手信息检索系统</strong>（<a href="https://github.com/Graphcity123/Singer2026">Singer2026</a>）：清华大学程序设计训练实验一。爬了网易云 4718 首歌的数据，做成了一个完整的 Django Web 应用，带用户系统、收藏、搜索、数据分析。</li>
+<li><strong>这个博客</strong>：也就是你正在看的东西。</li>
+<li><strong>偶尔写写题解、笔记之类的</strong>，不定期更新。</li>
+</ul>
+<h2 id="_4">联系我</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/Graphcity123">@Graphcity123</a></li>
+<li>博客：<a href="https://graphcity123.github.io/GraphcityBlog/">https://graphcity123.github.io/GraphcityBlog/</a></li>
+<li>邮箱：graphcity@outlook.com</li>
+</ul>
+<hr />
+<p><em>最后更新：2026 年 7 月 10 日</em></p>
         </div>
     </article>
     <aside class="article-toc">
         <div class="toc-title">目录</div>
         <div class="toc">
 <ul>
-<li><a href="#_1">欢迎</a></li>
-<li><a href="#_2">代码示例</a></li>
-<li><a href="#_3">功能</a></li>
+<li><a href="#_1">个人主页，堂堂回归！</a><ul>
+<li><a href="#_2">这个博客</a></li>
+<li><a href="#_3">我在做什么</a></li>
+<li><a href="#_4">联系我</a></li>
+</ul>
+</li>
 </ul>
 </div>
 
@@ -78,6 +101,7 @@
             <span class="theme-dot" data-theme="purple" style="background:#7c5aa8" title="紫色"></span>
             <span class="theme-dot" data-theme="green" style="background:#4a9c5d" title="草绿"></span>
             <span class="theme-dot" data-theme="slate" style="background:#5a7a8a" title="灰蓝"></span>
+            <span class="theme-dot" data-theme="sky" style="background:#4A90D9" title="天蓝"></span>
         </div>
         <p>&copy; 2026 Graphcity</p>
     </footer>
@@ -85,23 +109,29 @@
     <script>
         // TOC 滚动高亮
         (function() {
-            const tocLinks = document.querySelectorAll('.article-toc a[href^="#"]');
-            if (!tocLinks.length) return;
-            const headings = [];
-            tocLinks.forEach(a => {
-                const h = document.querySelector(a.getAttribute('href'));
-                if (h) headings.push({ el: h, link: a });
+            const tocAside = document.querySelector('.article-toc');
+            if (!tocAside) return;
+            const headings = document.querySelectorAll('.article-body h1[id], .article-body h2[id], .article-body h3[id], .article-body h4[id]');
+            if (!headings.length) return;
+            const tocMap = {};
+            tocAside.querySelectorAll('a[href^="#"]').forEach(a => {
+                const id = a.getAttribute('href').slice(1);
+                tocMap[id] = a;
             });
-            const observer = new IntersectionObserver(entries => {
-                let active = null;
-                entries.forEach(e => { if (e.isIntersecting) active = e.target; });
-                if (active) {
-                    tocLinks.forEach(a => a.classList.remove('active'));
-                    const match = headings.find(h => h.el === active);
-                    if (match) match.link.classList.add('active');
-                }
-            }, { rootMargin: '-80px 0px -70% 0px' });
-            headings.forEach(h => observer.observe(h.el));
+            function update() {
+                const scrollTop = window.scrollY + 100;
+                let activeId = null;
+                headings.forEach(h => {
+                    if (h.getBoundingClientRect().top + window.scrollY <= scrollTop) activeId = h.id;
+                });
+                tocAside.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+                if (activeId && tocMap[activeId]) tocMap[activeId].classList.add('active');
+            }
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) { requestAnimationFrame(() => { update(); ticking = false; }); ticking = true; }
+            });
+            update();
         })();
 
         // 禁用 B 站外链自动播放
@@ -122,6 +152,7 @@
             purple:  { primary:'#7c5aa8', primaryDark:'#5c3e86', codeBg:'#1f1a2f', codeText:'#dcd4f0', shadowRgb:'124,90,168', badgeBg:'#f4f0fa' },
             green:   { primary:'#4a9c5d', primaryDark:'#357a44', codeBg:'#182a1e', codeText:'#d4f0dc', shadowRgb:'74,156,93', badgeBg:'#eefaf0' },
             slate:   { primary:'#5a7a8a', primaryDark:'#3f5d6b', codeBg:'#1a242a', codeText:'#d4e0e8', shadowRgb:'90,122,138', badgeBg:'#f0f4f6' },
+            sky:     { primary:'#4A90D9', primaryDark:'#3570ad', codeBg:'#19253a', codeText:'#d4e2f4', shadowRgb:'74,144,217', badgeBg:'#eef3fa' },
         };
         const saved = localStorage.getItem('blog-theme') || 'teal';
         function applyTheme(name) {

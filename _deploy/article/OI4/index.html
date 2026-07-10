@@ -14,9 +14,16 @@
         <div class="nav-inner">
             <a class="brand" href="/GraphcityBlog/">Graphcity Blog</a>
             <div class="nav-links">
-                <a href="/GraphcityBlog/">文章</a>
-                <a href="/GraphcityBlog/#projects">项目</a>
+                <a href="/GraphcityBlog/articles/">文章</a>
+                <a href="/GraphcityBlog/projects/">项目</a>
+                <a href="/GraphcityBlog/archive/">归档</a>
                 <a href="/GraphcityBlog/about/">关于</a>
+            </div>
+            <div class="nav-right">
+                <form action="/search/" method="get" class="search-form">
+                    <input type="text" name="q" placeholder="搜索文章、项目…" value="">
+                    <button type="submit">搜索</button>
+                </form>
             </div>
         </div>
     </nav>
@@ -26,8 +33,8 @@
     <div class="article-header-bar"></div>
     <div class="article-header-body">
         <h1>OI 后日谈 4</h1>
+        <div class="tags"><a href="/GraphcityBlog/archive/?tag=OI%E5%90%8E%E6%97%A5%E8%B0%88&tab=article" class="tag-pill" style="text-decoration:none">OI后日谈</a></div>
         <time>2025-05-08</time>
-        
     </div>
 </header>
 
@@ -40,15 +47,11 @@
 <p>2025 年的省选绝对是对心理的一次巨大的考验：D1T2 的 6s 时限，D2T1 的大模拟，还是 Day2 两道计数的罚坐，都需要非常强的抗压能力和应变能力。同时，D2T1 比较水的样例和 D1T2 比较水的数据也让最终的排名多了很多随机成分。</p>
 <p>不论是进了省队还是没进省队，大家都已经发挥地足够出色。如果进了省队，那就把训练和休息平衡好，以一个健康的心态备战 NOI。如果没进省队，也不用太着急，一步一步踏实地开始补文化课就行。文化课对大家一定都是没有任何智力障碍的。</p>
 <p>下面列出了我所有完全做出来的题目的一些解法和心路历程。</p>
-<ul>
-<li><strong>Day 1 A. 幸运数字</strong></li>
-</ul>
+<h4 id="day-1-a">Day 1 A. 幸运数字</h4>
 <p>直接贪心。判断一个数 <span class="arithmatex">\(x\)</span> 是不是幸运数字，只需要把能取到 <span class="arithmatex">\(x\)</span> 的全取到 <span class="arithmatex">\(x\)</span>，不能取到 <span class="arithmatex">\(x\)</span> 的就随他去，最后判断中位数是否是 <span class="arithmatex">\(x\)</span> 即可。通过离散化可以知道本质不同的 <span class="arithmatex">\(x\)</span> 只有 <span class="arithmatex">\(O(n)\)</span>。</p>
 <p>上面的判断可以用双指针来实现。总时间复杂度 <span class="arithmatex">\(O(n\log n)\)</span>。</p>
 <p><a href="https://www.luogu.com.cn/paste/zjzhbufi"><strong>Code</strong></a></p>
-<ul>
-<li><strong>Day 1 B. 追忆</strong></li>
-</ul>
+<h4 id="day-1-b">Day 1 B. 追忆</h4>
 <p>这道题花了我一节自习课，最后还是在回家的路上想出来的。</p>
 <p>实际上代码难度不大，想清楚的话写的很快而且代码也很短。</p>
 <p>看到有向图可达性，实际上能够解决这个问题的基本上就只有 bitset。</p>
@@ -64,9 +67,7 @@
 <p>实际上我只花了 20min 就把代码写完了，但是卡常卡了一个半小时。最后解决常数问题的办法出乎意料的简单——实际上我之前的代码对于被修改过的点和没有被修改过的点是开了两组 bitset 分开处理的。后来发现这两组 bitset 需要实现的功能是本质相同的，于是只需要开一组 bitset 就行了。常数马上就减了一大半。</p>
 <p><a href="https://www.luogu.com.cn/paste/2a0bfyeb"><strong>Code (TLE)</strong></a></p>
 <p><a href="https://www.luogu.com.cn/paste/0xtryzh8"><strong>Code (AC)</strong></a></p>
-<ul>
-<li><strong>Day 2 A. 推箱子</strong></li>
-</ul>
+<h4 id="day-2-a">Day 2 A. 推箱子</h4>
 <p>不知道为啥现在还要考这种大模拟的题。</p>
 <p>直接贪心。按照时间顺序先后处理每个箱子。处理每个箱子时，我们需要把它连带着和它相邻的一连串箱子全都搬到某块地方去。</p>
 <p>类似于珂朵莉树，用 set 存储三元组 <span class="arithmatex">\((l,r,p)\)</span> 表示 <span class="arithmatex">\(l\sim r\)</span> 号箱子目前在 <span class="arithmatex">\(p\sim p+r-l\)</span> 这块地方。再存一个全局时间戳 <span class="arithmatex">\(tim\)</span>。每次搬箱子的时候，我们都需要合并一段连续的三元组。所以总的时间复杂度是 <span class="arithmatex">\(O(n\log n)\)</span> 的。</p>
@@ -195,7 +196,7 @@
 <p>在某一个星期天的晚上，放学的时候我和 @Sentoayaka 一起回家。走到操场的时候他突然把书包放下来跑步，我表示我也想跑。我能看到那个时刻他绝对是相当的震惊的。一个一万年都不愿意跑步的人怎么今天突然就开始跑步了？<del>（其实我也觉得挺奇怪的）</del></p>
 <p>然后我们就开始了跑步。跑的时候，我还遇到了其它一起来跑步的同学，比如 @天命之路 和 @智子。我心想：终于到了一个展现自我的时刻！事实证明这个「展现自我」相当的成功：</p>
 <p>在第三圈的时候，@Sentoayaka 停下来了。在第五圈的时候，@天命之路 也停下来了。而我，跑了八圈！<del>感觉你们的身体也没比我好多少啊</del></p>
-<p>事后我的同学们都对我表现出了惊讶且诧异的态度<sub>~（换我我也会）</sub>~。</p>
+<p>事后我的同学们都对我表现出了惊讶且诧异的态度<del>（换我我也会）</del>。</p>
 <p>当然最疯狂的一次还是在五一放假的时候。有一天晚上，我也不知道为什么，整整绕着操场跑了半个小时。可能那时的我大抵是疯掉了，但是事实就是如此。生活，很神奇吧。</p>
 <p><img alt="" src="/GraphcityBlog/content/articles/OI4/IMG_5643.png" /></p>
 <p>写到这里突然想起来了我要跑步还有一个原因：初三的时候，我们的体育老师经常给我们布置绕着操场跑 8~9 圈的任务。很遗憾的是，每一次我要么是跑三圈就结束了，要么根本就没跑。我也不知道从来没有跑过完整的九圈是不是我心里的一个遗憾，但以前的我绝对想不到的是这个东西第一次完成发生在高考的前 40 天。</p>
@@ -206,7 +207,12 @@
         <div class="toc-title">目录</div>
         <div class="toc">
 <ul>
-<li><a href="#part-0-hnoi2025">Part 0. HNOI2025 解题报告</a></li>
+<li><a href="#part-0-hnoi2025">Part 0. HNOI2025 解题报告</a><ul>
+<li><a href="#day-1-a">Day 1 A. 幸运数字</a></li>
+<li><a href="#day-1-b">Day 1 B. 追忆</a></li>
+<li><a href="#day-2-a">Day 2 A. 推箱子</a></li>
+</ul>
+</li>
 <li><a href="#part-i">Part I. 信息学大厦，正在崩塌！</a></li>
 <li><a href="#part-ii">Part II. 语文课代表，濒临撤职！</a></li>
 <li><a href="#part-iii">Part III. 从机房到田径场</a></li>
@@ -230,6 +236,7 @@
             <span class="theme-dot" data-theme="purple" style="background:#7c5aa8" title="紫色"></span>
             <span class="theme-dot" data-theme="green" style="background:#4a9c5d" title="草绿"></span>
             <span class="theme-dot" data-theme="slate" style="background:#5a7a8a" title="灰蓝"></span>
+            <span class="theme-dot" data-theme="sky" style="background:#4A90D9" title="天蓝"></span>
         </div>
         <p>&copy; 2026 Graphcity</p>
     </footer>
@@ -237,23 +244,29 @@
     <script>
         // TOC 滚动高亮
         (function() {
-            const tocLinks = document.querySelectorAll('.article-toc a[href^="#"]');
-            if (!tocLinks.length) return;
-            const headings = [];
-            tocLinks.forEach(a => {
-                const h = document.querySelector(a.getAttribute('href'));
-                if (h) headings.push({ el: h, link: a });
+            const tocAside = document.querySelector('.article-toc');
+            if (!tocAside) return;
+            const headings = document.querySelectorAll('.article-body h1[id], .article-body h2[id], .article-body h3[id], .article-body h4[id]');
+            if (!headings.length) return;
+            const tocMap = {};
+            tocAside.querySelectorAll('a[href^="#"]').forEach(a => {
+                const id = a.getAttribute('href').slice(1);
+                tocMap[id] = a;
             });
-            const observer = new IntersectionObserver(entries => {
-                let active = null;
-                entries.forEach(e => { if (e.isIntersecting) active = e.target; });
-                if (active) {
-                    tocLinks.forEach(a => a.classList.remove('active'));
-                    const match = headings.find(h => h.el === active);
-                    if (match) match.link.classList.add('active');
-                }
-            }, { rootMargin: '-80px 0px -70% 0px' });
-            headings.forEach(h => observer.observe(h.el));
+            function update() {
+                const scrollTop = window.scrollY + 100;
+                let activeId = null;
+                headings.forEach(h => {
+                    if (h.getBoundingClientRect().top + window.scrollY <= scrollTop) activeId = h.id;
+                });
+                tocAside.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+                if (activeId && tocMap[activeId]) tocMap[activeId].classList.add('active');
+            }
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) { requestAnimationFrame(() => { update(); ticking = false; }); ticking = true; }
+            });
+            update();
         })();
 
         // 禁用 B 站外链自动播放
@@ -274,6 +287,7 @@
             purple:  { primary:'#7c5aa8', primaryDark:'#5c3e86', codeBg:'#1f1a2f', codeText:'#dcd4f0', shadowRgb:'124,90,168', badgeBg:'#f4f0fa' },
             green:   { primary:'#4a9c5d', primaryDark:'#357a44', codeBg:'#182a1e', codeText:'#d4f0dc', shadowRgb:'74,156,93', badgeBg:'#eefaf0' },
             slate:   { primary:'#5a7a8a', primaryDark:'#3f5d6b', codeBg:'#1a242a', codeText:'#d4e0e8', shadowRgb:'90,122,138', badgeBg:'#f0f4f6' },
+            sky:     { primary:'#4A90D9', primaryDark:'#3570ad', codeBg:'#19253a', codeText:'#d4e2f4', shadowRgb:'74,144,217', badgeBg:'#eef3fa' },
         };
         const saved = localStorage.getItem('blog-theme') || 'teal';
         function applyTheme(name) {

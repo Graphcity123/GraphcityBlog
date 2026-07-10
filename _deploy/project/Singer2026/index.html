@@ -14,9 +14,16 @@
         <div class="nav-inner">
             <a class="brand" href="/GraphcityBlog/">Graphcity Blog</a>
             <div class="nav-links">
-                <a href="/GraphcityBlog/">文章</a>
-                <a href="/GraphcityBlog/#projects">项目</a>
+                <a href="/GraphcityBlog/articles/">文章</a>
+                <a href="/GraphcityBlog/projects/">项目</a>
+                <a href="/GraphcityBlog/archive/">归档</a>
                 <a href="/GraphcityBlog/about/">关于</a>
+            </div>
+            <div class="nav-right">
+                <form action="/search/" method="get" class="search-form">
+                    <input type="text" name="q" placeholder="搜索文章、项目…" value="">
+                    <button type="submit">搜索</button>
+                </form>
             </div>
         </div>
     </nav>
@@ -26,9 +33,9 @@
     <div class="article-header-bar"></div>
     <div class="article-header-body">
         <h1>Singer2026</h1>
-        <div class="proj-tags"><span class="proj-lang">Python</span></div>
+        <div class="proj-tags"><a href="/GraphcityBlog/archive/?tag=Python&tab=project" class="proj-lang" style="text-decoration:none">Python</a></div>
         <p class="proj-desc">歌手信息检索系统 — 清华大学程序设计训练实验一。爬取网易云音乐数据，Django Web 应用，含用户系统、收藏、评论点赞、数据分析。</p>
-        <a href="https://github.com/Graphcity123/Singer2026" class="proj-link" target="_blank">https://github.com/Graphcity123/Singer2026</a>
+        <p class="proj-link"><strong>项目地址：</strong><a href="https://github.com/Graphcity123/Singer2026" target="_blank">https://github.com/Graphcity123/Singer2026</a></p>
     </div>
 </header>
 
@@ -142,30 +149,30 @@
 </tbody>
 </table>
 <h2 id="_10">项目结构</h2>
-<div class="codehilite"><pre><span></span><code><span class="n">Singer2026</span><span class="o">/</span>
-<span class="err">├──</span><span class="w"> </span><span class="n">config</span><span class="o">/</span><span class="w">                 </span><span class="c1"># Django 项目配置</span>
-<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">settings</span><span class="o">.</span><span class="n">py</span><span class="w">         </span><span class="c1"># 数据库、静态文件、中间件等</span>
-<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">urls</span><span class="o">.</span><span class="n">py</span><span class="w">             </span><span class="c1"># 根路由</span>
-<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="n">wsgi</span><span class="o">.</span><span class="n">py</span><span class="w">             </span><span class="c1"># WSGI 入口</span>
-<span class="err">├──</span><span class="w"> </span><span class="n">web</span><span class="o">/</span><span class="w">                    </span><span class="c1"># Django 应用</span>
-<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">models</span><span class="o">.</span><span class="n">py</span><span class="w">           </span><span class="c1"># 数据模型（Singer, Song, Comment, ...）</span>
-<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">views</span><span class="o">.</span><span class="n">py</span><span class="w">            </span><span class="c1"># 视图逻辑</span>
-<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">urls</span><span class="o">.</span><span class="n">py</span><span class="w">             </span><span class="c1"># 应用路由</span>
-<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">admin</span><span class="o">.</span><span class="n">py</span><span class="w">            </span><span class="c1"># Django Admin 配置</span>
-<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">context_processors</span><span class="o">.</span><span class="n">py</span><span class="w">  </span><span class="c1"># 模板上下文（IMAGE_BASE_URL）</span>
-<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">templates</span><span class="o">/</span><span class="w">          </span><span class="c1"># HTML 模板（13 个页面）</span>
-<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="k">static</span><span class="o">/</span><span class="n">web</span><span class="o">/</span><span class="w">         </span><span class="c1"># CSS / 字体 / 图标</span>
-<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">fixtures</span><span class="o">/</span><span class="w">           </span><span class="c1"># JSON 数据备份（loaddata 备用）</span>
-<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="n">migrations</span><span class="o">/</span><span class="w">         </span><span class="c1"># 数据库迁移文件</span>
-<span class="err">├──</span><span class="w"> </span><span class="n">data</span><span class="o">/</span><span class="w">                   </span><span class="c1"># 图片 &amp; 爬虫 checkpoint</span>
-<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">images</span><span class="o">/</span><span class="w">             </span><span class="c1"># 歌手/歌曲封面图（6100+）</span>
-<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="n">crawl_checkpoint</span><span class="o">.</span><span class="n">json</span>
-<span class="err">├──</span><span class="w"> </span><span class="n">crawl_hot_songs</span><span class="o">.</span><span class="n">py</span><span class="w">      </span><span class="c1"># 增量爬虫工具</span>
-<span class="err">├──</span><span class="w"> </span><span class="n">consts</span><span class="o">.</span><span class="n">py</span><span class="w">               </span><span class="c1"># 爬虫常量配置</span>
-<span class="err">├──</span><span class="w"> </span><span class="n">list</span><span class="o">.</span><span class="n">txt</span><span class="w">                </span><span class="c1"># 待爬歌手 ID 列表</span>
-<span class="err">├──</span><span class="w"> </span><span class="n">manage</span><span class="o">.</span><span class="n">py</span><span class="w">               </span><span class="c1"># Django CLI 入口</span>
-<span class="err">├──</span><span class="w"> </span><span class="n">requirements</span><span class="o">.</span><span class="n">txt</span><span class="w">        </span><span class="c1"># Python 依赖</span>
-<span class="err">└──</span><span class="w"> </span><span class="n">db</span><span class="o">.</span><span class="n">sqlite3</span><span class="w">              </span><span class="c1"># SQLite 数据库（含全量数据）</span>
+<div class="codehilite"><pre><span></span><code>Singer2026/
+├── config/                 # Django 项目配置
+│   ├── settings.py         # 数据库、静态文件、中间件等
+│   ├── urls.py             # 根路由
+│   └── wsgi.py             # WSGI 入口
+├── web/                    # Django 应用
+│   ├── models.py           # 数据模型（Singer, Song, Comment, ...）
+│   ├── views.py            # 视图逻辑
+│   ├── urls.py             # 应用路由
+│   ├── admin.py            # Django Admin 配置
+│   ├── context_processors.py  # 模板上下文（IMAGE_BASE_URL）
+│   ├── templates/          # HTML 模板（13 个页面）
+│   ├── static/web/         # CSS / 字体 / 图标
+│   ├── fixtures/           # JSON 数据备份（loaddata 备用）
+│   └── migrations/         # 数据库迁移文件
+├── data/                   # 图片 &amp; 爬虫 checkpoint
+│   ├── images/             # 歌手/歌曲封面图（6100+）
+│   └── crawl_checkpoint.json
+├── crawl_hot_songs.py      # 增量爬虫工具
+├── consts.py               # 爬虫常量配置
+├── list.txt                # 待爬歌手 ID 列表
+├── manage.py               # Django CLI 入口
+├── requirements.txt        # Python 依赖
+└── db.sqlite3              # SQLite 数据库（含全量数据）
 </code></pre></div>
 
 <h2 id="_11">数据模型</h2>
@@ -474,6 +481,7 @@ python<span class="w"> </span>crawl_hot_songs.py
             <span class="theme-dot" data-theme="purple" style="background:#7c5aa8" title="紫色"></span>
             <span class="theme-dot" data-theme="green" style="background:#4a9c5d" title="草绿"></span>
             <span class="theme-dot" data-theme="slate" style="background:#5a7a8a" title="灰蓝"></span>
+            <span class="theme-dot" data-theme="sky" style="background:#4A90D9" title="天蓝"></span>
         </div>
         <p>&copy; 2026 Graphcity</p>
     </footer>
@@ -481,23 +489,29 @@ python<span class="w"> </span>crawl_hot_songs.py
     <script>
         // TOC 滚动高亮
         (function() {
-            const tocLinks = document.querySelectorAll('.article-toc a[href^="#"]');
-            if (!tocLinks.length) return;
-            const headings = [];
-            tocLinks.forEach(a => {
-                const h = document.querySelector(a.getAttribute('href'));
-                if (h) headings.push({ el: h, link: a });
+            const tocAside = document.querySelector('.article-toc');
+            if (!tocAside) return;
+            const headings = document.querySelectorAll('.article-body h1[id], .article-body h2[id], .article-body h3[id], .article-body h4[id]');
+            if (!headings.length) return;
+            const tocMap = {};
+            tocAside.querySelectorAll('a[href^="#"]').forEach(a => {
+                const id = a.getAttribute('href').slice(1);
+                tocMap[id] = a;
             });
-            const observer = new IntersectionObserver(entries => {
-                let active = null;
-                entries.forEach(e => { if (e.isIntersecting) active = e.target; });
-                if (active) {
-                    tocLinks.forEach(a => a.classList.remove('active'));
-                    const match = headings.find(h => h.el === active);
-                    if (match) match.link.classList.add('active');
-                }
-            }, { rootMargin: '-80px 0px -70% 0px' });
-            headings.forEach(h => observer.observe(h.el));
+            function update() {
+                const scrollTop = window.scrollY + 100;
+                let activeId = null;
+                headings.forEach(h => {
+                    if (h.getBoundingClientRect().top + window.scrollY <= scrollTop) activeId = h.id;
+                });
+                tocAside.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+                if (activeId && tocMap[activeId]) tocMap[activeId].classList.add('active');
+            }
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) { requestAnimationFrame(() => { update(); ticking = false; }); ticking = true; }
+            });
+            update();
         })();
 
         // 禁用 B 站外链自动播放
@@ -518,6 +532,7 @@ python<span class="w"> </span>crawl_hot_songs.py
             purple:  { primary:'#7c5aa8', primaryDark:'#5c3e86', codeBg:'#1f1a2f', codeText:'#dcd4f0', shadowRgb:'124,90,168', badgeBg:'#f4f0fa' },
             green:   { primary:'#4a9c5d', primaryDark:'#357a44', codeBg:'#182a1e', codeText:'#d4f0dc', shadowRgb:'74,156,93', badgeBg:'#eefaf0' },
             slate:   { primary:'#5a7a8a', primaryDark:'#3f5d6b', codeBg:'#1a242a', codeText:'#d4e0e8', shadowRgb:'90,122,138', badgeBg:'#f0f4f6' },
+            sky:     { primary:'#4A90D9', primaryDark:'#3570ad', codeBg:'#19253a', codeText:'#d4e2f4', shadowRgb:'74,144,217', badgeBg:'#eef3fa' },
         };
         const saved = localStorage.getItem('blog-theme') || 'teal';
         function applyTheme(name) {

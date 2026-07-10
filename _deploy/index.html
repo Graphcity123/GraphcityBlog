@@ -14,9 +14,16 @@
         <div class="nav-inner">
             <a class="brand" href="/GraphcityBlog/">Graphcity Blog</a>
             <div class="nav-links">
-                <a href="/GraphcityBlog/">文章</a>
-                <a href="/GraphcityBlog/#projects">项目</a>
+                <a href="/GraphcityBlog/articles/">文章</a>
+                <a href="/GraphcityBlog/projects/">项目</a>
+                <a href="/GraphcityBlog/archive/">归档</a>
                 <a href="/GraphcityBlog/about/">关于</a>
+            </div>
+            <div class="nav-right">
+                <form action="/search/" method="get" class="search-form">
+                    <input type="text" name="q" placeholder="搜索文章、项目…" value="">
+                    <button type="submit">搜索</button>
+                </form>
             </div>
         </div>
     </nav>
@@ -32,97 +39,53 @@
     
     <div class="article-list">
         
-        <a href="/GraphcityBlog/article/hello-world/" class="article-card">
+        <div class="article-card" onclick="location.href='/article/hello-world/'">
             <div class="art-bar"></div>
             <div class="art-body">
-                <span class="art-title">Hello World</span>
-                <span class="art-date">2026-07-09</span>
+                <span class="art-title">个人主页，堂堂回归！</span>
+                <span class="art-date">2026-07-10</span>
                 
             </div>
-        </a>
+        </div>
         
-        <a href="/GraphcityBlog/article/%E6%84%9F%E5%8F%97%E8%BF%99%E8%82%A1%E5%8A%B2/" class="article-card">
+        <div class="article-card" onclick="location.href='/article/%E5%A4%A7%E4%B8%80%E4%B8%8B%E8%AF%84%E6%95%99/'">
             <div class="art-bar"></div>
             <div class="art-body">
-                <span class="art-title">感受这股劲.jpg</span>
-                <span class="art-date">2025-11-12</span>
-                
+                <span class="art-title">从夯到拉锐评青花大学课程 2</span>
+                <span class="art-date">2026-06-10</span>
+                <span class="art-tags"><a href="/GraphcityBlog/archive/?tag=%E7%94%9F%E6%B4%BB" class="tag-pill">生活</a><a href="/GraphcityBlog/archive/?tag=%E6%95%99%E5%AD%A6%E8%AF%84%E4%BB%B7" class="tag-pill">教学评价</a></span>
             </div>
-        </a>
+        </div>
         
-        <a href="/GraphcityBlog/article/test/" class="article-card">
+        <div class="article-card" onclick="location.href='/article/2026%E6%84%9A%E4%BA%BA%E8%8A%82/'">
             <div class="art-bar"></div>
             <div class="art-body">
-                <span class="art-title">测试</span>
-                <span class="art-date">2025-07-10</span>
-                
+                <span class="art-title">改论文改到穿越，我在蒙德城参加情系雅礼蓝</span>
+                <span class="art-date">2026-04-01</span>
+                <span class="art-tags"><a href="/GraphcityBlog/archive/?tag=%E7%94%9F%E6%B4%BB" class="tag-pill">生活</a></span>
             </div>
-        </a>
+        </div>
         
-        <a href="/GraphcityBlog/article/OI5/" class="article-card">
+        <div class="article-card" onclick="location.href='/article/%E5%A4%9A%E5%85%83%E5%BE%AE%E7%A7%AF%E5%88%86/'">
             <div class="art-bar"></div>
             <div class="art-body">
-                <span class="art-title">OI 后日谈 5</span>
-                <span class="art-date">2025-07-10</span>
-                
+                <span class="art-title">多元微积分单核攻略，简单好抄</span>
+                <span class="art-date">2026-03-10</span>
+                <span class="art-tags"><a href="/GraphcityBlog/archive/?tag=%E6%95%B0%E5%AD%A6" class="tag-pill">数学</a></span>
             </div>
-        </a>
+        </div>
         
-        <a href="/GraphcityBlog/article/OI4/" class="article-card">
+        <div class="article-card" onclick="location.href='/article/%E5%A4%A7%E4%B8%80%E4%B8%8A%E8%AF%84%E6%95%99/'">
             <div class="art-bar"></div>
             <div class="art-body">
-                <span class="art-title">OI 后日谈 4</span>
-                <span class="art-date">2025-05-08</span>
-                
+                <span class="art-title">从夯到拉锐评青花大学课程 1</span>
+                <span class="art-date">2026-01-09</span>
+                <span class="art-tags"><a href="/GraphcityBlog/archive/?tag=%E7%94%9F%E6%B4%BB" class="tag-pill">生活</a><a href="/GraphcityBlog/archive/?tag=%E6%95%99%E5%AD%A6%E8%AF%84%E4%BB%B7" class="tag-pill">教学评价</a></span>
             </div>
-        </a>
-        
-        <a href="/GraphcityBlog/article/OI3/" class="article-card">
-            <div class="art-bar"></div>
-            <div class="art-body">
-                <span class="art-title">OI 后日谈 3</span>
-                <span class="art-date">2025-01-22</span>
-                
-            </div>
-        </a>
-        
-        <a href="/GraphcityBlog/article/%E6%A9%98%E5%AD%90%E6%B4%B2%E5%A4%A7%E6%A1%A5/" class="article-card">
-            <div class="art-bar"></div>
-            <div class="art-body">
-                <span class="art-title">利用橘子洲大桥跨过湘江</span>
-                <span class="art-date">2024-12-22</span>
-                
-            </div>
-        </a>
-        
-        <a href="/GraphcityBlog/article/%E8%B0%83%E6%95%B4%E6%B3%95/" class="article-card">
-            <div class="art-bar"></div>
-            <div class="art-body">
-                <span class="art-title">利用调整法解决一系列极值点偏移问题</span>
-                <span class="art-date">2024-11-28</span>
-                
-            </div>
-        </a>
-        
-        <a href="/GraphcityBlog/article/OI2/" class="article-card">
-            <div class="art-bar"></div>
-            <div class="art-body">
-                <span class="art-title">OI 后日谈 2</span>
-                <span class="art-date">2024-10-25</span>
-                
-            </div>
-        </a>
-        
-        <a href="/GraphcityBlog/article/OI1/" class="article-card">
-            <div class="art-bar"></div>
-            <div class="art-body">
-                <span class="art-title">OI 后日谈 1</span>
-                <span class="art-date">2024-09-14</span>
-                
-            </div>
-        </a>
+        </div>
         
     </div>
+    <a href="/GraphcityBlog/articles/" class="more-link">更多文章 →</a>
     
 </section>
 
@@ -131,19 +94,20 @@
     <h2>项目</h2>
     <div class="project-grid">
         
-        <a href="/GraphcityBlog/project/Singer2026/" class="project-card">
+        <div class="project-card" onclick="location.href='/project/Singer2026/'">
             <h3>Singer2026</h3>
             <p>歌手信息检索系统 — 清华大学程序设计训练实验一。爬取网易云音乐数据，Django Web 应用，含用户系统、收藏、评论点赞、数据分析。</p>
-            <span class="proj-lang">Python</span>
-        </a>
+            <a href="/GraphcityBlog/archive/?tag=Python" class="proj-lang">Python</a>
+        </div>
         
-        <a href="/GraphcityBlog/project/GraphcityBlog/" class="project-card">
+        <div class="project-card" onclick="location.href='/project/GraphcityBlog/'">
             <h3>GraphcityBlog</h3>
             <p>个人博客（即本站）。Django + Markdown + 7 种主题色，支持 LaTeX、代码高亮、图片网格、GitHub Pages 部署。</p>
-            <span class="proj-lang">Python</span>
-        </a>
+            <a href="/GraphcityBlog/archive/?tag=Python" class="proj-lang">Python</a>
+        </div>
         
     </div>
+    <a href="/GraphcityBlog/projects/" class="more-link">更多项目 →</a>
 </section>
 
 
@@ -157,6 +121,7 @@
             <span class="theme-dot" data-theme="purple" style="background:#7c5aa8" title="紫色"></span>
             <span class="theme-dot" data-theme="green" style="background:#4a9c5d" title="草绿"></span>
             <span class="theme-dot" data-theme="slate" style="background:#5a7a8a" title="灰蓝"></span>
+            <span class="theme-dot" data-theme="sky" style="background:#4A90D9" title="天蓝"></span>
         </div>
         <p>&copy; 2026 Graphcity</p>
     </footer>
@@ -164,23 +129,29 @@
     <script>
         // TOC 滚动高亮
         (function() {
-            const tocLinks = document.querySelectorAll('.article-toc a[href^="#"]');
-            if (!tocLinks.length) return;
-            const headings = [];
-            tocLinks.forEach(a => {
-                const h = document.querySelector(a.getAttribute('href'));
-                if (h) headings.push({ el: h, link: a });
+            const tocAside = document.querySelector('.article-toc');
+            if (!tocAside) return;
+            const headings = document.querySelectorAll('.article-body h1[id], .article-body h2[id], .article-body h3[id], .article-body h4[id]');
+            if (!headings.length) return;
+            const tocMap = {};
+            tocAside.querySelectorAll('a[href^="#"]').forEach(a => {
+                const id = a.getAttribute('href').slice(1);
+                tocMap[id] = a;
             });
-            const observer = new IntersectionObserver(entries => {
-                let active = null;
-                entries.forEach(e => { if (e.isIntersecting) active = e.target; });
-                if (active) {
-                    tocLinks.forEach(a => a.classList.remove('active'));
-                    const match = headings.find(h => h.el === active);
-                    if (match) match.link.classList.add('active');
-                }
-            }, { rootMargin: '-80px 0px -70% 0px' });
-            headings.forEach(h => observer.observe(h.el));
+            function update() {
+                const scrollTop = window.scrollY + 100;
+                let activeId = null;
+                headings.forEach(h => {
+                    if (h.getBoundingClientRect().top + window.scrollY <= scrollTop) activeId = h.id;
+                });
+                tocAside.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+                if (activeId && tocMap[activeId]) tocMap[activeId].classList.add('active');
+            }
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) { requestAnimationFrame(() => { update(); ticking = false; }); ticking = true; }
+            });
+            update();
         })();
 
         // 禁用 B 站外链自动播放
@@ -201,6 +172,7 @@
             purple:  { primary:'#7c5aa8', primaryDark:'#5c3e86', codeBg:'#1f1a2f', codeText:'#dcd4f0', shadowRgb:'124,90,168', badgeBg:'#f4f0fa' },
             green:   { primary:'#4a9c5d', primaryDark:'#357a44', codeBg:'#182a1e', codeText:'#d4f0dc', shadowRgb:'74,156,93', badgeBg:'#eefaf0' },
             slate:   { primary:'#5a7a8a', primaryDark:'#3f5d6b', codeBg:'#1a242a', codeText:'#d4e0e8', shadowRgb:'90,122,138', badgeBg:'#f0f4f6' },
+            sky:     { primary:'#4A90D9', primaryDark:'#3570ad', codeBg:'#19253a', codeText:'#d4e2f4', shadowRgb:'74,144,217', badgeBg:'#eef3fa' },
         };
         const saved = localStorage.getItem('blog-theme') || 'teal';
         function applyTheme(name) {

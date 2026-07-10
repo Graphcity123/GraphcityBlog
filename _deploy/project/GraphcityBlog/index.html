@@ -14,9 +14,16 @@
         <div class="nav-inner">
             <a class="brand" href="/GraphcityBlog/">Graphcity Blog</a>
             <div class="nav-links">
-                <a href="/GraphcityBlog/">文章</a>
-                <a href="/GraphcityBlog/#projects">项目</a>
+                <a href="/GraphcityBlog/articles/">文章</a>
+                <a href="/GraphcityBlog/projects/">项目</a>
+                <a href="/GraphcityBlog/archive/">归档</a>
                 <a href="/GraphcityBlog/about/">关于</a>
+            </div>
+            <div class="nav-right">
+                <form action="/search/" method="get" class="search-form">
+                    <input type="text" name="q" placeholder="搜索文章、项目…" value="">
+                    <button type="submit">搜索</button>
+                </form>
             </div>
         </div>
     </nav>
@@ -26,9 +33,9 @@
     <div class="article-header-bar"></div>
     <div class="article-header-body">
         <h1>GraphcityBlog</h1>
-        <div class="proj-tags"><span class="proj-lang">Python</span></div>
+        <div class="proj-tags"><a href="/GraphcityBlog/archive/?tag=Python&tab=project" class="proj-lang" style="text-decoration:none">Python</a></div>
         <p class="proj-desc">个人博客（即本站）。Django + Markdown + 7 种主题色，支持 LaTeX、代码高亮、图片网格、GitHub Pages 部署。</p>
-        <a href="https://github.com/Graphcity123/GraphcityBlog" class="proj-link" target="_blank">https://github.com/Graphcity123/GraphcityBlog</a>
+        <p class="proj-link"><strong>项目地址：</strong><a href="https://github.com/Graphcity123/GraphcityBlog" target="_blank">https://github.com/Graphcity123/GraphcityBlog</a></p>
     </div>
 </header>
 
@@ -44,6 +51,7 @@
 <li><strong>图片网格</strong>：<code>img-grid-1</code> ~ <code>img-grid-4</code>，自动排版</li>
 <li><strong>代码块复制</strong>：hover 显示复制按钮</li>
 <li><strong>B 站外链</strong>：自动撑满宽度，禁用自动播放</li>
+<li><strong>侧边目录</strong>：文章/项目页自动生成目录，滚动高亮当前标题</li>
 <li><strong>GitHub Pages 部署</strong>：一键构建静态站点</li>
 </ul>
 <h2 id="_2">目录结构</h2>
@@ -126,6 +134,10 @@ date: 2026-07-10
 <td><code>&lt;div class="img-grid-2" markdown="1"&gt;</code></td>
 <td>2 列图片网格</td>
 </tr>
+<tr>
+<td>目录自动生成</td>
+<td>文章内标题自动抽取为侧边栏目录</td>
+</tr>
 </tbody>
 </table>
 <h2 id="github-pages">部署到 GitHub Pages</h2>
@@ -204,6 +216,7 @@ git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </
             <span class="theme-dot" data-theme="purple" style="background:#7c5aa8" title="紫色"></span>
             <span class="theme-dot" data-theme="green" style="background:#4a9c5d" title="草绿"></span>
             <span class="theme-dot" data-theme="slate" style="background:#5a7a8a" title="灰蓝"></span>
+            <span class="theme-dot" data-theme="sky" style="background:#4A90D9" title="天蓝"></span>
         </div>
         <p>&copy; 2026 Graphcity</p>
     </footer>
@@ -211,23 +224,29 @@ git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </
     <script>
         // TOC 滚动高亮
         (function() {
-            const tocLinks = document.querySelectorAll('.article-toc a[href^="#"]');
-            if (!tocLinks.length) return;
-            const headings = [];
-            tocLinks.forEach(a => {
-                const h = document.querySelector(a.getAttribute('href'));
-                if (h) headings.push({ el: h, link: a });
+            const tocAside = document.querySelector('.article-toc');
+            if (!tocAside) return;
+            const headings = document.querySelectorAll('.article-body h1[id], .article-body h2[id], .article-body h3[id], .article-body h4[id]');
+            if (!headings.length) return;
+            const tocMap = {};
+            tocAside.querySelectorAll('a[href^="#"]').forEach(a => {
+                const id = a.getAttribute('href').slice(1);
+                tocMap[id] = a;
             });
-            const observer = new IntersectionObserver(entries => {
-                let active = null;
-                entries.forEach(e => { if (e.isIntersecting) active = e.target; });
-                if (active) {
-                    tocLinks.forEach(a => a.classList.remove('active'));
-                    const match = headings.find(h => h.el === active);
-                    if (match) match.link.classList.add('active');
-                }
-            }, { rootMargin: '-80px 0px -70% 0px' });
-            headings.forEach(h => observer.observe(h.el));
+            function update() {
+                const scrollTop = window.scrollY + 100;
+                let activeId = null;
+                headings.forEach(h => {
+                    if (h.getBoundingClientRect().top + window.scrollY <= scrollTop) activeId = h.id;
+                });
+                tocAside.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+                if (activeId && tocMap[activeId]) tocMap[activeId].classList.add('active');
+            }
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) { requestAnimationFrame(() => { update(); ticking = false; }); ticking = true; }
+            });
+            update();
         })();
 
         // 禁用 B 站外链自动播放
@@ -248,6 +267,7 @@ git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </
             purple:  { primary:'#7c5aa8', primaryDark:'#5c3e86', codeBg:'#1f1a2f', codeText:'#dcd4f0', shadowRgb:'124,90,168', badgeBg:'#f4f0fa' },
             green:   { primary:'#4a9c5d', primaryDark:'#357a44', codeBg:'#182a1e', codeText:'#d4f0dc', shadowRgb:'74,156,93', badgeBg:'#eefaf0' },
             slate:   { primary:'#5a7a8a', primaryDark:'#3f5d6b', codeBg:'#1a242a', codeText:'#d4e0e8', shadowRgb:'90,122,138', badgeBg:'#f0f4f6' },
+            sky:     { primary:'#4A90D9', primaryDark:'#3570ad', codeBg:'#19253a', codeText:'#d4e2f4', shadowRgb:'74,144,217', badgeBg:'#eef3fa' },
         };
         const saved = localStorage.getItem('blog-theme') || 'teal';
         function applyTheme(name) {
