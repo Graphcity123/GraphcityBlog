@@ -384,10 +384,87 @@ footer { text-align: center; padding: 24px; color: var(--text-light); font-size:
     .article-layout:has(.article-toc) { justify-content: center; }
 }
 
-@media (max-width: 640px) {
-    main { padding: 24px 16px; } .hero { padding: 24px 0; } .hero h1 { font-size: 28px; }
+@media (max-width: 768px) {
+    /* 导航栏 */
+    nav { padding: 0 12px; }
+    .nav-inner { height: 48px; flex-wrap: wrap; }
+    .brand { font-size: 16px; }
+    .nav-links a { font-size: 13px; margin-left: 12px; }
+    .nav-right { display: none; }
+    nav .search-form { display: none; }
+
+    /* 全局 */
+    main { padding: 24px 12px; }
+    section { margin-bottom: 32px; }
+
+    /* Hero */
+    .hero { padding: 24px 0 16px; }
+    .hero h1 { font-size: 24px; }
+    .hero-sub { font-size: 14px; }
+
+    /* 文章/项目/归档页面标题 */
+    .article-header { margin-bottom: 20px; }
+    .article-header h1 { font-size: 36px !important; }
+    .article-header-body { border-left-width: 6px !important; padding-left: 16px !important; }
+    .header-thick .article-header-body { border-left-width: 12px !important; padding-left: 20px !important; }
+    .header-thick h1 { margin-top: calc(-0.06em - 1px) !important; }
+
+    /* 文章布局 */
     .article-layout { flex-direction: column; }
-    .article-toc { position: static; width: 100%; border: none; padding: 0; margin-top: 24px; }
-    article { padding: 24px; }
-    .project-grid { grid-template-columns: 1fr; }
+    .article-layout article { flex: auto; }
+    .article-toc { position: static; width: 100%; max-width: 100%; border: none; border-top: 2px solid var(--primary); padding: 12px 0 0; margin-top: 20px; font-size: 13px; }
+    article { padding: 20px 16px; }
+
+    /* 文章正文 */
+    .article-body h2 { font-size: 20px; }
+    .article-body h3 { font-size: 17px; }
+    .article-body h4 { font-size: 15px; }
+    .article-body pre { font-size: 12px; }
+    .article-body iframe { min-height: 220px; }
+
+    /* 卡片 */
+    .article-card { flex-direction: column; }
+    .art-bar { width: 100%; height: 4px; margin: 0; }
+    .art-body { padding: 12px; }
+    .art-title { font-size: 16px; }
+    .art-date { font-size: 12px; }
+    .art-tags { margin-left: 0; margin-top: 4px; display: block; }
+
+    /* 项目网格 */
+    .project-grid { grid-template-columns: 1fr; gap: 12px; }
+    .project-card { padding: 16px; }
+    .project-card h3 { font-size: 16px; }
+
+    /* 搜索表单 */
+    main .search-form { margin-top: 40px !important; flex-direction: row; }
+    main .search-form .search-input { font-size: 14px; padding: 12px 14px; }
+    main .search-form .search-btn { font-size: 14px; padding: 12px 16px; }
+
+    /* 搜索 Tab */
+    .search-tab { padding: 8px 12px; font-size: 13px; min-width: 0; }
+    .search-tabs { gap: 0; }
+
+    /* 标签云 */
+    .tag-cloud { gap: 8px; }
+    .tag-cloud-item { font-size: 13px; padding: 4px 12px; }
+
+    /* 分页 */
+    .pagination a, .pagination span { min-width: 28px; height: 28px; font-size: 12px; padding: 0 4px; }
+
+    /* 关于页 */
+    .about-content { padding: 20px 16px; }
+
+    /* 主题切换 */
+    .theme-switcher { gap: 6px; }
+    .theme-dot { width: 16px; height: 16px; }
+
+    /* 页脚 */
+    footer { padding: 16px; font-size: 12px; }
+}
+
+@media (max-width: 400px) {
+    .article-header h1 { font-size: 28px !important; }
+    .search-tab { padding: 6px 8px; font-size: 12px; }
+    .brand { font-size: 14px; }
+    .nav-links a { font-size: 12px; margin-left: 8px; }
 }

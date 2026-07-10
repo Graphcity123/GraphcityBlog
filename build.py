@@ -76,23 +76,31 @@ def build():
         if article_dir.exists():
             shutil.copytree(article_dir, dst_dir, dirs_exist_ok=True)
 
-    # 项目页 — 预取 README
+    # 项目页 — 优先读缓存，缓存未命中才联网
     projects_path = BASE / 'content' / 'projects.json'
     projects = json.loads(projects_path.read_text(encoding='utf-8'))
+    readme_cache_path = BASE / 'content' / 'projects_readme.json'
+    readme_cache = json.loads(readme_cache_path.read_text(encoding='utf-8')) if readme_cache_path.exists() else {}
     for p in projects:
         name = p['name']
-        print(f'  Fetching README for {name}...')
-        try:
-            readme_url = f'https://raw.githubusercontent.com/{p["repo"]}/master/README.md'
-            with urllib.request.urlopen(readme_url) as resp:
-                readme_content = resp.read().decode('utf-8')
-        except Exception:
-            # fallback: try main branch
-            try:
-                readme_url = f'https://raw.githubusercontent.com/{p["repo"]}/main/README.md'
-                with urllib.request.urlopen(readme_url) as resp:
-                    readme_content = resp.read().decode('utf-8')
-            except Exception:
+        repo = p['repo']
+        if repo in readme_cache:
+            readme_content = readme_cache[repo]
+            print(f'  README for {name} (cached)')
+        else:
+            print(f'  Fetching README for {name}...')
+            readme_content = None
+            for branch in ('master', 'main'):
+                try:
+                    readme_url = f'https://raw.githubusercontent.com/{repo}/{branch}/README.md'
+                    with urllib.request.urlopen(readme_url, timeout=10) as resp:
+                        readme_content = resp.read().decode('utf-8')
+                    break
+                except Exception:
+                    continue
+            if readme_content:
+                readme_cache[repo] = readme_content
+            else:
                 readme_content = f'无法加载 README。\n\n直接访问：[{p["url"]}]({p["url"]})'
 
         # 用 Django 模板渲染项目页（含 TOC）
@@ -115,6 +123,9 @@ def build():
         dst.parent.mkdir(parents=True, exist_ok=True)
         dst.write_text(html, encoding='utf-8')
         print(f'  /project/{name}/ → project/{name}/index.html')
+    # 保存更新后的 README 缓存
+    with open(readme_cache_path, 'w', encoding='utf-8') as f:
+        json.dump(readme_cache, f, ensure_ascii=False, indent=2)
 
     # 关于页
     render_to_file('/about/', 'about/index.html')

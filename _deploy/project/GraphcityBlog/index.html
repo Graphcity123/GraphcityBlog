@@ -42,14 +42,161 @@
 <div class="article-layout">
     <article>
         <div class="article-body">
-            <p>无法加载 README。</p>
-<p>直接访问：<a href="https://github.com/Graphcity123/GraphcityBlog">https://github.com/Graphcity123/GraphcityBlog</a></p>
+            <h1 id="graphcity-blog">Graphcity Blog</h1>
+<p>基于 Django 的个人博客。文章以 Markdown 文件存储，项目页自动拉取 GitHub README，无需数据库。</p>
+<h2 id="_1">功能</h2>
+<ul>
+<li><strong>Markdown 渲染</strong>：LaTeX 数学公式、代码高亮（JetBrains Mono）、删除线、表格</li>
+<li><strong>7 种主题色</strong>：青绿 / 蓝 / 玫红 / 橘橙 / 紫 / 草绿 / 灰蓝，点击切换，自动记忆</li>
+<li><strong>图片网格</strong>：<code>img-grid-1</code> ~ <code>img-grid-4</code>，自动排版</li>
+<li><strong>代码块复制</strong>：hover 显示复制按钮</li>
+<li><strong>B 站外链</strong>：自动撑满宽度，禁用自动播放</li>
+<li><strong>侧边目录</strong>：文章/项目页自动生成目录，滚动高亮当前标题</li>
+<li><strong>GitHub Pages 部署</strong>：一键构建静态站点</li>
+</ul>
+<h2 id="_2">目录结构</h2>
+<div class="codehilite"><pre><span></span><code>graphcity_blog/
+├── config/                 # Django 配置
+├── blog/                   # 主应用
+│   ├── views.py            # 首页、文章详情、项目详情、关于
+│   ├── templatetags/       # markdown 渲染 filter
+│   ├── templates/blog/     # HTML 模板（base / home / article / project / about）
+│   └── static/blog/        # CSS + 字体（HarmonyOS Sans SC）
+├── content/                # 内容目录
+│   ├── articles/           # 文章（每个文件夹一篇）
+│   │   └── &lt;slug&gt;/
+│   │       ├── index.md    # 文章正文（YAML front matter）
+│   │       └── *.png       # 附件图片
+│   └── projects.json       # 项目配置
+├── build.py                # 静态站点构建脚本
+├── deploy.bat              # 一键部署到 GitHub Pages
+└── requirements.txt
+</code></pre></div>
+
+<h2 id="_3">快速开始</h2>
+<div class="codehilite"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+python<span class="w"> </span>manage.py<span class="w"> </span>runserver
+</code></pre></div>
+
+<p>访问 http://127.0.0.1:8000/</p>
+<h2 id="_4">添加文章</h2>
+<p>在 <code>content/articles/</code> 下新建文件夹（任意名称作为 slug），放入 <code>index.md</code>：</p>
+<div class="codehilite"><pre><span></span><code>---
+title: 文章标题
+date: 2026-07-10
+<span class="gu">tags: Python, 博客</span>
+<span class="gu">---</span>
+
+正文内容...
+
+![<span class="nt">图片</span>](<span class="na">image.png</span>)
+</code></pre></div>
+
+<p>图片等附件放在同一文件夹，markdown 里用相对路径引用。</p>
+<h2 id="_5">添加项目</h2>
+<p>编辑 <code>content/projects.json</code>：</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;项目名&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://github.com/...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;repo&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;owner/repo&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;desc&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;一句话描述&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;lang&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Python&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>项目页自动拉取并渲染仓库的 README.md。</p>
+<h2 id="markdown">Markdown 特性</h2>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$$E=mc^2$$</code></td>
+<td>LaTeX 数学公式</td>
+</tr>
+<tr>
+<td><code>~~删除~~</code></td>
+<td>删除线</td>
+</tr>
+<tr>
+<td><code>`code`</code></td>
+<td>行内代码（JetBrains Mono）</td>
+</tr>
+<tr>
+<td><code>```python ```</code></td>
+<td>代码块 + 复制按钮</td>
+</tr>
+<tr>
+<td><code>&lt;div class="img-grid-2" markdown="1"&gt;</code></td>
+<td>2 列图片网格</td>
+</tr>
+<tr>
+<td>目录自动生成</td>
+<td>文章内标题自动抽取为侧边栏目录</td>
+</tr>
+</tbody>
+</table>
+<h2 id="github-pages">部署到 GitHub Pages</h2>
+<div class="codehilite"><pre><span></span><code>deploy.bat
+</code></pre></div>
+
+<p>或手动：</p>
+<div class="codehilite"><pre><span></span><code>python<span class="w"> </span>build.py
+<span class="nb">cd</span><span class="w"> </span>_deploy
+git<span class="w"> </span>add<span class="w"> </span>-A<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;update&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>gh-pages<span class="w"> </span>--force
+</code></pre></div>
+
+<p>GitHub Pages 设置中 Source 选 <code>gh-pages</code> 分支。</p>
+<h2 id="url">URL 路由</h2>
+<table>
+<thead>
+<tr>
+<th>路径</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/</code></td>
+<td>首页（文章列表 + 项目卡片）</td>
+</tr>
+<tr>
+<td><code>/article/&lt;slug&gt;/</code></td>
+<td>文章详情</td>
+</tr>
+<tr>
+<td><code>/project/&lt;name&gt;/</code></td>
+<td>项目详情（拉取 GitHub README）</td>
+</tr>
+<tr>
+<td><code>/about/</code></td>
+<td>关于页</td>
+</tr>
+</tbody>
+</table>
         </div>
     </article>
     <aside class="article-toc">
         <div class="toc-title">目录</div>
         <div class="toc">
-<ul></ul>
+<ul>
+<li><a href="#graphcity-blog">Graphcity Blog</a><ul>
+<li><a href="#_1">功能</a></li>
+<li><a href="#_2">目录结构</a></li>
+<li><a href="#_3">快速开始</a></li>
+<li><a href="#_4">添加文章</a></li>
+<li><a href="#_5">添加项目</a></li>
+<li><a href="#markdown">Markdown 特性</a></li>
+<li><a href="#github-pages">部署到 GitHub Pages</a></li>
+<li><a href="#url">URL 路由</a></li>
+</ul>
+</li>
+</ul>
 </div>
 
     </aside>
