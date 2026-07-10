@@ -54,6 +54,7 @@ def build():
         # GitHub Pages subdirectory fix
         html = html.replace('href="/', 'href="/GraphcityBlog/')
         html = html.replace('src="/', 'src="/GraphcityBlog/')
+        html = html.replace("location.href='/", "location.href='/GraphcityBlog/")
         dst = SITE / path
         dst.parent.mkdir(parents=True, exist_ok=True)
         dst.write_text(html, encoding='utf-8')
@@ -107,6 +108,7 @@ def build():
         })
         html = html.replace('href="/', 'href="/GraphcityBlog/')
         html = html.replace('src="/', 'src="/GraphcityBlog/')
+        html = html.replace("location.href='/", "location.href='/GraphcityBlog/")
         dst = SITE / 'project' / name / 'index.html'
         dst.parent.mkdir(parents=True, exist_ok=True)
         dst.write_text(html, encoding='utf-8')
