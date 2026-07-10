@@ -59,7 +59,7 @@
 
     <div class="search-tabs">
         <a href="/GraphcityBlog/archive/%E6%95%99%E5%AD%A6%E8%AF%84%E4%BB%B7/?tab=all"
-           class="search-tab active">全部</a>
+           class="search-tab active">全部 · 2</a>
         <a href="/GraphcityBlog/archive/%E6%95%99%E5%AD%A6%E8%AF%84%E4%BB%B7/?tab=article"
            class="search-tab">文章 · 2</a>
         <a href="/GraphcityBlog/archive/%E6%95%99%E5%AD%A6%E8%AF%84%E4%BB%B7/?tab=project"
@@ -92,10 +92,12 @@
                     
                 </div>
             
+            <p class="search-empty a-empty" style="display:none">没有找到匹配的文章</p>
         
 
         
             
+            <p class="search-empty p-empty">没有找到匹配的项目</p>
         
     </div>
 
@@ -108,22 +110,28 @@
 
     function update() {
         for (var i = 0; i < tabs.length; i++) {
-            var txt = tabs[i].textContent.trim();
             tabs[i].classList.toggle('active',
                 (i === 0 && tab === 'all') || (i === 1 && tab === 'article') || (i === 2 && tab === 'project'));
         }
         var showA = tab === 'all' || tab === 'article';
         var showP = tab === 'all' || tab === 'project';
-        var articleList = document.querySelectorAll('.search-results .article-list');
-        var projectGrid = document.querySelectorAll('.search-results .project-grid');
-        for (var i = 0; i < articleList.length; i++) articleList[i].style.display = showA ? '' : 'none';
-        for (var j = 0; j < projectGrid.length; j++) projectGrid[j].style.display = showP ? '' : 'none';
+        // 文章列表
+        var aList = document.querySelectorAll('.search-results .article-list');
+        for (var i = 0; i < aList.length; i++) aList[i].style.display = showA ? '' : 'none';
+        // 项目列表
+        var pList = document.querySelectorAll('.search-results .project-grid');
+        for (var j = 0; j < pList.length; j++) pList[j].style.display = showP ? '' : 'none';
         // 区块标题
         var titles = document.querySelectorAll('.archive-section-title');
         for (var t = 0; t < titles.length; t++) {
-            if (titles[t].textContent.trim() === '文章') titles[t].style.display = showA ? '' : 'none';
-            else if (titles[t].textContent.trim() === '项目') titles[t].style.display = showP ? '' : 'none';
+            if (titles[t].textContent.trim() === '文章') titles[t].style.display = (tab === 'all' && aList.length > 0) ? '' : 'none';
+            else if (titles[t].textContent.trim() === '项目') titles[t].style.display = (tab === 'all' && pList.length > 0) ? '' : 'none';
         }
+        // 空状态（仅单独 tab 显示）
+        var aEmpty = document.querySelector('.search-empty.a-empty');
+        var pEmpty = document.querySelector('.search-empty.p-empty');
+        if (aEmpty) aEmpty.style.display = (tab === 'article' && aList.length === 0) ? '' : 'none';
+        if (pEmpty) pEmpty.style.display = (tab === 'project' && pList.length === 0) ? '' : 'none';
     }
 
     for (var i = 0; i < tabs.length; i++) {
@@ -137,7 +145,6 @@
         };
     }
 
-    // 初始应用 tab
     update();
 })();
 </script>
