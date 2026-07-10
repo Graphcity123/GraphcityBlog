@@ -47,27 +47,38 @@
 <h2 id="_1">功能</h2>
 <ul>
 <li><strong>Markdown 渲染</strong>：LaTeX 数学公式、代码高亮（JetBrains Mono）、删除线、表格</li>
-<li><strong>7 种主题色</strong>：青绿 / 蓝 / 玫红 / 橘橙 / 紫 / 草绿 / 灰蓝，点击切换，自动记忆</li>
+<li><strong>8 种主题色</strong>：青绿 / 蓝 / 玫红 / 橘橙 / 紫 / 草绿 / 灰蓝 / 天蓝，点击切换，自动记忆</li>
 <li><strong>图片网格</strong>：<code>img-grid-1</code> ~ <code>img-grid-4</code>，自动排版</li>
 <li><strong>代码块复制</strong>：hover 显示复制按钮</li>
 <li><strong>B 站外链</strong>：自动撑满宽度，禁用自动播放</li>
 <li><strong>侧边目录</strong>：文章/项目页自动生成目录，滚动高亮当前标题</li>
+<li><strong>智能搜索</strong>：导航栏搜索框 + 搜索结果页，多关键词加权打分（标题 &gt; 标签 &gt; 正文），文章/项目分 tab 展示</li>
+<li><strong>标签归档</strong>：点击文章标签或项目语言胶囊跳转归档页，标签云浏览，文章/项目分 tab 切换</li>
+<li><strong>子弹标题</strong>：<code>- **文本**</code> 自动转为带圆点的四级标题并加入目录</li>
 <li><strong>GitHub Pages 部署</strong>：一键构建静态站点</li>
 </ul>
 <h2 id="_2">目录结构</h2>
 <div class="codehilite"><pre><span></span><code>graphcity_blog/
 ├── config/                 # Django 配置
 ├── blog/                   # 主应用
-│   ├── views.py            # 首页、文章详情、项目详情、关于
-│   ├── templatetags/       # markdown 渲染 filter
-│   ├── templates/blog/     # HTML 模板（base / home / article / project / about）
+│   ├── views.py            # 首页、文章详情、项目详情、搜索、归档、关于
+│   ├── templatetags/       # markdown / split 自定义 filter
+│   ├── templates/blog/     # HTML 模板
+│   │   ├── base.html       # 基模板（导航栏、主题切换、TOC 高亮）
+│   │   ├── home.html       # 首页（文章列表 + 项目卡片）
+│   │   ├── article.html    # 文章详情
+│   │   ├── project.html    # 项目详情
+│   │   ├── search.html     # 搜索结果
+│   │   ├── archive.html    # 标签归档
+│   │   └── about.html      # 关于页
 │   └── static/blog/        # CSS + 字体（HarmonyOS Sans SC）
 ├── content/                # 内容目录
 │   ├── articles/           # 文章（每个文件夹一篇）
 │   │   └── &lt;slug&gt;/
 │   │       ├── index.md    # 文章正文（YAML front matter）
 │   │       └── *.png       # 附件图片
-│   └── projects.json       # 项目配置
+│   ├── projects.json       # 项目配置
+│   └── projects_readme.json # 项目 README 缓存（自动生成）
 ├── build.py                # 静态站点构建脚本
 ├── deploy.bat              # 一键部署到 GitHub Pages
 └── requirements.txt
@@ -84,7 +95,9 @@ python<span class="w"> </span>manage.py<span class="w"> </span>runserver
 <div class="codehilite"><pre><span></span><code>---
 title: 文章标题
 date: 2026-07-10
-<span class="gu">tags: Python, 博客</span>
+tags:
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>博客
+<span class="gu">  - 技术</span>
 <span class="gu">---</span>
 
 正文内容...
@@ -93,6 +106,13 @@ date: 2026-07-10
 </code></pre></div>
 
 <p>图片等附件放在同一文件夹，markdown 里用相对路径引用。</p>
+<p>tags 支持两种格式：
+- 单行：<code>tags: Python, 博客</code>
+- 列表（YAML）：
+  <code>yaml
+  tags:
+    - Python
+    - 博客</code></p>
 <h2 id="_5">添加项目</h2>
 <p>编辑 <code>content/projects.json</code>：</p>
 <div class="codehilite"><pre><span></span><code><span class="p">{</span>
@@ -104,7 +124,7 @@ date: 2026-07-10
 <span class="p">}</span>
 </code></pre></div>
 
-<p>项目页自动拉取并渲染仓库的 README.md。</p>
+<p>项目页自动拉取并渲染仓库的 README.md，首次拉取后缓存到 <code>projects_readme.json</code>，后续搜索和访问直接读缓存。</p>
 <h2 id="markdown">Markdown 特性</h2>
 <table>
 <thead>
@@ -135,11 +155,92 @@ date: 2026-07-10
 <td>2 列图片网格</td>
 </tr>
 <tr>
+<td><code>- **文本**</code></td>
+<td>子弹标题（带圆点的四级标题，自动加入目录）</td>
+</tr>
+<tr>
 <td>目录自动生成</td>
-<td>文章内标题自动抽取为侧边栏目录</td>
+<td>文章内标题自动抽取为侧边栏目录，滚动高亮</td>
 </tr>
 </tbody>
 </table>
+<h2 id="url">URL 路由</h2>
+<table>
+<thead>
+<tr>
+<th>路径</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/</code></td>
+<td>首页（最新 5 篇文章 + 6 个项目 + 更多链接）</td>
+</tr>
+<tr>
+<td><code>/articles/</code></td>
+<td>文章主页（分页，10 篇/页）</td>
+</tr>
+<tr>
+<td><code>/projects/</code></td>
+<td>项目主页（分页，12 个/页）</td>
+</tr>
+<tr>
+<td><code>/article/&lt;slug&gt;/</code></td>
+<td>文章详情</td>
+</tr>
+<tr>
+<td><code>/project/&lt;name&gt;/</code></td>
+<td>项目详情（拉取 GitHub README）</td>
+</tr>
+<tr>
+<td><code>/search/</code></td>
+<td>搜索页</td>
+</tr>
+<tr>
+<td><code>/archive/?tag=&lt;tag&gt;</code></td>
+<td>标签归档</td>
+</tr>
+<tr>
+<td><code>/about/</code></td>
+<td>关于页</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_6">搜索</h2>
+<p>导航栏搜索框 + <code>/search/</code> 独立搜索页。支持多关键词（空格/逗号分隔），加权打分：</p>
+<table>
+<thead>
+<tr>
+<th>匹配位置</th>
+<th>文章</th>
+<th>项目</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>标题/名称</td>
+<td>+10</td>
+<td>+10</td>
+</tr>
+<tr>
+<td>标签/描述</td>
+<td>+5</td>
+<td>+5</td>
+</tr>
+<tr>
+<td>语言</td>
+<td>—</td>
+<td>+3</td>
+</tr>
+<tr>
+<td>正文</td>
+<td>+1</td>
+<td>+1（README 缓存）</td>
+</tr>
+</tbody>
+</table>
+<p>结果按相关度降序，文章/项目分 tab 展示。</p>
 <h2 id="github-pages">部署到 GitHub Pages</h2>
 <div class="codehilite"><pre><span></span><code>deploy.bat
 </code></pre></div>
@@ -152,33 +253,6 @@ git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </
 </code></pre></div>
 
 <p>GitHub Pages 设置中 Source 选 <code>gh-pages</code> 分支。</p>
-<h2 id="url">URL 路由</h2>
-<table>
-<thead>
-<tr>
-<th>路径</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>/</code></td>
-<td>首页（文章列表 + 项目卡片）</td>
-</tr>
-<tr>
-<td><code>/article/&lt;slug&gt;/</code></td>
-<td>文章详情</td>
-</tr>
-<tr>
-<td><code>/project/&lt;name&gt;/</code></td>
-<td>项目详情（拉取 GitHub README）</td>
-</tr>
-<tr>
-<td><code>/about/</code></td>
-<td>关于页</td>
-</tr>
-</tbody>
-</table>
         </div>
     </article>
     <aside class="article-toc">
@@ -192,8 +266,9 @@ git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </
 <li><a href="#_4">添加文章</a></li>
 <li><a href="#_5">添加项目</a></li>
 <li><a href="#markdown">Markdown 特性</a></li>
-<li><a href="#github-pages">部署到 GitHub Pages</a></li>
 <li><a href="#url">URL 路由</a></li>
+<li><a href="#_6">搜索</a></li>
+<li><a href="#github-pages">部署到 GitHub Pages</a></li>
 </ul>
 </li>
 </ul>

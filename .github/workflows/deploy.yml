@@ -17,11 +17,13 @@ jobs:
           python-version: '3.12'
 
       - name: Install dependencies
-        run: |
-          pip install django markdown pygments pymdown-extensions
+        run: pip install django markdown pygments pymdown-extensions
 
       - name: Build static site
         run: python build.py
+
+      - name: Add .nojekyll
+        run: touch _deploy/.nojekyll
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
@@ -29,3 +31,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./_deploy
           publish_branch: gh-pages
+          enable_jekyll: false
+          force_orphan: true
