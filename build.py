@@ -144,6 +144,27 @@ def build():
         from urllib.parse import quote
         render_to_file(f'/archive/{quote(tag, safe="")}/', f'archive/{quote(tag, safe="")}/index.html')
 
+    # 搜索索引（JSON，供静态站点客户端搜索）
+    search_index = []
+    for a in articles:
+        search_index.append({
+            'type': 'article',
+            'title': a['title'],
+            'date': a['date'],
+            'tags': a['tags'],
+            'slug': a['slug'],
+            'content': a['content'][:500],
+        })
+    for p in projects:
+        search_index.append({
+            'type': 'project',
+            'title': p['name'],
+            'desc': p.get('desc', ''),
+            'lang': p.get('lang', ''),
+            'url': p['url'],
+        })
+    (SITE / 'search_index.json').write_text(json.dumps(search_index, ensure_ascii=False), encoding='utf-8')
+
     # 复制 CNAME（如果有）
     cname = BASE / 'CNAME'
     if cname.exists():
