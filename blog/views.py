@@ -178,7 +178,7 @@ def about(request):
 def search(request):
     """搜索文章和项目，加权打分，分 tab 展示。"""
     query = request.GET.get('q', '').strip()
-    tab = request.GET.get('tab', 'article')
+    tab = request.GET.get('tab', 'all')
     articles_result = []
     projects_result = []
     elapsed = 0
