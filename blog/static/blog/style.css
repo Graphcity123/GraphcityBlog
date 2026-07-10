@@ -335,7 +335,7 @@ main .search-form .search-btn {
     font-family: inherit; transition: background 0.2s;
 }
 .search-form .search-btn:hover { background: var(--primary-dark); }
-.search-summary { text-align: center; color: var(--text-light); font-size: 14px; margin: 0 0 20px 0; }
+.search-summary { text-align: center; color: var(--text-light); font-size: 14px; margin: 20px 0 20px 0; }
 .search-empty { text-align: center; color: var(--text-light); font-size: 16px; margin-top: 40px; }
 
 .search-tabs { display: flex; justify-content: center; gap: 0; margin-bottom: 28px; }
