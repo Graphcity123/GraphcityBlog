@@ -8,156 +8,6 @@
     <link rel="stylesheet" href="/GraphcityBlog/static/blog/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
     
-<script>
-// 客户端搜索（静态站点）
-(function() {
-    const form = document.querySelector('main .search-form');
-    if (!form) return;
-    const input = form.querySelector('.search-input');
-    const results = document.querySelector('.search-results');
-    const summary = document.querySelector('.search-summary');
-    const articleTab = document.querySelector('.search-tabs');
-    let index = null;
-
-    function getBase() {
-        const path = location.pathname;
-        return path.startsWith('/GraphcityBlog/') || path === '/GraphcityBlog' ? '/GraphcityBlog' : '';
-    }
-
-    async function loadIndex() {
-        if (index) return index;
-        const resp = await fetch(getBase() + '/search_index.json');
-        index = await resp.json();
-        return index;
-    }
-
-    function score(item, keywords) {
-        const title = (item.title || '').toLowerCase();
-        const tags = (item.tags || item.lang || '').toLowerCase();
-        const content = (item.content || item.desc || '').toLowerCase();
-        let s = 0;
-        for (const kw of keywords) {
-            if (title.includes(kw)) s += 10;
-            if (tags.includes(kw)) s += 5;
-            if (content.includes(kw)) s += 1;
-        }
-        return s;
-    }
-
-    async function doSearch(q) {
-        const data = await loadIndex();
-        const keywords = q.split(/[\s,，]+/).filter(Boolean).map(k => k.toLowerCase());
-        if (!keywords.length) return { articles: [], projects: [] };
-        const scored = data.map(item => ({ ...item, _score: score(item, keywords) }))
-            .filter(item => item._score > 0)
-            .sort((a, b) => b._score - a._score);
-        return {
-            articles: scored.filter(item => item.type === 'article'),
-            projects: scored.filter(item => item.type === 'project'),
-        };
-    }
-
-    function ensureContainer() {
-        let r = document.querySelector('.search-results');
-        if (!r) {
-            r = document.createElement('div');
-            r.className = 'search-results';
-            const summary = document.querySelector('.search-summary');
-            const empty = document.querySelector('.search-empty');
-            const ref = summary || empty || document.querySelector('.search-form');
-            ref.parentNode.insertBefore(r, ref.nextSibling);
-        }
-        return r;
-    }
-
-    function render(result, q) {
-        const { articles, projects } = result;
-        const container = ensureContainer();
-        let html = '';
-        const total = articles.length + projects.length;
-        let sm = document.querySelector('.search-summary');
-        if (!sm) {
-            sm = document.createElement('p');
-            sm.className = 'search-summary';
-            container.parentNode.insertBefore(sm, container);
-        }
-        sm.textContent = '共 ' + total + ' 个结果';
-        // 移除旧空状态
-        const empty = document.querySelector('.search-empty');
-        if (empty) empty.remove();
-
-        // Tabs
-        let tabs = document.querySelector('.search-tabs');
-        if (!tabs) {
-            tabs = document.createElement('div');
-            tabs.className = 'search-tabs';
-            container.parentNode.insertBefore(tabs, container);
-        }
-        tabs.innerHTML = `
-            <a href="#" class="search-tab active">文章 · ${articles.length}</a>
-            <a href="#" class="search-tab">项目 · ${projects.length}</a>
-        `;
-        tabs.querySelectorAll('a').forEach((a, i) => {
-            a.onclick = function(e) {
-                e.preventDefault();
-                tabs.querySelectorAll('a').forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
-                document.getElementById('js-article-results').style.display = i === 0 ? '' : 'none';
-                document.getElementById('js-project-results').style.display = i === 1 ? '' : 'none';
-            };
-        });
-
-        html += '<div id="js-article-results">';
-        if (articles.length) {
-            html += '<div class="article-list">';
-            for (const a of articles) {
-                html += `<div class="article-card" onclick="location.href='${getBase()}/article/${a.slug}/'">
-                    <div class="art-bar"></div><div class="art-body">
-                    <span class="art-title">${a.title}</span>
-                    <span class="art-date">${a.date||''}</span>
-                    ${a.tags ? '<span class="art-tags">'+a.tags.split(',').map(t=>`<span class="tag-pill">${t.trim()}</span>`).join('')+'</span>' : ''}
-                </div></div>`;
-            }
-            html += '</div>';
-        } else {
-            html += '<p class="search-empty">没有找到匹配的文章</p>';
-        }
-        html += '</div><div id="js-project-results" style="display:none">';
-        if (projects.length) {
-            html += '<div class="project-grid">';
-            for (const p of projects) {
-                html += `<div class="project-card" onclick="location.href='${getBase()}/project/${encodeURIComponent(p.title)}/'">
-                    <h3>${p.title}</h3><p>${p.desc||''}</p>
-                    ${p.lang?`<span class="proj-lang">${p.lang}</span>`:''}
-                </div>`;
-            }
-            html += '</div>';
-        } else {
-            html += '<p class="search-empty">没有找到匹配的项目</p>';
-        }
-        html += '</div>';
-        container.innerHTML = html;
-    }
-
-    form.onsubmit = async function(e) {
-        e.preventDefault();
-        const q = input.value.trim();
-        if (!q) return;
-        document.querySelector('.article-header h1').textContent = '「' + q + '」的搜索结果';
-        const result = await doSearch(q);
-        render(result, q);
-    };
-
-    // 页面加载时检查 URL 参数
-    const params = new URLSearchParams(location.search);
-    const q = params.get('q');
-    if (q && !document.querySelector('.search-results .article-list, .search-results .project-grid')) {
-        document.querySelector('.article-header h1').textContent = '「' + q + '」的搜索结果';
-        doSearch(q).then(r => render(r, q));
-    }
-})();
-</script>
-
 </head>
 <body>
     <nav>
@@ -194,6 +44,155 @@
 
     <p class="search-empty">输入关键词，搜索文章和项目</p>
 
+
+<script>
+// 客户端搜索（静态站点兼容）
+(function() {
+    function getBase() {
+        var path = location.pathname;
+        return path.startsWith('/GraphcityBlog/') || path === '/GraphcityBlog' ? '/GraphcityBlog' : '';
+    }
+
+    var index = null;
+    function loadIndex() {
+        if (index) return Promise.resolve(index);
+        return fetch(getBase() + '/search_index.json').then(function(r) { return r.json(); }).then(function(data) {
+            index = data;
+            return index;
+        });
+    }
+
+    function score(item, keywords) {
+        var title = (item.title || '').toLowerCase();
+        var tags = (item.tags || item.lang || '').toLowerCase();
+        var content = (item.content || item.desc || '').toLowerCase();
+        var s = 0;
+        for (var i = 0; i < keywords.length; i++) {
+            if (title.indexOf(keywords[i]) !== -1) s += 10;
+            if (tags.indexOf(keywords[i]) !== -1) s += 5;
+            if (content.indexOf(keywords[i]) !== -1) s += 1;
+        }
+        return s;
+    }
+
+    function doSearch(q) {
+        return loadIndex().then(function(data) {
+            var keywords = q.split(/[\s,，]+/).filter(Boolean).map(function(k) { return k.toLowerCase(); });
+            if (!keywords.length) return { articles: [], projects: [] };
+            var scored = data.map(function(item) { item._score = score(item, keywords); return item; })
+                .filter(function(item) { return item._score > 0; })
+                .sort(function(a, b) { return b._score - a._score; });
+            return {
+                articles: scored.filter(function(item) { return item.type === 'article'; }),
+                projects: scored.filter(function(item) { return item.type === 'project'; }),
+            };
+        });
+    }
+
+    function ensureContainer() {
+        var r = document.querySelector('.search-results');
+        if (!r) {
+            r = document.createElement('div');
+            r.className = 'search-results';
+            var ref = document.querySelector('.search-summary') || document.querySelector('.search-empty') || document.querySelector('.search-form');
+            ref.parentNode.insertBefore(r, ref.nextSibling);
+        }
+        return r;
+    }
+
+    function render(result) {
+        var articles = result.articles, projects = result.projects;
+        var container = ensureContainer();
+        var html = '';
+        var total = articles.length + projects.length;
+        var sm = document.querySelector('.search-summary');
+        if (!sm) {
+            sm = document.createElement('p');
+            sm.className = 'search-summary';
+            container.parentNode.insertBefore(sm, container);
+        }
+        sm.textContent = '共 ' + total + ' 个结果（文章 ' + articles.length + '，项目 ' + projects.length + '）';
+        var empty = document.querySelector('.search-empty');
+        if (empty) empty.style.display = 'none';
+
+        var tabs = document.querySelector('.search-tabs');
+        if (!tabs) {
+            tabs = document.createElement('div');
+            tabs.className = 'search-tabs';
+            container.parentNode.insertBefore(tabs, container);
+        }
+        tabs.innerHTML = '<a href="#" class="search-tab active">文章 · ' + articles.length + '</a>' +
+            '<a href="#" class="search-tab">项目 · ' + projects.length + '</a>';
+        tabs.querySelectorAll('a')[0].onclick = function(e) { e.preventDefault(); switchTab(0); };
+        tabs.querySelectorAll('a')[1].onclick = function(e) { e.preventDefault(); switchTab(1); };
+
+        html += '<div id="js-article-results">';
+        if (articles.length) {
+            html += '<div class="article-list">';
+            for (var i = 0; i < articles.length; i++) {
+                var a = articles[i];
+                html += '<div class="article-card" onclick="location.href=\'' + getBase() + '/article/' + a.slug + '/\'">' +
+                    '<div class="art-bar"></div><div class="art-body">' +
+                    '<span class="art-title">' + a.title + '</span>' +
+                    '<span class="art-date">' + (a.date||'') + '</span>' +
+                    (a.tags ? '<span class="art-tags">' + a.tags.split(',').map(function(t){return '<span class="tag-pill">'+t.trim()+'</span>';}).join('') + '</span>' : '') +
+                    '</div></div>';
+            }
+            html += '</div>';
+        } else {
+            html += '<p class="search-empty">没有找到匹配的文章</p>';
+        }
+        html += '</div><div id="js-project-results" style="display:none">';
+        if (projects.length) {
+            html += '<div class="project-grid">';
+            for (var j = 0; j < projects.length; j++) {
+                var p = projects[j];
+                html += '<div class="project-card" onclick="location.href=\'' + getBase() + '/project/' + encodeURIComponent(p.title) + '/\'">' +
+                    '<h3>' + p.title + '</h3><p>' + (p.desc||'') + '</p>' +
+                    (p.lang ? '<span class="proj-lang">' + p.lang + '</span>' : '') +
+                    '</div>';
+            }
+            html += '</div>';
+        } else {
+            html += '<p class="search-empty">没有找到匹配的项目</p>';
+        }
+        html += '</div>';
+        container.innerHTML = html;
+    }
+
+    function switchTab(i) {
+        var tabs = document.querySelectorAll('.search-tabs .search-tab');
+        for (var t = 0; t < tabs.length; t++) tabs[t].classList.remove('active');
+        tabs[i].classList.add('active');
+        document.getElementById('js-article-results').style.display = i === 0 ? '' : 'none';
+        document.getElementById('js-project-results').style.display = i === 1 ? '' : 'none';
+    }
+
+    function updateTitle(q) {
+        var h1 = document.querySelector('.article-header h1');
+        if (h1) h1.textContent = '「' + q + '」的搜索结果';
+    }
+
+    var form = document.querySelector('main .search-form');
+    if (form) {
+        form.onsubmit = function(e) {
+            e.preventDefault();
+            var q = form.querySelector('.search-input').value.trim();
+            if (!q) return;
+            updateTitle(q);
+            doSearch(q).then(render);
+        };
+    }
+
+    // 页面加载时有 q 参数则自动搜索
+    var params = new URLSearchParams(location.search);
+    var q = params.get('q');
+    if (q && !document.querySelector('.search-results .article-list, .search-results .project-grid')) {
+        updateTitle(q);
+        doSearch(q).then(render);
+    }
+})();
+</script>
 
     </main>
     <footer>
