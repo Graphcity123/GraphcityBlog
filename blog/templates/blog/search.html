@@ -160,6 +160,11 @@
     }
 
     function renderResult(articles, projects) {
+        var tabs = document.querySelectorAll('.search-tabs .search-tab');
+        for (var t = 0; t < tabs.length; t++) tabs[t].classList.remove('active');
+        if (currentTab === 'all') tabs[0].classList.add('active');
+        else if (currentTab === 'article') tabs[1].classList.add('active');
+        else tabs[2].classList.add('active');
         var container = document.querySelector('.search-results');
         if (!container) return;
         var showArticles = currentTab === 'all' || currentTab === 'article';

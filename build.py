@@ -143,8 +143,10 @@ def build():
         if lang:
             all_tags.add(lang)
     for tag in sorted(all_tags):
-        from urllib.parse import quote
-        render_to_file(f'/archive/{quote(tag, safe="")}/', f'archive/{quote(tag, safe="")}/index.html')
+        from django.utils.http import urlencode
+        import urllib.parse
+        tag_encoded = urllib.parse.quote(tag, safe='')
+        render_to_file(f'/archive/{tag_encoded}/', f'archive/{tag}/index.html')
 
     # 搜索索引（JSON，供静态站点客户端搜索）
     search_index = []
