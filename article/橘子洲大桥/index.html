@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>利用橘子洲大桥跨过湘江 — Graphcity Blog</title>
+    <link rel="stylesheet" href="/GraphcityBlog/static/blog/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
+    
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <a class="brand" href="/GraphcityBlog/">Graphcity Blog</a>
+            <div class="nav-links">
+                <a href="/GraphcityBlog/articles/">文章</a>
+                <a href="/GraphcityBlog/projects/">项目</a>
+                <a href="/GraphcityBlog/archive/">归档</a>
+                <a href="/GraphcityBlog/about/">关于</a>
+            </div>
+            <div class="nav-right">
+                <form action="/GraphcityBlog/search/" method="get" class="search-form">
+                    <input type="text" name="q" placeholder="搜索文章、项目…" value="">
+                    <button type="submit">搜索</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <main>
+        
+<header class="article-header">
+    <div class="article-header-bar"></div>
+    <div class="article-header-body">
+        <h1 id="article-title">利用橘子洲大桥跨过湘江</h1>
+        <div class="tags"><a href="/GraphcityBlog/archive/%E6%95%B0%E5%AD%A6/?tab=article" class="tag-pill" style="text-decoration:none">数学</a></div>
+        <time>2024-12-22</time>
+    </div>
+</header>
+
+<div class="article-layout">
+    <article>
+        <div class="article-body">
+            <blockquote>
+<p>已知 <span class="arithmatex">\(a,b\in \mathrm{R}\)</span>，函数 <span class="arithmatex">\(f(x)=e^x-a\sin x\)</span>，<span class="arithmatex">\(g(x)=b\sqrt x\)</span>。若 <span class="arithmatex">\(y=f(x)\)</span> 与 <span class="arithmatex">\(y=g(x)\)</span> 有公共点：</p>
+<ol>
+<li>当 <span class="arithmatex">\(a=0\)</span> 时，求 <span class="arithmatex">\(b\)</span> 的取值范围。</li>
+<li>证明：<span class="arithmatex">\(a^2+b^2&gt;e\)</span>。</li>
+</ol>
+</blockquote>
+<p>先做第一问。显然 <span class="arithmatex">\(x\not=0\)</span>。有 <span class="arithmatex">\(e^x=b\sqrt x\)</span>，<span class="arithmatex">\(b=\dfrac{e^x}{\sqrt x}\)</span>。令 <span class="arithmatex">\(\varphi(x)=\dfrac{e^x}{\sqrt x}\)</span>。</p>
+<p>试试求导。<span class="arithmatex">\(\varphi'(x)=\dfrac{(\sqrt x-\dfrac{1}{2\sqrt x})e^x}{x}=e^xx^{-\frac{3}{2}}(x-\dfrac{1}{2})\)</span>。有 <span class="arithmatex">\(\varphi(x)\ge \varphi(\dfrac{1}{2})=\sqrt{2e}\)</span>。</p>
+<p>综上，<span class="arithmatex">\(b\in[\sqrt{2e},+\infty)\)</span>。</p>
+<p>然后做第二问。</p>
+<p>看到第一问的 <span class="arithmatex">\(\sqrt{2e}\)</span>，有没有什么想法？没错，就是均值不等式！</p>
+<p>为了方便，先讨论 <span class="arithmatex">\(a&gt;0\)</span> 的情况。（<span class="arithmatex">\(a=0\)</span> 的情况就是第二问）</p>
+<p>由均值不等式，<span class="arithmatex">\(a^2+b^2\ge \dfrac{(a+b)^2}{2}\)</span>。</p>
+<p>只要能够证明 <span class="arithmatex">\(\dfrac{(a+b)^2}{2}&gt;e^2\)</span>，也就是 <span class="arithmatex">\(a+b&gt;\sqrt{2e}\)</span> 的话，我们不就能解决了？</p>
+<p>仔细看看，第二问里面，<span class="arithmatex">\(a=0\)</span> 的时候恰好有 <span class="arithmatex">\(b\ge \sqrt{2e}\)</span>。简直就是天作之合！</p>
+<p>现在这个想法有了一个可信的证据支持。我们继续来求证它。</p>
+<p>我们希望仍然能够用到 <span class="arithmatex">\(\varphi(x)\)</span> 函数的性质。由 <span class="arithmatex">\(f(x)=g(x)\)</span>，有 <span class="arithmatex">\(e^x-a\sin x=b\sqrt x\)</span>，<span class="arithmatex">\(a\dfrac{\sin x}{\sqrt x}+b=\dfrac{e^x}{\sqrt x}\)</span>。</p>
+<p>能不能证明 <span class="arithmatex">\(a+b&gt;a\dfrac{\sin x}{\sqrt x}+b\ge \sqrt{2e}\)</span>？当然可以！只需证 <span class="arithmatex">\(\sqrt x&gt;\sin x\)</span>。</p>
+<p>显然这个东西在 <span class="arithmatex">\(x&gt; 1\)</span> 时成立。而 <span class="arithmatex">\(0&lt;x\le 1\)</span> 时，有 <span class="arithmatex">\(\sqrt x\ge x&gt;\sin x\)</span>，同样成立！</p>
+<p>现在我们已经解决了一半的问题，能不能用同样的方法解决 <span class="arithmatex">\(a&lt;0\)</span> 的情况呢？当然也可以！</p>
+<p>根据均值不等式，只需证 <span class="arithmatex">\(-a+b&gt;\sqrt{2e}\)</span>。</p>
+<p>如果能够证明 <span class="arithmatex">\(-a+b&gt;a\dfrac{\sin x}{\sqrt x}+b\)</span>，也就是 <span class="arithmatex">\(-\sqrt x&lt;\sin x\)</span>，我们就大功告成了！</p>
+<p><span class="arithmatex">\(x&gt; 1\)</span> 时，<span class="arithmatex">\(\sin x+\sqrt x&gt; \sin x+1=0\)</span>；<span class="arithmatex">\(0&lt;x&lt;1\)</span> 时，<span class="arithmatex">\(\sqrt x&gt;0\)</span>，<span class="arithmatex">\(\sin x&gt;0\)</span>，自然也是成立的。</p>
+<p>圆满解决！</p>
+<p>当然这题也有用柯西不等式的方法，<del>我就不信有人想得到。</del></p>
+<p>回顾一下，为什么我们可以顺利地解决这道题目？</p>
+<ol>
+<li>注意到第一问中 <span class="arithmatex">\(\sqrt{2e}\)</span> 的限制条件与第二问中均值不等式导出的条件一致。</li>
+<li>注意到第一问实际上是第二问的一种特殊情况。</li>
+<li>利用第一问中函数的性质。</li>
+</ol>
+<p>充分利用好第一问中的「橘子洲大桥」跨过第二问的「湘江」，是一种非常巧妙的解题办法。在面对湘江时，有人可能会直接游过去，这当中会有 99% 的人淹死；也有人选择绕路过去，这当中会有 50% 的人迷路；而我们需要做的，就是找准前面提供的「橘子洲大桥」，然后用合适的方式跨过去。</p>
+<blockquote>
+<p><strong>Test Yourself！</strong></p>
+<p>已知 <span class="arithmatex">\(f(x)=ax^2-ax-x\ln x\)</span>。若 <span class="arithmatex">\(f(x)\ge 0\)</span>：</p>
+<ol>
+<li>求 <span class="arithmatex">\(a\)</span> 的值。</li>
+<li>证明：<span class="arithmatex">\(f(x)\)</span> 有且仅有一个极大值点 <span class="arithmatex">\(x_0\)</span>。</li>
+<li>证明：<span class="arithmatex">\(e^{-2}&lt;f(x_0)&lt;2^{-2}\)</span>。</li>
+</ol>
+</blockquote>
+<p>第一问：<span class="arithmatex">\(f'(x)=2ax-a-1-\ln x\)</span>。注意到 <span class="arithmatex">\(f(1)=0\)</span>。所以当且仅当 <span class="arithmatex">\(f'(1)=0\)</span> 时条件才有可能成立。所以 <span class="arithmatex">\(f'(1)=a-1=0\)</span>，<span class="arithmatex">\(a=1\)</span>。</p>
+<p>我们来验证一下：<span class="arithmatex">\(f(x)=x^2-x-x\ln x=x(x-1-\ln x)\)</span>。刚好有 <span class="arithmatex">\(\ln x\le x-1\)</span>，大功告成！</p>
+<p>第二问：此时 <span class="arithmatex">\(f'(x)=2x-2-\ln x\)</span>，<span class="arithmatex">\(f''(x)=2-\dfrac{1}{x}\)</span> 递增。所以 <span class="arithmatex">\(f'(x)\ge f'(\dfrac{1}{2})=\ln 2-1&lt;0\)</span>。又因为 <span class="arithmatex">\(\lim_{x\to 0}f'(x)=\infty\)</span>，<span class="arithmatex">\(f'(1)=0\)</span>。所以唯一的左正右负的零点，也就是 <span class="arithmatex">\(f(x)\)</span> 的极大值点 <span class="arithmatex">\(x_0\)</span> 在 <span class="arithmatex">\((0,\dfrac{1}{2})\)</span> 范围内。</p>
+<p>第三问！有一个已知条件：<span class="arithmatex">\(2x_0-2-\ln x_0=0\)</span>。</p>
+<p>下面我们需要利用好这座「橘子洲大桥」，试试捣鼓一下它。</p>
+<p>先解决右边那个不等式，我们考虑把 <span class="arithmatex">\(\ln x_0\)</span> 相关的东西消掉，变成一个多项式。<span class="arithmatex">\(f(x_0)=x_0^2-x_0-x_0\ln x_0=x_0(x_0-1-\ln x_0)\)</span>。由已知条件，<span class="arithmatex">\(\ln x_0=2x_0-2\)</span>。</p>
+<p>所以 <span class="arithmatex">\(f(x_0)=x_0(1-x_0)\)</span>。由均值不等式，<span class="arithmatex">\(x_0(1-x_0)&lt; (\dfrac{x_0+1-x_0}{2})^2=2^{-2}\)</span>，成立！</p>
+<p>对于左边的不等式，我们考虑保留下来 <span class="arithmatex">\(\ln x_0\)</span> 相关的东西，让它和 <span class="arithmatex">\(e^{-2}\)</span> 打出热血沸腾的组合技！</p>
+<p>由已知条件，<span class="arithmatex">\(x_0(1-x_0)=-\dfrac{x_0\ln x_0}{2}\)</span>。只需证 <span class="arithmatex">\(-\dfrac{x_0\ln x_0}{2}&gt;e^{-2}\)</span>，也就是 <span class="arithmatex">\(x_0\ln x_0&lt;-2e^{-2}\)</span>。</p>
+<p>这不是我们的小同构吗！令 <span class="arithmatex">\(\varphi(x)=xe^x\)</span>，只需证 <span class="arithmatex">\(\varphi(\ln x_0)&lt;\varphi(-2)\)</span>。</p>
+<p>先证明一个东西：<span class="arithmatex">\(x_0\in(0,\dfrac{1}{e})\)</span>。注意到代入 <span class="arithmatex">\(x_0=e^{-1}\)</span> 时，<span class="arithmatex">\(2x_0-2-\ln x_0=\dfrac{2}{e}-1&lt;0\)</span>，根据第二问中该函数的单调性，自然有 <span class="arithmatex">\(x_0\)</span> 在 <span class="arithmatex">\((0,\dfrac{1}{e})\)</span> 之间。</p>
+<p>因为 <span class="arithmatex">\(x_0\in(0,\dfrac{1}{e})\)</span>，所以有 <span class="arithmatex">\(\ln x_0\in(-\infty,-1)\)</span>。因为 <span class="arithmatex">\(\varphi(x)\)</span> 在 <span class="arithmatex">\((-\infty,-1)\)</span> 递减，<span class="arithmatex">\((-1,+\infty)\)</span> 递增，所以只需要证明 <span class="arithmatex">\(\ln x_0&gt;-2\)</span>，也就是 <span class="arithmatex">\(x_0&gt;e^{-2}\)</span> 即可。</p>
+<p>这里就解释了为啥我们要在上面对 <span class="arithmatex">\(x_0\)</span> 的范围进一步放缩：充分利用 <span class="arithmatex">\(xe^x\)</span> 的单调性！</p>
+<p>那我们只需要用一样的方法就可以了！把 <span class="arithmatex">\(x_0=e^{-2}\)</span> 代入 <span class="arithmatex">\(2x_0-2-\ln x_0\)</span>，发现它等于 <span class="arithmatex">\(2e^{-2}&gt;0\)</span>，所以 <span class="arithmatex">\(x_0&gt;e^{-2}\)</span>，证毕！</p>
+<p>回顾一下，为什么我们可以顺利地解决这道题目？</p>
+<ol>
+<li>回环往复地利用「橘子洲大桥」 <span class="arithmatex">\(2x_0-2-\ln x_0=0\)</span>，以及它的单调性。</li>
+<li>巧妙地设计同构，同时根据 <span class="arithmatex">\(xe^x\)</span> 的单调性缩小 <span class="arithmatex">\(x_0\)</span> 的范围。</li>
+</ol>
+        </div>
+    </article>
+    <aside class="article-toc">
+        <div class="toc-title">目录</div>
+        <div class="toc">
+<ul></ul>
+</div>
+
+        <ul class="toc-fallback-list" style="display:none"><li><a href="#article-title" class="toc-fallback">利用橘子洲大桥跨过湘江</a></li></ul>
+    </aside>
+</div>
+
+<div class="back-link">
+    <a href="/GraphcityBlog/">← 返回文章列表</a>
+</div>
+
+    </main>
+    <footer>
+        <div class="theme-switcher">
+            <span class="theme-dot" data-theme="teal" style="background:#339596" title="青绿"></span>
+            <span class="theme-dot" data-theme="blue" style="background:#3360AB" title="蓝色"></span>
+            <span class="theme-dot" data-theme="rose" style="background:#d4627c" title="玫红"></span>
+            <span class="theme-dot" data-theme="orange" style="background:#e08a3e" title="橘橙"></span>
+            <span class="theme-dot" data-theme="purple" style="background:#7c5aa8" title="紫色"></span>
+            <span class="theme-dot" data-theme="green" style="background:#4a9c5d" title="草绿"></span>
+            <span class="theme-dot" data-theme="slate" style="background:#5a7a8a" title="灰蓝"></span>
+            <span class="theme-dot" data-theme="sky" style="background:#4A90D9" title="天蓝"></span>
+        </div>
+        <p>&copy; 2026 Graphcity</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+    <script>
+        // 目录兜底：除兜底链接外没有其他链接时显示文章标题
+        (function() {
+            const toc = document.querySelector('.article-toc');
+            if (!toc) return;
+            const fallback = toc.querySelector('.toc-fallback-list');
+            const links = toc.querySelectorAll('a[href^="#"]:not(.toc-fallback)');
+            if (fallback) fallback.style.display = links.length ? 'none' : '';
+        })();
+
+        // TOC 滚动高亮
+        (function() {
+            const tocAside = document.querySelector('.article-toc');
+            if (!tocAside) return;
+            const headings = document.querySelectorAll('.article-body h1[id], .article-body h2[id], .article-body h3[id], .article-body h4[id]');
+            if (!headings.length) return;
+            const tocMap = {};
+            tocAside.querySelectorAll('a[href^="#"]').forEach(a => {
+                const id = a.getAttribute('href').slice(1);
+                tocMap[id] = a;
+            });
+            function update() {
+                const scrollTop = window.scrollY + 100;
+                let activeId = null;
+                headings.forEach(h => {
+                    if (h.getBoundingClientRect().top + window.scrollY <= scrollTop) activeId = h.id;
+                });
+                tocAside.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+                if (activeId && tocMap[activeId]) tocMap[activeId].classList.add('active');
+            }
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) { requestAnimationFrame(() => { update(); ticking = false; }); ticking = true; }
+            });
+            update();
+        })();
+
+        // 禁用 B 站外链自动播放
+        document.querySelectorAll('iframe[src*="bilibili"]').forEach(f => {
+            if (f.src.includes('autoplay=')) {
+                f.src = f.src.replace(/([?&])autoplay=1/, '$1autoplay=0');
+            } else {
+                f.src += (f.src.includes('?') ? '&' : '?') + 'autoplay=0';
+            }
+        });
+    </script>
+    <script>
+        const themes = {
+            teal:    { primary:'#339596', primaryDark:'#277576', codeBg:'#1a2e2f', codeText:'#d6e2f5', shadowRgb:'51,149,150', badgeBg:'#eaf4f4' },
+            blue:    { primary:'#3360AB', primaryDark:'#254a85', codeBg:'#1a2540', codeText:'#d0dcf0', shadowRgb:'51,96,171', badgeBg:'#eef2fa' },
+            rose:    { primary:'#d4627c', primaryDark:'#a3435c', codeBg:'#2f1a22', codeText:'#f0d6e0', shadowRgb:'212,98,124', badgeBg:'#faf0f4' },
+            orange:  { primary:'#e08a3e', primaryDark:'#b06828', codeBg:'#2f2218', codeText:'#f0e2d4', shadowRgb:'224,138,62', badgeBg:'#faf4ec' },
+            purple:  { primary:'#7c5aa8', primaryDark:'#5c3e86', codeBg:'#1f1a2f', codeText:'#dcd4f0', shadowRgb:'124,90,168', badgeBg:'#f4f0fa' },
+            green:   { primary:'#4a9c5d', primaryDark:'#357a44', codeBg:'#182a1e', codeText:'#d4f0dc', shadowRgb:'74,156,93', badgeBg:'#eefaf0' },
+            slate:   { primary:'#5a7a8a', primaryDark:'#3f5d6b', codeBg:'#1a242a', codeText:'#d4e0e8', shadowRgb:'90,122,138', badgeBg:'#f0f4f6' },
+            sky:     { primary:'#4A90D9', primaryDark:'#3570ad', codeBg:'#19253a', codeText:'#d4e2f4', shadowRgb:'74,144,217', badgeBg:'#eef3fa' },
+        };
+        const saved = localStorage.getItem('blog-theme') || 'teal';
+        function applyTheme(name) {
+            const t = themes[name];
+            const r = document.querySelector(':root');
+            r.style.setProperty('--primary', t.primary);
+            r.style.setProperty('--primary-dark', t.primaryDark);
+            r.style.setProperty('--code-bg', t.codeBg);
+            r.style.setProperty('--code-text', t.codeText);
+            r.style.setProperty('--shadow-rgb', t.shadowRgb);
+            r.style.setProperty('--badge-bg', t.badgeBg);
+            document.querySelectorAll('.theme-dot').forEach(d => d.classList.toggle('active', d.dataset.theme === name));
+            localStorage.setItem('blog-theme', name);
+        }
+        applyTheme(saved);
+        document.querySelectorAll('.theme-dot').forEach(dot => {
+            dot.onclick = () => applyTheme(dot.dataset.theme);
+        });
+
+        document.querySelectorAll('pre').forEach(pre => {
+            const btn = document.createElement('button');
+            btn.className = 'copy-btn';
+            btn.textContent = '复制';
+            btn.onclick = () => {
+                navigator.clipboard.writeText(pre.textContent).then(() => {
+                    btn.textContent = '已复制';
+                    setTimeout(() => btn.textContent = '复制', 1500);
+                });
+            };
+            pre.style.position = 'relative';
+            pre.appendChild(btn);
+        });
+    </script>
+</body>
+</html>

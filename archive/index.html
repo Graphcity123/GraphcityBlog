@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>归档</title>
+    <link rel="stylesheet" href="/GraphcityBlog/static/blog/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
+    
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <a class="brand" href="/GraphcityBlog/">Graphcity Blog</a>
+            <div class="nav-links">
+                <a href="/GraphcityBlog/articles/">文章</a>
+                <a href="/GraphcityBlog/projects/">项目</a>
+                <a href="/GraphcityBlog/archive/">归档</a>
+                <a href="/GraphcityBlog/about/">关于</a>
+            </div>
+            <div class="nav-right">
+                <form action="/GraphcityBlog/search/" method="get" class="search-form">
+                    <input type="text" name="q" placeholder="搜索文章、项目…" value="">
+                    <button type="submit">搜索</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <main>
+        
+<header class="article-header header-thick">
+    <div class="article-header-bar"></div>
+    <div class="article-header-body">
+        <h1>归档</h1>
+    </div>
+</header>
+
+
+    <div class="tag-cloud">
+        
+        <a href="/GraphcityBlog/archive/OI/" class="tag-cloud-item">OI</a>
+        
+        <a href="/GraphcityBlog/archive/OI%E5%90%8E%E6%97%A5%E8%B0%88/" class="tag-cloud-item">OI后日谈</a>
+        
+        <a href="/GraphcityBlog/archive/Python/" class="tag-cloud-item">Python</a>
+        
+        <a href="/GraphcityBlog/archive/%E6%95%99%E5%AD%A6%E8%AF%84%E4%BB%B7/" class="tag-cloud-item">教学评价</a>
+        
+        <a href="/GraphcityBlog/archive/%E6%95%B0%E5%AD%A6/" class="tag-cloud-item">数学</a>
+        
+        <a href="/GraphcityBlog/archive/%E7%94%9F%E6%B4%BB/" class="tag-cloud-item">生活</a>
+        
+    </div>
+
+
+
+
+<script>
+(function() {
+    var params = new URLSearchParams(location.search);
+    var tab = params.get('tab') || 'all';
+    var tabs = document.querySelectorAll('.search-tabs .search-tab');
+
+    function update() {
+        for (var i = 0; i < tabs.length; i++) {
+            tabs[i].classList.toggle('active',
+                (i === 0 && tab === 'all') || (i === 1 && tab === 'article') || (i === 2 && tab === 'project'));
+        }
+        var showA = tab === 'all' || tab === 'article';
+        var showP = tab === 'all' || tab === 'project';
+        // 文章列表
+        var aList = document.querySelectorAll('.search-results .article-list');
+        for (var i = 0; i < aList.length; i++) aList[i].style.display = showA ? '' : 'none';
+        // 项目列表
+        var pList = document.querySelectorAll('.search-results .project-grid');
+        for (var j = 0; j < pList.length; j++) pList[j].style.display = showP ? '' : 'none';
+        // 区块标题
+        var titles = document.querySelectorAll('.archive-section-title');
+        for (var t = 0; t < titles.length; t++) {
+            if (titles[t].textContent.trim() === '文章') titles[t].style.display = (tab === 'all' && aList.length > 0) ? '' : 'none';
+            else if (titles[t].textContent.trim() === '项目') titles[t].style.display = (tab === 'all' && pList.length > 0) ? '' : 'none';
+        }
+        // 空状态（仅单独 tab 显示）
+        var aEmpty = document.querySelector('.search-empty.a-empty');
+        var pEmpty = document.querySelector('.search-empty.p-empty');
+        if (aEmpty) aEmpty.style.display = (tab === 'article' && aList.length === 0) ? '' : 'none';
+        if (pEmpty) pEmpty.style.display = (tab === 'project' && pList.length === 0) ? '' : 'none';
+    }
+
+    for (var i = 0; i < tabs.length; i++) {
+        tabs[i].onclick = function(e) {
+            e.preventDefault();
+            var txt = this.textContent.trim();
+            if (txt.indexOf('全部') === 0) tab = 'all';
+            else if (txt.indexOf('文章') === 0) tab = 'article';
+            else tab = 'project';
+            update();
+        };
+    }
+
+    update();
+})();
+</script>
+
+    </main>
+    <footer>
+        <div class="theme-switcher">
+            <span class="theme-dot" data-theme="teal" style="background:#339596" title="青绿"></span>
+            <span class="theme-dot" data-theme="blue" style="background:#3360AB" title="蓝色"></span>
+            <span class="theme-dot" data-theme="rose" style="background:#d4627c" title="玫红"></span>
+            <span class="theme-dot" data-theme="orange" style="background:#e08a3e" title="橘橙"></span>
+            <span class="theme-dot" data-theme="purple" style="background:#7c5aa8" title="紫色"></span>
+            <span class="theme-dot" data-theme="green" style="background:#4a9c5d" title="草绿"></span>
+            <span class="theme-dot" data-theme="slate" style="background:#5a7a8a" title="灰蓝"></span>
+            <span class="theme-dot" data-theme="sky" style="background:#4A90D9" title="天蓝"></span>
+        </div>
+        <p>&copy; 2026 Graphcity</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+    <script>
+        // 目录兜底：除兜底链接外没有其他链接时显示文章标题
+        (function() {
+            const toc = document.querySelector('.article-toc');
+            if (!toc) return;
+            const fallback = toc.querySelector('.toc-fallback-list');
+            const links = toc.querySelectorAll('a[href^="#"]:not(.toc-fallback)');
+            if (fallback) fallback.style.display = links.length ? 'none' : '';
+        })();
+
+        // TOC 滚动高亮
+        (function() {
+            const tocAside = document.querySelector('.article-toc');
+            if (!tocAside) return;
+            const headings = document.querySelectorAll('.article-body h1[id], .article-body h2[id], .article-body h3[id], .article-body h4[id]');
+            if (!headings.length) return;
+            const tocMap = {};
+            tocAside.querySelectorAll('a[href^="#"]').forEach(a => {
+                const id = a.getAttribute('href').slice(1);
+                tocMap[id] = a;
+            });
+            function update() {
+                const scrollTop = window.scrollY + 100;
+                let activeId = null;
+                headings.forEach(h => {
+                    if (h.getBoundingClientRect().top + window.scrollY <= scrollTop) activeId = h.id;
+                });
+                tocAside.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+                if (activeId && tocMap[activeId]) tocMap[activeId].classList.add('active');
+            }
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) { requestAnimationFrame(() => { update(); ticking = false; }); ticking = true; }
+            });
+            update();
+        })();
+
+        // 禁用 B 站外链自动播放
+        document.querySelectorAll('iframe[src*="bilibili"]').forEach(f => {
+            if (f.src.includes('autoplay=')) {
+                f.src = f.src.replace(/([?&])autoplay=1/, '$1autoplay=0');
+            } else {
+                f.src += (f.src.includes('?') ? '&' : '?') + 'autoplay=0';
+            }
+        });
+    </script>
+    <script>
+        const themes = {
+            teal:    { primary:'#339596', primaryDark:'#277576', codeBg:'#1a2e2f', codeText:'#d6e2f5', shadowRgb:'51,149,150', badgeBg:'#eaf4f4' },
+            blue:    { primary:'#3360AB', primaryDark:'#254a85', codeBg:'#1a2540', codeText:'#d0dcf0', shadowRgb:'51,96,171', badgeBg:'#eef2fa' },
+            rose:    { primary:'#d4627c', primaryDark:'#a3435c', codeBg:'#2f1a22', codeText:'#f0d6e0', shadowRgb:'212,98,124', badgeBg:'#faf0f4' },
+            orange:  { primary:'#e08a3e', primaryDark:'#b06828', codeBg:'#2f2218', codeText:'#f0e2d4', shadowRgb:'224,138,62', badgeBg:'#faf4ec' },
+            purple:  { primary:'#7c5aa8', primaryDark:'#5c3e86', codeBg:'#1f1a2f', codeText:'#dcd4f0', shadowRgb:'124,90,168', badgeBg:'#f4f0fa' },
+            green:   { primary:'#4a9c5d', primaryDark:'#357a44', codeBg:'#182a1e', codeText:'#d4f0dc', shadowRgb:'74,156,93', badgeBg:'#eefaf0' },
+            slate:   { primary:'#5a7a8a', primaryDark:'#3f5d6b', codeBg:'#1a242a', codeText:'#d4e0e8', shadowRgb:'90,122,138', badgeBg:'#f0f4f6' },
+            sky:     { primary:'#4A90D9', primaryDark:'#3570ad', codeBg:'#19253a', codeText:'#d4e2f4', shadowRgb:'74,144,217', badgeBg:'#eef3fa' },
+        };
+        const saved = localStorage.getItem('blog-theme') || 'teal';
+        function applyTheme(name) {
+            const t = themes[name];
+            const r = document.querySelector(':root');
+            r.style.setProperty('--primary', t.primary);
+            r.style.setProperty('--primary-dark', t.primaryDark);
+            r.style.setProperty('--code-bg', t.codeBg);
+            r.style.setProperty('--code-text', t.codeText);
+            r.style.setProperty('--shadow-rgb', t.shadowRgb);
+            r.style.setProperty('--badge-bg', t.badgeBg);
+            document.querySelectorAll('.theme-dot').forEach(d => d.classList.toggle('active', d.dataset.theme === name));
+            localStorage.setItem('blog-theme', name);
+        }
+        applyTheme(saved);
+        document.querySelectorAll('.theme-dot').forEach(dot => {
+            dot.onclick = () => applyTheme(dot.dataset.theme);
+        });
+
+        document.querySelectorAll('pre').forEach(pre => {
+            const btn = document.createElement('button');
+            btn.className = 'copy-btn';
+            btn.textContent = '复制';
+            btn.onclick = () => {
+                navigator.clipboard.writeText(pre.textContent).then(() => {
+                    btn.textContent = '已复制';
+                    setTimeout(() => btn.textContent = '复制', 1500);
+                });
+            };
+            pre.style.position = 'relative';
+            pre.appendChild(btn);
+        });
+    </script>
+</body>
+</html>

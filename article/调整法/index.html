@@ -1,0 +1,266 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>利用调整法解决一系列极值点偏移问题 — Graphcity Blog</title>
+    <link rel="stylesheet" href="/GraphcityBlog/static/blog/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
+    
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <a class="brand" href="/GraphcityBlog/">Graphcity Blog</a>
+            <div class="nav-links">
+                <a href="/GraphcityBlog/articles/">文章</a>
+                <a href="/GraphcityBlog/projects/">项目</a>
+                <a href="/GraphcityBlog/archive/">归档</a>
+                <a href="/GraphcityBlog/about/">关于</a>
+            </div>
+            <div class="nav-right">
+                <form action="/GraphcityBlog/search/" method="get" class="search-form">
+                    <input type="text" name="q" placeholder="搜索文章、项目…" value="">
+                    <button type="submit">搜索</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <main>
+        
+<header class="article-header">
+    <div class="article-header-bar"></div>
+    <div class="article-header-body">
+        <h1 id="article-title">利用调整法解决一系列极值点偏移问题</h1>
+        <div class="tags"><a href="/GraphcityBlog/archive/%E6%95%B0%E5%AD%A6/?tab=article" class="tag-pill" style="text-decoration:none">数学</a></div>
+        <time>2024-11-28</time>
+    </div>
+</header>
+
+<div class="article-layout">
+    <article>
+        <div class="article-body">
+            <h3 id="_1">前言</h3>
+<p>21 世纪最重要的品质——淡定</p>
+<blockquote>
+<p>什么是调整法？</p>
+</blockquote>
+<p>调整法，顾名思义，就是在已有决策上调整，通过对原决策和调整后决策的比较，<strong>排除对答案没有用的情况，保留真正有价值的情况</strong>。调整法适用于一系列的最优化问题和证明问题。</p>
+<blockquote>
+<p>设 <span class="arithmatex">\(f(x)=x\ln x\)</span>，若 <span class="arithmatex">\(x_1,x_2\in(0,1)\)</span>，证明：<span class="arithmatex">\(|f(x_1)-f(x_2)|\le h(|x_1-x_2|)\)</span>。</p>
+<p>其中 <span class="arithmatex">\(h(x)\)</span> 是一个满足随 <span class="arithmatex">\(x\)</span> 单调递增的函数，大部分题目中 <span class="arithmatex">\(h(x)=x\)</span>，本题中 <span class="arithmatex">\(h(x)=\sqrt x\)</span>。</p>
+</blockquote>
+<p>前置准备：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><span class="arithmatex">\(f(x)\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(f'(x)=\ln x+1\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="1127A" src="/GraphcityBlog/content/articles/调整法/1127A.png" /></td>
+<td style="text-align: center;"><img alt="1127B" src="/GraphcityBlog/content/articles/调整法/1127B.png" /></td>
+</tr>
+</tbody>
+</table>
+<p>根据洛必达原理，<span class="arithmatex">\(\lim_{x\to 0}f(x)=\lim_{x\to 0}\dfrac{\ln x}{\frac{1}{x}}=\lim_{x\to 0}\dfrac{\frac{1}{x}}{-\frac{1}{x^2}}=0\)</span>，<span class="arithmatex">\(f(1)=0\)</span>，极值点 <span class="arithmatex">\(B(\dfrac{1}{e},-\dfrac{1}{e})\)</span>。</p>
+<p>不妨令 <span class="arithmatex">\(x_2&gt;x_1\)</span>。</p>
+<h3 id="_2">第一步调整</h3>
+<p>我们先证明：<strong>当 <span class="arithmatex">\(x_2&gt;\dfrac{1}{e}\)</span>，<span class="arithmatex">\(x_1\le \dfrac{1}{e}\)</span> 时（也就是 <span class="arithmatex">\(x_1,x_2\)</span> 分别在极值点两侧时）的情况不影响答案。</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">图 1</th>
+<th style="text-align: center;">图 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="1127A1" src="/GraphcityBlog/content/articles/调整法/1127A1.png" /></td>
+<td style="text-align: center;"><img alt="112B1" src="/GraphcityBlog/content/articles/调整法/112B1.png" /></td>
+</tr>
+</tbody>
+</table>
+<p>找到一个点 <span class="arithmatex">\(x_3\)</span> 满足 <span class="arithmatex">\(x_3&lt;\dfrac{1}{e}\)</span> 且 <span class="arithmatex">\(f(x_2)=f(x_3)\)</span>。如图 1，当 <span class="arithmatex">\(x_1&lt;x_3\)</span> 时，显然有 <span class="arithmatex">\(|x_1-x_3|&lt;|x_1-x_2|\)</span>。也就是说，<strong>如果 <span class="arithmatex">\(|f(x_1)-f(x_3)|&lt;h(|x_1-x_3|)\)</span>，那么必然有 <span class="arithmatex">\(|f(x_1)-f(x_2)|&lt;h(|x_1-x_2|)\)</span></strong>。</p>
+<p>但如果 <span class="arithmatex">\(x_1&gt;x_3\)</span>（图 2）时，是否还能有 <span class="arithmatex">\(|x_1-x_3|&lt;|x_1-x_2|\)</span> 这么好的性质呢？当然有。</p>
+<p>我们先证明一个极值点偏移：</p>
+<blockquote>
+<p><strong>引理：<span class="arithmatex">\(x_2+x_3&gt;\dfrac{2}{e}\)</span>。</strong>这个引理的等价表述是 <span class="arithmatex">\(|x_2-\dfrac{1}{e}|&lt;|x_3-\dfrac{1}{e}|\)</span>。</p>
+<p>即证 <span class="arithmatex">\(x_2&gt;\dfrac{2}{e}-x_3\)</span>。因为 <span class="arithmatex">\(x_3\in(0,\dfrac{1}{e})\)</span>，所以 <span class="arithmatex">\(\dfrac{2}{e}-x_3&gt;\dfrac{1}{e}\)</span>，它们都在极值点右侧，所以可以转化为 <span class="arithmatex">\(f(x_2)&gt;f(\dfrac{2}{e}-x_3)\)</span>，即 <span class="arithmatex">\(f(x_3)&gt;f(\dfrac{2}{e}-x_3)\)</span>。</p>
+<p>令 <span class="arithmatex">\(F(x)=f(x)-f(\dfrac{2}{e}-x)\ \ \ (x\in (0,\dfrac{1}{e}])\)</span>，<span class="arithmatex">\(F'(x)=\ln x+\ln (\dfrac{2}{e}-x)+2=\ln(x\cdot(\dfrac{2}{e}-x))+2\)</span>。</p>
+<p>根据均值不等式，<span class="arithmatex">\(x\cdot(\dfrac{2}{e}-x)\le \dfrac{1}{e^2}\)</span>，所以 <span class="arithmatex">\(F'(x)\le \ln(\dfrac{1}{e^2})+2=0\)</span>，所以 <span class="arithmatex">\(F(x)\ge F(\dfrac{1}{e})=0\)</span>。</p>
+<p>又因为 <span class="arithmatex">\(x_3&lt;\dfrac{1}{e}\)</span>，有 <span class="arithmatex">\(f(x_3)&gt;f(\dfrac{2}{e}-x_3)\)</span>，即 <span class="arithmatex">\(x_2+x_3&gt;\dfrac{2}{e}\)</span> 成立。</p>
+</blockquote>
+<p>所以，我们有：<span class="arithmatex">\(|x_1-x_2|\ge |x_2-\dfrac{1}{e}|\ge |x_3-\dfrac{1}{e}|\ge |x_1-x_3|\)</span>。性质仍然成立。</p>
+<p>综上，所有 <span class="arithmatex">\(x_1,x_2\)</span> 横跨极值点的情况都不优于 <span class="arithmatex">\(x_1,x_2\)</span> 在同一侧的情况，不用再讨论下去。</p>
+<h3 id="_3">第二步调整</h3>
+<p>我们接着讨论 <span class="arithmatex">\(x_2\le \dfrac{1}{e}\)</span> 的情况。首先进行感性理解：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">图 1</th>
+<th style="text-align: center;">图 2</th>
+<th style="text-align: center;">图 3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="1127A2" src="/GraphcityBlog/content/articles/调整法/1127A2.png" /></td>
+<td style="text-align: center;"><img alt="1127B2" src="/GraphcityBlog/content/articles/调整法/1127B2.png" /></td>
+<td style="text-align: center;"><img alt="1127B3" src="/GraphcityBlog/content/articles/调整法/1127B3.png" /></td>
+</tr>
+</tbody>
+</table>
+<p>观察 <span class="arithmatex">\(f'(x)\)</span> 的图像，我们发现如果固定了 <span class="arithmatex">\(|x_1-x_2|\)</span> 的值，那么它们对应点围成的曲面梯形面积随着 <span class="arithmatex">\(x_1\)</span> 的右移在不断减小，也就意味着 <span class="arithmatex">\(|f(x_2)-f(x_1)|\)</span> 在越来越小。根据调整法，我们应该要尽量让这个值大一些，把情况往最严格的地方卡。因此，我们如果能够证明 <span class="arithmatex">\(\forall x\in(0,\dfrac{1}{e}]\)</span>，都有 <span class="arithmatex">\(|f(x)|\le h(x)\)</span> 的话，整个 <span class="arithmatex">\(x_2\le \dfrac{1}{e}\)</span> 都是合法的。</p>
+<p><span class="arithmatex">\(x_1\ge\dfrac{1}{e}\)</span> 的情况也是如此，如果能够证明 <span class="arithmatex">\(\forall x\in [\dfrac{1}{e},1)\)</span>，都有 <span class="arithmatex">\(|f(x)|\le h(1-x)\)</span> 的话，这一部分的情况也都是合法的。</p>
+<p>下面我们来理性证明一下：</p>
+<blockquote>
+<p><strong>引理：<span class="arithmatex">\(|f(x_1)-f(x_2)|\le |f(x_2-x_1)|\)</span></strong>。</p>
+<p><strong>法一：</strong>由于 <span class="arithmatex">\(f'(x)=\ln x+1\)</span> 单调递增且在 <span class="arithmatex">\((0,\dfrac{1}{e})\)</span> 内的值 <span class="arithmatex">\(&lt;0\)</span>，所以 <span class="arithmatex">\(\forall x\in(x_1,\dfrac{1}{e})\)</span> 都有 <span class="arithmatex">\(f'(x)&gt;f'(x-x_1)\)</span>。</p>
+<p>所以有 <span class="arithmatex">\(\mid_{0}^{x_2-x_1}f'(x)&lt;\mid_{x_1}^{x_2}f'(x)\)</span>，即 <span class="arithmatex">\(f(x_2-x_1)&lt;f(x_2)-f(x_1)\)</span>。又因为 <span class="arithmatex">\(f(x)\)</span> 在 <span class="arithmatex">\((0,\dfrac{1}{e})\)</span> 单调递减且值恒小于 0，所以有 <span class="arithmatex">\(|f(x_1)-f(x_2)|\le |f(x_2-x_1)|\)</span>。</p>
+<p><strong>法二：</strong>令 <span class="arithmatex">\(x_1=a,x_2-x_1=b\)</span>，即证 <span class="arithmatex">\(f(a)+f(b)\le f(a+b)\)</span>。也就是 <span class="arithmatex">\(a\ln a+b\ln b\le (a+b)\ln(a+b)\)</span>。同时取对数，<span class="arithmatex">\(e^{a\ln a+b\ln b}=(e^{\ln a})^a\times (e^{\ln b})^b=a^a\times b^b\)</span>，同理 <span class="arithmatex">\(e^{(a+b)\ln (a+b)}=(a+b)^{a+b}\)</span>。</p>
+<p>根据均值不等式， <span class="arithmatex">\(a^a\times b^b\le (\dfrac{a^2+b^2}{a+b})^{a+b}=(a+b-\dfrac{2ab}{a+b})^{a+b}&lt;(a+b)^{a+b}\)</span>，成立！</p>
+</blockquote>
+<p>根据调整法，如果 <span class="arithmatex">\(|f(x_2-x_1)|\le h(|x_2-x_1|)\)</span>，那么一定有 <span class="arithmatex">\(|f(x_1)-f(x_2)|\le h(|x_2-x_1|)\)</span>。所以我们只需要讨论 <span class="arithmatex">\(|f(x)|\)</span> 与 <span class="arithmatex">\(h(x)\)</span> 的大小关系即可。</p>
+<p>对于 <span class="arithmatex">\(x_1\ge\dfrac{1}{e}\)</span> 的情况同理，可以证明 <span class="arithmatex">\(|f(x_1)-f(x_2)|\le |f(1)-f(1-|x_1-x_2|)|\)</span>，只需判断 <span class="arithmatex">\(f(x)\)</span> 与 <span class="arithmatex">\(h(1-x)\)</span> 的大小关系即可。</p>
+<h3 id="_4">最后的计算</h3>
+<h4 id="part-1-xln-xsqrt-x-xin-0dfrac1e">Part 1：证明 <span class="arithmatex">\(-x\ln x&lt;\sqrt x\ \ \ (x\in (0,\dfrac{1}{e}])\)</span></h4>
+<p>即证 <span class="arithmatex">\(\sqrt x\ln \sqrt x&gt;-\dfrac{1}{2}\)</span>。令 <span class="arithmatex">\(t=\sqrt x\in(0,\dfrac{\sqrt e}{e})\)</span>，即证 <span class="arithmatex">\(t\ln t&gt;-\dfrac{1}{2}\)</span>。这不就是 <span class="arithmatex">\(f(t)\)</span> 吗？显然有 <span class="arithmatex">\(-\dfrac{1}{e}&gt;-\dfrac{1}{2}\)</span>，成立！</p>
+<h4 id="part-2-xln-xsqrt1-x-xin-dfrac1e1">Part 2：证明 <span class="arithmatex">\(-x\ln x&lt;\sqrt{1-x}\ \ \ (x\in [\dfrac{1}{e},1))\)</span></h4>
+<p>即证 <span class="arithmatex">\(x^2\ln^2 x&lt;1-x\)</span>，即证 <span class="arithmatex">\(\ln^2 x+\dfrac{1}{x}-\dfrac{1}{x^2}&lt;0\)</span>（设为 <span class="arithmatex">\(g(x)\)</span>）。<span class="arithmatex">\(g'(x)=\dfrac{2\ln x}{x}-\dfrac{1}{x^2}+\dfrac{2}{x^3}=\dfrac{1}{x^3}(2x^2\ln x-x+2)\)</span>。考虑分析 <span class="arithmatex">\(\varphi(x)=2x^2\ln x-x+2\)</span>。利用对数均值不等式 <span class="arithmatex">\(\ln x&gt;\dfrac{2(x-1)}{x+1}\)</span>，<span class="arithmatex">\(\varphi(x)&gt;2x^2\dfrac{2(x-1)}{x+1}-x+2=(x+1)[4x^2(x-1)+(x+1)(2-x)]=(x+1)[4x^3-5x^2+x+2]\)</span>。分析 <span class="arithmatex">\(y=4x^2-5x+1\)</span>，对称轴为 <span class="arithmatex">\(x=\dfrac{5}{8}\)</span>，此时 <span class="arithmatex">\(y=-\dfrac{9}{25}\)</span>，那显然 <span class="arithmatex">\(y&gt;-2\)</span>，所以 <span class="arithmatex">\(\varphi(x)&gt;0\)</span>，<span class="arithmatex">\(g'(x)&gt;0\)</span>，只需要考虑 <span class="arithmatex">\(x=1\)</span> 的情况，恰好 <span class="arithmatex">\(g(1)=0\)</span>，成立！</p>
+<p>（相信有更加简单的办法）</p>
+<p>综上，<span class="arithmatex">\(|f(x_1)-f(x_2)|\le h(|x_1-x_2|)\)</span>，成立！</p>
+        </div>
+    </article>
+    <aside class="article-toc">
+        <div class="toc-title">目录</div>
+        <div class="toc">
+<ul>
+<li><a href="#_1">前言</a></li>
+<li><a href="#_2">第一步调整</a></li>
+<li><a href="#_3">第二步调整</a></li>
+<li><a href="#_4">最后的计算</a><ul>
+<li><a href="#part-1-xln-xsqrt-x-xin-0dfrac1e">Part 1：证明 \(-x\ln x&lt;\sqrt x\ \ \ (x\in (0,\dfrac{1}{e}])\)</a></li>
+<li><a href="#part-2-xln-xsqrt1-x-xin-dfrac1e1">Part 2：证明 \(-x\ln x&lt;\sqrt{1-x}\ \ \ (x\in [\dfrac{1}{e},1))\)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+        <ul class="toc-fallback-list" style="display:none"><li><a href="#article-title" class="toc-fallback">利用调整法解决一系列极值点偏移问题</a></li></ul>
+    </aside>
+</div>
+
+<div class="back-link">
+    <a href="/GraphcityBlog/">← 返回文章列表</a>
+</div>
+
+    </main>
+    <footer>
+        <div class="theme-switcher">
+            <span class="theme-dot" data-theme="teal" style="background:#339596" title="青绿"></span>
+            <span class="theme-dot" data-theme="blue" style="background:#3360AB" title="蓝色"></span>
+            <span class="theme-dot" data-theme="rose" style="background:#d4627c" title="玫红"></span>
+            <span class="theme-dot" data-theme="orange" style="background:#e08a3e" title="橘橙"></span>
+            <span class="theme-dot" data-theme="purple" style="background:#7c5aa8" title="紫色"></span>
+            <span class="theme-dot" data-theme="green" style="background:#4a9c5d" title="草绿"></span>
+            <span class="theme-dot" data-theme="slate" style="background:#5a7a8a" title="灰蓝"></span>
+            <span class="theme-dot" data-theme="sky" style="background:#4A90D9" title="天蓝"></span>
+        </div>
+        <p>&copy; 2026 Graphcity</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+    <script>
+        // 目录兜底：除兜底链接外没有其他链接时显示文章标题
+        (function() {
+            const toc = document.querySelector('.article-toc');
+            if (!toc) return;
+            const fallback = toc.querySelector('.toc-fallback-list');
+            const links = toc.querySelectorAll('a[href^="#"]:not(.toc-fallback)');
+            if (fallback) fallback.style.display = links.length ? 'none' : '';
+        })();
+
+        // TOC 滚动高亮
+        (function() {
+            const tocAside = document.querySelector('.article-toc');
+            if (!tocAside) return;
+            const headings = document.querySelectorAll('.article-body h1[id], .article-body h2[id], .article-body h3[id], .article-body h4[id]');
+            if (!headings.length) return;
+            const tocMap = {};
+            tocAside.querySelectorAll('a[href^="#"]').forEach(a => {
+                const id = a.getAttribute('href').slice(1);
+                tocMap[id] = a;
+            });
+            function update() {
+                const scrollTop = window.scrollY + 100;
+                let activeId = null;
+                headings.forEach(h => {
+                    if (h.getBoundingClientRect().top + window.scrollY <= scrollTop) activeId = h.id;
+                });
+                tocAside.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+                if (activeId && tocMap[activeId]) tocMap[activeId].classList.add('active');
+            }
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) { requestAnimationFrame(() => { update(); ticking = false; }); ticking = true; }
+            });
+            update();
+        })();
+
+        // 禁用 B 站外链自动播放
+        document.querySelectorAll('iframe[src*="bilibili"]').forEach(f => {
+            if (f.src.includes('autoplay=')) {
+                f.src = f.src.replace(/([?&])autoplay=1/, '$1autoplay=0');
+            } else {
+                f.src += (f.src.includes('?') ? '&' : '?') + 'autoplay=0';
+            }
+        });
+    </script>
+    <script>
+        const themes = {
+            teal:    { primary:'#339596', primaryDark:'#277576', codeBg:'#1a2e2f', codeText:'#d6e2f5', shadowRgb:'51,149,150', badgeBg:'#eaf4f4' },
+            blue:    { primary:'#3360AB', primaryDark:'#254a85', codeBg:'#1a2540', codeText:'#d0dcf0', shadowRgb:'51,96,171', badgeBg:'#eef2fa' },
+            rose:    { primary:'#d4627c', primaryDark:'#a3435c', codeBg:'#2f1a22', codeText:'#f0d6e0', shadowRgb:'212,98,124', badgeBg:'#faf0f4' },
+            orange:  { primary:'#e08a3e', primaryDark:'#b06828', codeBg:'#2f2218', codeText:'#f0e2d4', shadowRgb:'224,138,62', badgeBg:'#faf4ec' },
+            purple:  { primary:'#7c5aa8', primaryDark:'#5c3e86', codeBg:'#1f1a2f', codeText:'#dcd4f0', shadowRgb:'124,90,168', badgeBg:'#f4f0fa' },
+            green:   { primary:'#4a9c5d', primaryDark:'#357a44', codeBg:'#182a1e', codeText:'#d4f0dc', shadowRgb:'74,156,93', badgeBg:'#eefaf0' },
+            slate:   { primary:'#5a7a8a', primaryDark:'#3f5d6b', codeBg:'#1a242a', codeText:'#d4e0e8', shadowRgb:'90,122,138', badgeBg:'#f0f4f6' },
+            sky:     { primary:'#4A90D9', primaryDark:'#3570ad', codeBg:'#19253a', codeText:'#d4e2f4', shadowRgb:'74,144,217', badgeBg:'#eef3fa' },
+        };
+        const saved = localStorage.getItem('blog-theme') || 'teal';
+        function applyTheme(name) {
+            const t = themes[name];
+            const r = document.querySelector(':root');
+            r.style.setProperty('--primary', t.primary);
+            r.style.setProperty('--primary-dark', t.primaryDark);
+            r.style.setProperty('--code-bg', t.codeBg);
+            r.style.setProperty('--code-text', t.codeText);
+            r.style.setProperty('--shadow-rgb', t.shadowRgb);
+            r.style.setProperty('--badge-bg', t.badgeBg);
+            document.querySelectorAll('.theme-dot').forEach(d => d.classList.toggle('active', d.dataset.theme === name));
+            localStorage.setItem('blog-theme', name);
+        }
+        applyTheme(saved);
+        document.querySelectorAll('.theme-dot').forEach(dot => {
+            dot.onclick = () => applyTheme(dot.dataset.theme);
+        });
+
+        document.querySelectorAll('pre').forEach(pre => {
+            const btn = document.createElement('button');
+            btn.className = 'copy-btn';
+            btn.textContent = '复制';
+            btn.onclick = () => {
+                navigator.clipboard.writeText(pre.textContent).then(() => {
+                    btn.textContent = '已复制';
+                    setTimeout(() => btn.textContent = '复制', 1500);
+                });
+            };
+            pre.style.position = 'relative';
+            pre.appendChild(btn);
+        });
+    </script>
+</body>
+</html>

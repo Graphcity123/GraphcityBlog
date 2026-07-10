@@ -1,0 +1,895 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多元微积分单核攻略，简单好抄 — Graphcity Blog</title>
+    <link rel="stylesheet" href="/GraphcityBlog/static/blog/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
+    
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <a class="brand" href="/GraphcityBlog/">Graphcity Blog</a>
+            <div class="nav-links">
+                <a href="/GraphcityBlog/articles/">文章</a>
+                <a href="/GraphcityBlog/projects/">项目</a>
+                <a href="/GraphcityBlog/archive/">归档</a>
+                <a href="/GraphcityBlog/about/">关于</a>
+            </div>
+            <div class="nav-right">
+                <form action="/GraphcityBlog/search/" method="get" class="search-form">
+                    <input type="text" name="q" placeholder="搜索文章、项目…" value="">
+                    <button type="submit">搜索</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <main>
+        
+<header class="article-header">
+    <div class="article-header-bar"></div>
+    <div class="article-header-body">
+        <h1 id="article-title">多元微积分单核攻略，简单好抄</h1>
+        <div class="tags"><a href="/GraphcityBlog/archive/%E6%95%B0%E5%AD%A6/?tab=article" class="tag-pill" style="text-decoration:none">数学</a></div>
+        <time>2026-03-10</time>
+    </div>
+</header>
+
+<div class="article-layout">
+    <article>
+        <div class="article-body">
+            <h1 id="_1">多元微积分单核攻略，简单好抄</h1>
+<h2 id="_2">前言</h2>
+<p>参考文献：《数学分析（II）讲义》- 张友金</p>
+<p>本文可以作为参考文献的辅助学习资料，其中的若干记号沿用了参考文献。</p>
+<p>说实话，在第一次读这本讲义的微分学部分的时候，我读懂了 0 个字。每个定理是什么，在干什么，每一步证明过程的动机是什么，都是完全不知道的。在与 deepseek 持之以恒的对话中，我才可以逐渐理解每个定理的意义，每一步证明的理由。</p>
+<p>这篇文章主要就是以一种“几何直观”的方式来叙述各种定理及其证明，虽然在严谨性方面可能有些许不足，但更加容易上手，也正如标题所言“单核攻略，简单好抄”。</p>
+<p>Take Easy！</p>
+<h2 id="_3">从一元函数到多元函数</h2>
+<p>回顾一元微积分：</p>
+<div class="arithmatex">\[
+\dfrac{\mathrm{d} f}{\mathrm{d} x}=f’(x)
+\]</div>
+<p>不过我们先不用这个形式，我们用另外一种形式：</p>
+<div class="arithmatex">\[
+\mathrm{d} f(x_0)(t)=tf’(x_0)
+\]</div>
+<p>把微分符号 <span class="arithmatex">\(\mathrm{d}\)</span> 看成一个算子，输入原函数 <span class="arithmatex">\(f\)</span> 和某一个点 <span class="arithmatex">\(x_0\)</span>，通过 <span class="arithmatex">\(\mathrm{d}\)</span> 后会输出一个线性函数 <span class="arithmatex">\(\mathrm{d} f(x_0)(t)\)</span>。</p>
+<p>这个函数有什么用？我们可以通过这个函数得到 <span class="arithmatex">\(f(x)\)</span> 在 <span class="arithmatex">\(x_0\)</span> 近旁的一个一阶线性近似：</p>
+<p>也就是 <span class="arithmatex">\(x_0+t\to f(x_0)+\mathrm{d} f(x_0)(t)\)</span> 这条直线，即 <span class="arithmatex">\(f(x)\)</span> 在 <span class="arithmatex">\(x_0\)</span> 处的切线。</p>
+<p>可能大家会觉得理解成一个“算子”很多余。明明用一个数字 <span class="arithmatex">\(f’(x_0)\)</span> 就可以表示，为什么要那么复杂？这个问题相信你到后面就会明白了。</p>
+<p>现在我们来到多元函数。对多元函数微分是什么意思？类比一下一元微积分，我们希望在 <span class="arithmatex">\(x_0\)</span> 的近旁，找到一个最佳的线性函数来拟合 <span class="arithmatex">\(f\)</span>。对于多元函数也是一样，我们希望在 <span class="arithmatex">\(x_0\)</span> 的近旁，找到一个最佳的线性函数来拟合 <span class="arithmatex">\(f\)</span>。</p>
+<p>怎么拟合？我们可以先回到最熟悉的一维情况。假设 <span class="arithmatex">\(f\)</span> 是一个二元函数，如果要考察在 <span class="arithmatex">\((x_0,y_0)\)</span> 近旁的拟合，那我们就先固定 <span class="arithmatex">\(y=y_0\)</span>，只让 <span class="arithmatex">\(x\)</span> 在 <span class="arithmatex">\(x_0\)</span> 附近自由变动（如果把值域看成 <span class="arithmatex">\(z\)</span> 维度，就相当于把 <span class="arithmatex">\(f\)</span> 的图像放到 <span class="arithmatex">\(y=y_0\)</span> 的截面上讨论，这样它就看起来像我们熟悉的“一条曲线”），这样 <span class="arithmatex">\(f(x,y_0)\)</span> 就是一个一元函数，我们可以对其求导。设 <span class="arithmatex">\(\dfrac{\partial f}{\partial x}(x_0,y_0)=\dfrac{\mathrm{d}f(x,y_0)}{dx}(x_0)\)</span>（注意这是个数字）</p>
+<p>那么在 <span class="arithmatex">\(y=y_0\)</span> 的截面上，<span class="arithmatex">\(x_0\)</span> 的近旁，<span class="arithmatex">\((x_0+t,y_0,f(x_0,y_0)+t\dfrac{\partial f}{\partial x}(x_0,y_0))\)</span> 就是对 <span class="arithmatex">\(f\)</span> 的一阶线性拟合。</p>
+<p>同理，我们再固定 <span class="arithmatex">\(x=x_0\)</span>，只让 <span class="arithmatex">\(y\)</span> 在 <span class="arithmatex">\(y_0\)</span> 附近自由变动，我们也可以得到一个线性拟合：<span class="arithmatex">\((x_0,y_0+t,f(x_0,y_0)+t\dfrac{\partial f}{\partial y}(x_0,y_0))\)</span>。</p>
+<p>看看我们最终的目的：我们希望找到一个最佳的线性函数来拟合 <span class="arithmatex">\(f\)</span>。也就是说，我们希望这个函数是线性的，也就是每个维度都独立且线性。刚才的操作，我们刚好得到了每个维度的线性拟合，那么我们把它们合并在一起不就是那个目标的线性函数了吗？</p>
+<p>不管是不是真的，我们先这样做再说：这个目标函数至少看起来很像：（<span class="arithmatex">\(t=(t^1,t^2)^\mathrm{T}\)</span> 为二维向量）</p>
+<div class="arithmatex">\[
+(x_0+t^1,y_0+t^2)\to f(x_0,y_0)+t^1\dfrac{\partial f}{\partial x}(x_0,y_0)+t^2\dfrac{\partial f}{\partial y}(x_0,y_0)
+\]</div>
+<p>它构成了一个过 <span class="arithmatex">\((x_0,y_0,f(x_0,y_0))\)</span> 的一个“切平面”。如果我们用列向量表示每个点，那就是：</p>
+<div class="arithmatex">\[
+\begin{bmatrix}x_0 \\ y_0\end{bmatrix}+t\to f(x_0,y_0)+\begin{bmatrix}\dfrac{\partial f}{\partial x}(x_0,y_0) &amp; \dfrac{\partial f}{\partial y}(x_0,y_0) \end{bmatrix}t
+\]</div>
+<p>对于 <span class="arithmatex">\(n\)</span> 元函数 <span class="arithmatex">\(f(x)\)</span>，通过类似的方法，我们还是可以控制其它维全都不动，只有第 <span class="arithmatex">\(i\)</span> 维变动，然后对以 <span class="arithmatex">\(x^i\)</span> 为自变量的一元函数求导，得到 <span class="arithmatex">\(\dfrac{\partial f}{\partial x^i}(x_0)=\dfrac{\mathrm{d}f(x_0^1,\cdots,x_0^{i-1},x,x_0^{i+1},\cdots,x_0^n)}{\mathrm{d}x}(x_0^i)\)</span>。</p>
+<p>同样地，我们可以通过这些“偏导数”求出一个最佳拟合的“超平面”：</p>
+<div class="arithmatex">\[
+x_0+t\to f(x_0)+\begin{bmatrix}\dfrac{\partial f}{\partial x^1}(x_0) &amp; \dfrac{\partial f}{\partial x^2}(x_0) &amp; \cdots &amp; \dfrac{\partial f}{\partial x^n}(x_0)\end{bmatrix} t
+\]</div>
+<p>我们发现这个矩阵 <span class="arithmatex">\(\begin{bmatrix}\dfrac{\partial f}{\partial x^1}(x_0) &amp; \dfrac{\partial f}{\partial x^2}(x_0) &amp; \cdots &amp; \dfrac{\partial f}{\partial x^n}(x_0)\end{bmatrix}\)</span> 跟我们之前的 <span class="arithmatex">\(\mathrm df(x_0)\)</span> 很像。它都是一个线性映射，将一个偏移向量 <span class="arithmatex">\(t\)</span> 映射到值的偏移。我们称它为 <span class="arithmatex">\(f\)</span> 在 <span class="arithmatex">\(x_0\)</span> 的 <strong>Jacobi 矩阵</strong> 或 <strong>Jacobian</strong>，记作 <span class="arithmatex">\(J_f(x_0)\)</span>。</p>
+<p>现在，类比一元微积分里面的 <span class="arithmatex">\(x_0+t\to f(x_0)+f’(x_0)t\)</span>，我们在多元函数里面有 <span class="arithmatex">\(x_0+t\to f(x_0)+J_f(x_0)t\)</span>。可以看到，在多元微分学里面，<span class="arithmatex">\(J_f(x_0)\)</span> 和一元微积分里面 <span class="arithmatex">\(f’(x_0)\)</span> 承担的功能很像。</p>
+<p>但是，我们有一个问题没有解决————是的，这是一个看起来很棒的线性拟合，但我们只讨论了沿着标准向量移动的情况。如果沿着任意方向走会怎样？甚至我们不沿着一个向量走，沿着一个曲线走的话，它能否还是一个“很棒的”拟合？</p>
+<p>首先做一个准备工作：什么拟合是“很棒的”？类比于一元微积分，对于一个线性映射 <span class="arithmatex">\(\varphi\)</span> 我们希望 <span class="arithmatex">\(f(x_0+t)-(f(x_0)+\varphi(t))=o(t)\)</span>，也就是这个线性拟合的结果和原函数得到结果的差值控制在一阶以下。如果存在这样的线性映射，我们就认为 <span class="arithmatex">\(f\)</span> 是可微的。我们希望得到的结果是：<span class="arithmatex">\(J_f(x_0)\)</span> 就是这样一个好的线性映射。</p>
+<p>现在，我们来证明：</p>
+<p><strong>设 <span class="arithmatex">\(f: X\to \mathbb{R}\)</span> 在 <span class="arithmatex">\(x_0\)</span> 的某一邻域 <span class="arithmatex">\(U\subset X\)</span> 存在所有偏导数 <span class="arithmatex">\(\dfrac{\partial f}{\partial x^i}\)</span>，且它们在 <span class="arithmatex">\(x_0\)</span> 处连续，则 <span class="arithmatex">\(f\)</span> 在 <span class="arithmatex">\(x_0\)</span> 处可微。</strong></p>
+<blockquote>
+<p>首先偏导数只能处理只有一维变动的情况，所以我们先要把 <span class="arithmatex">\(f(x_0+h)-f(x_0)-J_f(x_0)h\)</span> 拆成每一维各自独立的贡献之和。对于每一维的贡献，我们需要证明它在一个可控的小范围内（<span class="arithmatex">\(o(h)\)</span> 级别），如果所有维度的贡献都是 <span class="arithmatex">\(o(h)\)</span> 级别，那它们的和也是 <span class="arithmatex">\(o(h)\)</span> 的，这样就可以得证了。</p>
+</blockquote>
+<p>证明：不妨令 <span class="arithmatex">\(U=B(x_0,\delta)\subset X\)</span>。我们考虑一个维度一个维度走，把 <span class="arithmatex">\(x_0\)</span> 到 <span class="arithmatex">\(x_0+h\)</span> 的路径拆成 <span class="arithmatex">\(x_0\to x_0+h^1e^1\to x_0+h^1e^1+h^2e^2\to\cdots\to x_0+h\)</span>。（<span class="arithmatex">\(e^i\)</span> 是第 <span class="arithmatex">\(i\)</span> 维第标准向量）</p>
+<p>那么 <span class="arithmatex">\(f(x_0+h)-f(x_0)=\sum_{i=1}^n f(x_0+h^1e^1+\cdots+h^ie^i)-f(x_0+h^1e^1+\cdots+h^{i-1}e^{i-1})\)</span></p>
+<p>对于求和的第 <span class="arithmatex">\(i\)</span> 项，只有第 <span class="arithmatex">\(i\)</span> 维增加了 <span class="arithmatex">\(h^i\)</span>。这提示我们用第 <span class="arithmatex">\(i\)</span> 维的偏导数处理问题。根据一元函数的 Lagrange 中值定理，有：</p>
+<div class="arithmatex">\[
+f(x_0+h^1e^1+\cdots+h^ie^i)-f(x_0+h^1e^1+\cdots+h^{i-1}e^{i-1})=h^i\dfrac{\partial f}{\partial x^i}(x_0+h^1e^1+\cdots+h^{i-1}e^{i-1}+\theta h^ie^i)
+\]</div>
+<p>这里的 <span class="arithmatex">\(\theta\)</span> 是 <span class="arithmatex">\((0,1)\)</span> 之间的实数。那么 <span class="arithmatex">\(f(x_0+h)-f(x_0)-J_f(x_0)h\)</span> 就可以表示成：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+&amp; \sum_{i=1}^n h^i(\dfrac{\partial f}{\partial x^i}(x_0+h^1e^1+\cdots+h^{i-1}e^{i-1}+\theta h^ie^i)-\dfrac{\partial f}{\partial x^i}(x_0))\\
+\le &amp; ||h||\sum_{i=1}^n \dfrac{\partial f}{\partial x^i}(x_0+h^1e^1+\cdots+h^{i-1}e^{i-1}+\theta h^ie^i)-\dfrac{\partial f}{\partial x^i}(x_0)
+\end{aligned}
+\]</div>
+<p>由于所有偏导数都连续，所以 <span class="arithmatex">\(h\to 0\)</span> 的时候右边的求和趋近于 0，整个误差是 <span class="arithmatex">\(o(h)\)</span> 的，证毕。</p>
+<p>综上，我们得到了：<span class="arithmatex">\(J_f(x_0)\)</span> 就是 <span class="arithmatex">\(f(x)\)</span> 在 <span class="arithmatex">\(x_0\)</span> 处的最佳线性拟合，通过它可以导出一个切超平面 <span class="arithmatex">\(x_0+t\to f(x_0)+J_f(x)t\)</span>，这个平面就是 <span class="arithmatex">\(f\)</span> 在 <span class="arithmatex">\(x_0\)</span> 旁的最佳线性近似。</p>
+<h2 id="_4">从多元函数到多元映射</h2>
+<p>首先我们注意到，对于多元映射 <span class="arithmatex">\(f\)</span>，值域的每一维都由一个独立的函数 <span class="arithmatex">\(f^i(x)\)</span> 来构造。我们希望找到一个最佳的线性映射 <span class="arithmatex">\(\varphi\)</span> 来对映射 <span class="arithmatex">\(f:\mathbb{R}^n\to \mathbb{R}^m\)</span> 进行拟合。</p>
+<p>那既然每一维是独立的，我们对于每一维分别做一次上面多元函数的微分工作不就好了吗？确实是这样。对于 <span class="arithmatex">\(f^i(x)\)</span>，上文中我们就得到了其最佳的线性映射：</p>
+<div class="arithmatex">\[
+x_0+t\to f^i(x_0)+J_{f^i}(x_0)t
+\]</div>
+<p>我们如果把值域也表示成列向量的形式，即 <span class="arithmatex">\(f(x)=(f^1(x),f^2(x),\cdots,f^m(x))^\mathrm{T}\)</span>，那么我们就可以得到这样一个线性拟合：</p>
+<div class="arithmatex">\[
+x_0+t\to f(x_0)+\begin{bmatrix}J_{f^1}(x_0)\\ J_{f^2}(x_0)\\\cdots\\ J_{f^m}(x_0)\end{bmatrix}t
+\]</div>
+<p>根据可微性的定义，对于值域的每一维都是最佳的线性拟合，显然有 <span class="arithmatex">\(f\)</span> 可微，且其最佳的线性映射是 <span class="arithmatex">\(\begin{bmatrix}J_{f^1}(x_0)\\ J_{f^2}(x_0)\\\cdots\\ J_{f^m}(x_0)\end{bmatrix}=(\dfrac{\partial f^i}{\partial x^j}(x_0))\)</span>。我们也把它称为 <span class="arithmatex">\(f\)</span> 在 <span class="arithmatex">\(x_0\)</span> 处的 Jacobi 矩阵（或 Jacobian）。</p>
+<p>不论是一元函数的所谓“切线”和多元函数的“切超平面”，这些都是值域只有一维的多元函数的特殊理解。对于多元映射，我们更需要抓住微分的线性映射本质：<span class="arithmatex">\(J_f(x_0)\)</span> 表示，在 <span class="arithmatex">\(x_0\)</span> 的近旁，<span class="arithmatex">\(f\)</span> 对应的变换近似于这个线性变换，这个变换原来的原点是 <span class="arithmatex">\(x_0\)</span>，新的原点是 <span class="arithmatex">\(f(x_0)\)</span>。</p>
+<p>对于 <span class="arithmatex">\(x_0\)</span> 的一个足够小邻域，如果它是一个球，那它在经过 <span class="arithmatex">\(f\)</span> 的变换后会变成一个椭球。这个椭球可能会有一些小的变化（比如边界有小弯曲），但这个变化是可控且足够小的，不影响其整体近似于做一次 <span class="arithmatex">\(J_f(x_0)\)</span> 的线性变换。</p>
+<p>现在我们更加应该把微分看成一种“局部的线性变换近似”，它告诉我们，虽然整体上 <span class="arithmatex">\(f\)</span> 代表的变换不是线性的，但它的局部可以进行线性的拟合，且很可能拥有很多线性映射类似的相关性质。下文我们将探讨这些“相关性质”。</p>
+<h2 id="_5">逆映射定理</h2>
+<p>类似线性代数中的方阵，由于映射前后的维数不变，所以有很多独特的性质或讨论点（如行列式，逆阵，特征值等）。我们也探讨前后维数不变的映射。</p>
+<p>设 <span class="arithmatex">\(f:X\to Y\)</span> 为 <span class="arithmatex">\(x_0\in\mathbb{R}^n\)</span> 的邻域 <span class="arithmatex">\(X\)</span> 到 <span class="arithmatex">\(y_0=f(x_0)\in\mathbb{R}^n\)</span> 的邻域 <span class="arithmatex">\(Y\)</span> 的映射，<span class="arithmatex">\(f\)</span> 连续可微。</p>
+<p>我们知道，如果一个 <span class="arithmatex">\(n\)</span> 阶方阵 <span class="arithmatex">\(A\)</span> 满足 <span class="arithmatex">\(\det(A)\not=0\)</span> 则 <span class="arithmatex">\(A\)</span> 可逆。类比到多元映射上，如果 <span class="arithmatex">\(\det(J_f(x_0))\not=0\)</span>，那是否存在 <span class="arithmatex">\(x_0\)</span> 的邻域 <span class="arithmatex">\(U\)</span> 和 <span class="arithmatex">\(y_0\)</span> 的邻域 <span class="arithmatex">\(V\)</span>，使得 <span class="arithmatex">\(f\)</span> 也可逆呢？如果可逆，那是否也有 <span class="arithmatex">\(J_{f^{-1}}(y_0)=J_f(x_0)^{-1}\)</span> 呢？接下来我们将证明：</p>
+<p><strong>（逆映射定理）存在 <span class="arithmatex">\(x_0\)</span> 的邻域 <span class="arithmatex">\(U\)</span> 和 <span class="arithmatex">\(y_0\)</span> 的邻域 <span class="arithmatex">\(V\)</span> 使得 <span class="arithmatex">\(f|_U:U\to V\)</span> 为 <span class="arithmatex">\(C^1\)</span>-微分同胚，且对任意给定的 <span class="arithmatex">\(y\in V\)</span> 都有 <span class="arithmatex">\(J_{f^{-1}}(y)=J_f(x)^{-1}\)</span>，其中 <span class="arithmatex">\(x=f^{-1}(y)\)</span></strong>。</p>
+<p>（<span class="arithmatex">\(f:U\to V\)</span> 是 <span class="arithmatex">\(C^1\)</span>-微分同胚是指 <span class="arithmatex">\(f\)</span> 为一一映射，且 <span class="arithmatex">\(f,f^{-1}\)</span> 均连续可微）</p>
+<p>在此之前，我们先做一点准备工作：</p>
+<p><strong>（线性算子的有界性）设 $<span class="arithmatex">\(A\)</span>$ 为可逆线性变换，存在 <span class="arithmatex">\(\lambda&gt;0\)</span> 使得 <span class="arithmatex">\(||Ax||\ge \lambda||x||\)</span> 对任意 <span class="arithmatex">\(x\)</span> 成立。</strong></p>
+<p>证明：<span class="arithmatex">\(||x||=||A^{-1}Ax||\le ||A^{-1}||||Ax||\)</span>，所以 <span class="arithmatex">\(||Ax||\ge \dfrac{1}{||A^{-1}||}||x||\)</span>，取 <span class="arithmatex">\(\lambda=\dfrac{1}{||A^{-1}||}\)</span> 即可。</p>
+<p><strong>（拟微分中值定理推论）设 <span class="arithmatex">\(a,b\in\mathbb{R}\)</span>，<span class="arithmatex">\(a&lt;b\)</span>，若映射 <span class="arithmatex">\(f:[a,b]\to \mathbb{R}^m\)</span> 连续且在 <span class="arithmatex">\((a,b)\)</span> 可微，则存在 <span class="arithmatex">\(t_0\in(a,b)\)</span> 使得 <span class="arithmatex">\(||f(b)-f(a)||\le||J_f(t_0)||(b-a)\)</span>。</strong></p>
+<blockquote>
+<p>从物理上理解，<span class="arithmatex">\(f(t)\)</span> 是粒子在空间中随时间运动的轨迹。我们要证明的就是，粒子的位移 <span class="arithmatex">\(||f(b)-f(a)||\)</span> 小于等于某一时刻的速度 <span class="arithmatex">\(||J_f(t_0)||\)</span> 乘以时间差 <span class="arithmatex">\((b-a)\)</span>。直觉上来说必然是对的，我们直接取速度最大的那一刻就行了。</p>
+<p>如何证明？既然是看位移，我们就只看粒子在 <span class="arithmatex">\(f(b)-f(a)\)</span> 这一方向的位移大小，再通过一元的拉格朗日中值定理，知道在这个方向上某一时刻的速度等于平均速度，显然原本的速度大于等于投影方向的速度，这样就证明完了。</p>
+</blockquote>
+<p>证明：设 <span class="arithmatex">\(x:[a,b]\to \mathbb{R}\)</span>，<span class="arithmatex">\(x(t)=\langle f(b)-f(a),f(t) \rangle\)</span>。根据复合函数链式求导法则，<span class="arithmatex">\(x’(t)=\langle f(b)-f(a),\operatorname{grad} f(t)\rangle\)</span>。根据一元 Lagrange 中值定理，<span class="arithmatex">\(x(b)-x(a)=x’(t_0)(b-a)\)</span>，其中 <span class="arithmatex">\(t_0\in(a,b)\)</span>。</p>
+<p>由于 <span class="arithmatex">\(\langle p,q\rangle\le ||p||||q||\)</span>，所以：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+x(b)-x(a) &amp;= x’(t_0)(b-a) \\
+\langle f(b)-f(a),f(b)-f(a)\rangle &amp;= \langle f(b)-f(a),J_f(t)\rangle (b-a) \\
+||f(b)-f(a)||^2 &amp;\le ||f(b)-f(a)||\times ||J_f(t)||\times (b-a) \\
+||f(b)-f(a)|| &amp; \le ||J_f(t) || (b-a)
+\end{aligned}
+\]</div>
+<p>证毕。</p>
+<p><strong>（压缩映射定理）设 <span class="arithmatex">\(D\)</span> 为 <span class="arithmatex">\(\mathbb{R}^n\)</span> 中的闭集，<span class="arithmatex">\(f:D\to D\)</span> 连续，且满足存在 <span class="arithmatex">\(0&lt;\lambda&lt;1\)</span>，<span class="arithmatex">\(\forall x,y\in D\)</span>，都有 <span class="arithmatex">\(d(f(x),f(y))\le \lambda d(x,y)\)</span>，则存在恰好一个点满足 <span class="arithmatex">\(f(x)=x\)</span></strong>。</p>
+<p>证明：首先我们证明存在一个合法点。任取一个点 <span class="arithmatex">\(a_0\)</span>，构造点列 <span class="arithmatex">\(a_{n+1}=f(a_n)\)</span>。根据题目，对于任意 <span class="arithmatex">\(p&lt;q\)</span>，我们有：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+d(a_p,a_q) &amp;\le \sum_{i=p}^{q-1}d(a_i,a_{i+1})\\
+&amp;\le d(a_p,a_{p+1})+\lambda\sum_{i=p+1}^{q-1}d(a_{i-1},a_{i-2})\\
+&amp;\le d(a_p,a_{p+1})(1+\lambda)+\lambda^2\sum_{i=p+2}^{q-1}d(a_{i-2},a_{i-3})\\
+&amp; \ \ \vdots \\
+&amp; \le d(a_p,a_{p+1})(1+\lambda+\lambda^2+\cdots+\lambda^{q-p-1})\\
+&amp; \le d(a_0,a_1)\lambda^p\times \dfrac{1-\lambda^{q-p}}{1-\lambda}\\
+&amp; \le \lambda^p \dfrac{d(a_0,a_1)}{1-\lambda} \to 0
+\end{aligned}
+\]</div>
+<p>所以 <span class="arithmatex">\(\{a_n\}\)</span> 为 Cauchy 点列，最终会收敛至一个点（设为 <span class="arithmatex">\(a\)</span>）。下证 <span class="arithmatex">\(f(a)=a\)</span>：</p>
+<p>考虑反证法，若 <span class="arithmatex">\(f(a)\not= a\)</span>，由于 <span class="arithmatex">\(\{a_n\}\)</span> 收敛，当 <span class="arithmatex">\(n\)</span> 足够大时 <span class="arithmatex">\(d(a_n,a)&lt;\dfrac{d_0}{8}\)</span>，此时 <span class="arithmatex">\(d(f(a_n),f(a))\le \lambda\dfrac{d_0}{8}&lt;\dfrac{d_0}{8}\)</span>。而 <span class="arithmatex">\(a_{n+1}=f(a_n)\)</span>，所以有 <span class="arithmatex">\(d(a_{n+1},f(a))&lt;\dfrac{d_0}{8}\)</span>，同时 <span class="arithmatex">\(d(a_{n+1},a)&lt;\dfrac{d_0}{8}\)</span>，所以 <span class="arithmatex">\(d_0=d(a,f(a))\le d(a,a_{n+1})+d(a_{n+1},f(a))&lt;\dfrac{d_0}{8}+\dfrac{d_0}{8}=\dfrac{d_0}{4}\)</span>，矛盾，所以 <span class="arithmatex">\(f(a)=a\)</span>。</p>
+<p>如果 <span class="arithmatex">\(a\not=b\)</span>，<span class="arithmatex">\(f(a)=a\)</span>，<span class="arithmatex">\(f(b)=b\)</span>，则 <span class="arithmatex">\(d(a,b)=d(f(a),f(b))\le \lambda d(a,b)&lt;d(a,b)\)</span> 矛盾，所以只有恰好一个点合法。</p>
+<blockquote>
+<p>知道这个定理有什么用？这个定理重要的一点是：对于一个确定的压缩映射 <span class="arithmatex">\(f\)</span>，只有恰好一个点 <span class="arithmatex">\(x\)</span> 是合法的。如果我们对于每一个 <span class="arithmatex">\(y\in V\)</span>，都能够构造一个压缩映射 <span class="arithmatex">\(g_y(x)\)</span>，而且只让恰好一个 <span class="arithmatex">\(x\)</span> 满足，而且这个 <span class="arithmatex">\(x\)</span> 刚好有 <span class="arithmatex">\(y=f(x)\)</span> 的话，那我们就找到逆映射了！</p>
+<p>如何构造 <span class="arithmatex">\(g_y(x)\)</span>？结合压缩映射的条件方程 <span class="arithmatex">\(x=g_y(x)\)</span> 和逆映射的条件方程 <span class="arithmatex">\(y=f(x)\)</span>，我们可以构造 <span class="arithmatex">\(g_y(x)=x-f(x)+y\)</span>，此时 <span class="arithmatex">\(x=g_y(x)\)</span> 就意味着 <span class="arithmatex">\(y=f(x)\)</span>。</p>
+<p>现在的问题就是，如何找到一个满足 <span class="arithmatex">\(g_y(x)=x-f(x)+y\)</span> 是压缩映射的定义域？根据定义，<span class="arithmatex">\(d(g_y(x_1),g_y(x_2))\le\lambda d(x_1,x_2)\)</span>，即 <span class="arithmatex">\(d(x_1-f(x_1),x_2-f(x_2))\le\lambda d(x_1,x_2)\)</span>，转化一下，变为 <span class="arithmatex">\(d(x_1-x_2,f(x_1)-f(x_2))\le\lambda d(x_1-x_2,0)\)</span>，即 <span class="arithmatex">\(||(x_1-f(x_1))-(x_2-f(x_2))||\le \lambda||x_1-x_2||\)</span>。</p>
+<p>由于平移函数不改变微分值，不妨令 <span class="arithmatex">\(x_0=0\)</span>，<span class="arithmatex">\(y_0=f(x_0)=0\)</span>。</p>
+<p>如果 <span class="arithmatex">\(f\)</span> 是恒等映射，那么 <span class="arithmatex">\(g(x)=x-f(x)\)</span> 几乎为零映射，且 <span class="arithmatex">\(J_g(x_0)=O\)</span>。在 <span class="arithmatex">\(x_2\)</span> 处进行微分，那么 <span class="arithmatex">\(g(x_1)-g(x_2)\)</span> 可以通过拟微分中值定理由 <span class="arithmatex">\(J_g(x_?)(x_1-x_2)\)</span> 控制，完美！</p>
+<p>如果 <span class="arithmatex">\(f\)</span> 不是恒等映射，那么我们设 <span class="arithmatex">\(g(x)=J_f(x_0)x-f(x)\)</span> 进行类似操作即可。</p>
+</blockquote>
+<p><strong>证明：</strong> 不失一般性，令 <span class="arithmatex">\(x_0=0\)</span>，<span class="arithmatex">\(y_0=f(x_0)=0\)</span>。根据线性算子定理，设 <span class="arithmatex">\(c=\dfrac{1}{||J_f(0)^{-1}||}\)</span>，对于任意向量 <span class="arithmatex">\(x\)</span> 都有 <span class="arithmatex">\(||J_f(0)x||\ge c||x||\)</span>。</p>
+<p>设 <span class="arithmatex">\(g(x)=J_f(0)x-f(x)\)</span>，那么 <span class="arithmatex">\(J_g(0)=O\)</span>，由于 <span class="arithmatex">\(J_g(x)\)</span> 也连续可微，存在 <span class="arithmatex">\(\delta&gt;0\)</span> 使得任意 <span class="arithmatex">\(x\in B(0,\delta)\)</span> 都有 <span class="arithmatex">\(||J_g(x)||&lt;\dfrac{c}{2}\)</span>。</p>
+<p><span class="arithmatex">\(\forall x_1,x_2\in B(0,\delta)\)</span>，令 <span class="arithmatex">\(F(t)=g(x_2+t(x_1-x_2))\)</span>，根据链式求导法则有 <span class="arithmatex">\(J_F(t)=J_g(x_2+t(x_1-x_2))(x_1-x_2)\)</span>。显然有 <span class="arithmatex">\(||J_F(t)||\le ||x_1-x_2||\times ||J_g(x_2+t(x_1-x_2))||\)</span>。根据拟微分中值定理，<span class="arithmatex">\(||g(x_1)-g(x_2)||= ||F(1)-F(0)||\le ||J_F(t_0)||(1-0)\le \dfrac{c}{2}||x_1-x_2||\)</span>。</p>
+<p>继续推：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+||g(x_1)-g(x_2)|| &amp;\le \dfrac{c}{2} ||x_1-x_2|| \\
+||J_f(0)(J_f(0)^{-1}(g(x_1)-g(x_2)))||&amp;\le \dfrac{c}{2} ||x_1-x_2||\\
+c||J_f(0)^{-1}(g(x_1)-g(x_2))|| &amp;\le \dfrac{c}{2}||x_1-x_2|| \\
+||x_1-x_2-J_f(0)^{-1}(f(x_1)-f(x_2))||&amp;\le \dfrac{1}{2}||x_1-x_2||\\
+d(x_1-J_f(0)^{-1}f(x_1),x_2-J_f(0)^{-1}f(x_2)) &amp; \le \dfrac{1}{2}d(x_1,x_2)
+\end{aligned}
+\]</div>
+<p>对于任意 <span class="arithmatex">\(y\)</span>，设 <span class="arithmatex">\(g_y(x)=x-J_f(0)^{-1}(f(x)-y)\)</span>。有 <span class="arithmatex">\(d(g_y(x_1),g_y(x_2))\le\dfrac{1}{2}(x_1,x_2)\)</span>。设 <span class="arithmatex">\(\alpha\in B(x_0,\delta)\)</span>，记 <span class="arithmatex">\(\beta=f(\alpha)\)</span>，我们取 <span class="arithmatex">\(r&gt;0\)</span> 使得 <span class="arithmatex">\(\overline{B}(\alpha,r)\subset B(x_0,\delta)\)</span>。对任意取定的 <span class="arithmatex">\(y\in B(\beta,\dfrac{c}{2}r)\)</span>，下证 <span class="arithmatex">\(g_y(x)\)</span> 在 <span class="arithmatex">\(\overline{B}(\alpha,r)\)</span> 上封闭：</p>
+<p>即证 <span class="arithmatex">\(d(g_y(x),\alpha)\le r\)</span>。</p>
+<div class="arithmatex">\[
+\begin{aligned}
+d(g_y(x),\alpha) &amp;\le d(g_y(x),g_y(\alpha))+d(g_y(\alpha),\alpha)\\
+&amp;\le \dfrac{1}{2}(x,\alpha)+||J_f(0)^{-1}(y-\beta)||\\
+&amp;\le \dfrac{1}{2}r+||J_f(0)^{-1}||\times ||y-\beta||\\
+&amp;\le \dfrac{1}{2}r+\dfrac{1}{c}\times \dfrac{c}{2}r=r
+\end{aligned}
+\]</div>
+<p>所以 <span class="arithmatex">\(g_y(x)\)</span> 是 <span class="arithmatex">\(\overline{B}(\alpha,r)\)</span> 上的一个压缩映射。根据压缩映射定理，存在唯一的 <span class="arithmatex">\(x\)</span> 使得 <span class="arithmatex">\(g_y(x)=x\)</span>，即 <span class="arithmatex">\(x=x-J_f(0)^{-1}(f(x)-y)\)</span>，由于 <span class="arithmatex">\(J_f(0)\)</span> 可逆，所以 <span class="arithmatex">\(f(x)=y\)</span>。</p>
+<p>最后是第一阶段的收尾工作：记 <span class="arithmatex">\(U=B(x_0,\delta)\)</span>，<span class="arithmatex">\(V=f(U)\)</span>，下证 <span class="arithmatex">\(f|_U:U\to V\)</span> 是 <span class="arithmatex">\(C^1\)</span>-微分同胚。</p>
+<p>若 <span class="arithmatex">\(x_1\not=x_2\)</span>，取 <span class="arithmatex">\(\alpha=x_0=0\)</span>，<span class="arithmatex">\(r=\min(||x_1||,||x_2||)&lt;\delta\)</span>，根据上文，<span class="arithmatex">\(\overline{B}(x_0,r)\)</span> 中的 <span class="arithmatex">\(f\)</span> 是一一映射，所以 <span class="arithmatex">\(f(x_1)\not=f(x_2)\)</span>，所以 <span class="arithmatex">\(f\)</span> 在 <span class="arithmatex">\(B(x_0,\delta)\)</span> 中 <span class="arithmatex">\(f\)</span> 也是一一映射。所以 <span class="arithmatex">\(f^{-1}\)</span> 存在。</p>
+<p>根据上文的不等式：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+||x_1-x_2-J_f(0)^{-1}(f(x_1)-f(x_2))||&amp;\le \dfrac{1}{2}||x_1-x_2||\\
+||x_1-x_2||-||J_f(0)^{-1}(f(x_1)-f(x_2))|| &amp;\le \dfrac{1}{2}||x_1-x_2||\\
+\dfrac{1}{2}||x_1-x_2|| &amp;\le ||J_f(0)^{-1}(f(x_1)-f(x_2))||\\
+\dfrac{1}{2}||x_1-x_2|| &amp;\le \dfrac{1}{c}||f(x_1)-f(x_2)|| \\
+||f^{-1}(y_1)-f^{-1}(y_2)|| &amp; \le \dfrac{2}{c}||y_1-y_2||
+\end{aligned}
+\]</div>
+<p>所以 <span class="arithmatex">\(f^{-1}(x)\)</span> 连续，<span class="arithmatex">\(f|_U\)</span> 是微分同胚。证毕。</p>
+<p>上文中我们说了如果 <span class="arithmatex">\(J_f(x_0)\)</span> 可逆，那么 <span class="arithmatex">\(x_0\)</span> 存在一个邻域 <span class="arithmatex">\(U\)</span> 使得 <span class="arithmatex">\(f\)</span> 限制在 <span class="arithmatex">\(U\)</span> 上是 <span class="arithmatex">\(C^1\)</span>-微分同胚。不过我们还有一点没证完——为什么 <span class="arithmatex">\(J_{f^{-1}}(y_0)=J_f(x_0)^{-1}\)</span>？</p>
+<p>直接用复合函数的链式求导法则：<span class="arithmatex">\(Id(x)=f^{-1}(f(x))=x\)</span>，则 <span class="arithmatex">\(J_{Id}(x)=J_{f^{-1}}(y)\times J_f(x)=I_n\)</span>，其中 <span class="arithmatex">\(y=f(x)\)</span>。显然有 <span class="arithmatex">\(J_{f^{-1}}(y)=J_f(x)^{-1}\)</span>，证毕。</p>
+<p>总结：逆映射定理告诉我们：可逆的线性近似可以推导出局部的微分同胚。</p>
+<h2 id="_6">隐函数定理</h2>
+<p>接下来我们探讨线性方程组解的性质，并尝试通过微分的方式将其拓展到非线性函数。</p>
+<p>对于线性方程组 <span class="arithmatex">\(A\vec{t}=\vec{0}\)</span>，其中 <span class="arithmatex">\(A\)</span> 是 <span class="arithmatex">\(n\times (n+m)\)</span> 维矩阵，<span class="arithmatex">\(\vec{t}\)</span> 为 <span class="arithmatex">\(n+m\)</span> 维向量。这是一个有 <span class="arithmatex">\(n+m\)</span> 个未知数，<span class="arithmatex">\(n\)</span> 个方程的方程组。</p>
+<p>根据线性代数理论，<span class="arithmatex">\(\operatorname{rank}(A)+\dim \ker A=n+m\)</span>。若 <span class="arithmatex">\(A\)</span> 行满秩，假设 <span class="arithmatex">\(A\)</span> 的后 <span class="arithmatex">\(n\)</span> 列也满秩，则如果知道了前 <span class="arithmatex">\(m\)</span> 个未知数的取值（可以任意），对于后 <span class="arithmatex">\(n\)</span> 个未知数的取值是唯一确定的。</p>
+<p>用线性代数的语言表示，就是对 <span class="arithmatex">\(A\)</span> 和 <span class="arithmatex">\(t\)</span> 进行分块，方程变为</p>
+<div class="arithmatex">\[
+\begin{bmatrix}
+X_{n\times m} &amp; Y_{n\times n}
+\end{bmatrix}
+\begin{bmatrix}
+\vec{x} \\ \vec{y}
+\end{bmatrix}
+=
+\vec{0}
+\]</div>
+<p>其中 <span class="arithmatex">\(Y\)</span> 可逆，<span class="arithmatex">\(\vec{x}\)</span> 是 <span class="arithmatex">\(m\)</span> 维向量，<span class="arithmatex">\(\vec{y}\)</span> 是 <span class="arithmatex">\(n\)</span> 维向量。</p>
+<p>上面的式子其实就是 <span class="arithmatex">\(X\vec{x}+Y\vec{y}=\vec{0}\)</span>，由于 <span class="arithmatex">\(Y\)</span> 可逆，所以 <span class="arithmatex">\(\vec{y}\)</span> 可以唯一地用 <span class="arithmatex">\(\vec{x}\)</span> 表示：</p>
+<div class="arithmatex">\[
+\vec{y}=-Y^{-1}X\vec{x}
+\]</div>
+<p>对于非线性的连续可微函数（可以理解为方程组）<span class="arithmatex">\(F(x,y): \mathbb{R}^m\times \mathbb{R}^n\to \mathbb{R}^n\)</span>，由 <span class="arithmatex">\(n\)</span> 个函数（方程）<span class="arithmatex">\(F^i(x,y)\)</span> 组成。如果 <span class="arithmatex">\(F(x_0,y_0)=0\)</span>（即 <span class="arithmatex">\(x_0,y_0\)</span> 是方程组的一组解），且 <span class="arithmatex">\(J_F(x_0,y_0)\)</span> 的后 <span class="arithmatex">\(n\)</span> 列可逆（即 <span class="arithmatex">\(y\)</span> 对应的偏导矩阵可逆），我们猜想：</p>
+<p><strong>（隐函数定理）在 <span class="arithmatex">\((x_0,y_0)\)</span> 的近旁，存在一个 <span class="arithmatex">\((x_0,y_0)\)</span> 的邻域 <span class="arithmatex">\(I\)</span> 使得：在 <span class="arithmatex">\(I\)</span> 上 <span class="arithmatex">\(F(x,y)=0\)</span> 当且仅当 <span class="arithmatex">\(y=f(x)\)</span>（即对 <span class="arithmatex">\(x\)</span> 可以找到唯一的 <span class="arithmatex">\(y\)</span> 构成解），且 <span class="arithmatex">\(f\)</span> 连续可微，并且：</strong></p>
+<div class="arithmatex">\[
+J_f(x)=-J_{F_y}(x,f(x))^{-1}\times J_{F_x}(x,f(x))
+\]</div>
+<p>（注意到这个式子跟上文的 <span class="arithmatex">\(\vec y=-Y^{-1}X\vec{x}\)</span> 十分类似，这更加体现了微分作为一种“局部的线性近似”）</p>
+<blockquote>
+<p>总结一下我们的问题：我们有方程 <span class="arithmatex">\(F(x,y)=0\)</span>，想要找到解 <span class="arithmatex">\(y=f(x)\)</span>。如果固定 <span class="arithmatex">\(x\)</span>，问题就变成了解 <span class="arithmatex">\(F_x(y)=0\)</span>，但 <span class="arithmatex">\(x\)</span> 变动的时候方程 <span class="arithmatex">\(F_x\)</span> 也会跟着变。我们希望找到一个办法统一处理所有 <span class="arithmatex">\(F_x\)</span> 的情况。</p>
+<p>所以我们尝试将 <span class="arithmatex">\((x,y)\)</span> 映射到 <span class="arithmatex">\((x,F(x,y))\)</span>，这样解空间就被限制在 <span class="arithmatex">\((x,0)\)</span>。假设这个映射为 <span class="arithmatex">\(G\)</span>，如果 <span class="arithmatex">\(G\)</span> 在 <span class="arithmatex">\((x_0,y_0)\)</span> 附近可逆，那么根据逆映射定理，存在一个邻域使得 <span class="arithmatex">\((x,0)\)</span> 能够被唯一地反向映射回 <span class="arithmatex">\((x,y)\)</span>，即我们找到了 <span class="arithmatex">\(y=f(x)\)</span>。</p>
+<p>或者我们从线性代数的角度理解：已知 <span class="arithmatex">\(\begin{bmatrix}X_{n\times m} &amp; Y_{n\times n}\end{bmatrix}\begin{bmatrix}\vec{x} \\ \vec{y}\end{bmatrix}=\vec{0}\)</span>，怎么从 <span class="arithmatex">\(\vec x\)</span> 推出来 <span class="arithmatex">\(\vec y\)</span>？假设 <span class="arithmatex">\(\vec x=\vec{t}\)</span>，那我们发现 <span class="arithmatex">\(x^i=t^i\)</span> 刚好是 <span class="arithmatex">\(m\)</span> 个方程，再加上 <span class="arithmatex">\(F\)</span> 的 <span class="arithmatex">\(n\)</span> 个方程，刚好就是 <span class="arithmatex">\(n+m\)</span> 个方程。方程和未知数的个数相等，我们就可以直接解了：</p>
+<p><span class="arithmatex">\(\begin{bmatrix}I_m &amp; O \\ X &amp; Y \end{bmatrix}\begin{bmatrix} \vec{x} \\ \vec{y}\end{bmatrix}=\begin{bmatrix}\vec t \\ \vec 0\end{bmatrix}\)</span>，<span class="arithmatex">\(\begin{bmatrix} \vec{x} \\ \vec{y}\end{bmatrix}=\begin{bmatrix}I_m &amp; O \\ X &amp; Y \end{bmatrix}^{-1}\begin{bmatrix}\vec t \\ \vec 0\end{bmatrix}\)</span></p>
+<p>所以 <span class="arithmatex">\(f(\vec{t})=\begin{bmatrix}O &amp; I_n\end{bmatrix}\begin{bmatrix}I_m &amp; O \\ X &amp; Y \end{bmatrix}^{-1}\begin{bmatrix}I_m \\ O\end{bmatrix}\vec{t}\)</span>，<span class="arithmatex">\(f=\begin{bmatrix}O &amp; I_n\end{bmatrix}\begin{bmatrix}I_m &amp; O \\ X &amp; Y \end{bmatrix}^{-1}\begin{bmatrix}I_m \\ O\end{bmatrix}\)</span> 就是我们想要的那个求出解的线性映射。</p>
+</blockquote>
+<p>证明：设 <span class="arithmatex">\(G:\mathbb{R}^m\times \mathbb{R}^n\to \mathbb{R}^m\times \mathbb{R}^n\)</span>，<span class="arithmatex">\(G(x,y)=(x,F(x,y))\)</span>，且 <span class="arithmatex">\(G(x_0,y_0)=(x_0,0)\)</span>。求出 <span class="arithmatex">\(G\)</span> 的 Jacobi 矩阵：</p>
+<div class="arithmatex">\[
+J_G(x,y)=\begin{bmatrix}
+I_m &amp; O \\ J_{F_x(x,y)} &amp; J_{F_y(x,y)}
+\end{bmatrix}
+\]</div>
+<p>这是一个上三角矩阵，<span class="arithmatex">\(|J_G(x,y)|=|J_{F_y}(x,y)|\)</span>，由于 <span class="arithmatex">\(J_{F_y}(x_0,y_0)\)</span> 可逆，所以 <span class="arithmatex">\(J_G(x_0,y_0)\)</span> 也可逆。根据逆映射定理，我们可以找到 <span class="arithmatex">\((x_0,y_0)\)</span> 的一个邻域 <span class="arithmatex">\(U\)</span>，设 <span class="arithmatex">\(V=G(U)\)</span>，则 <span class="arithmatex">\(G|_U:U\to V\)</span> 是 <span class="arithmatex">\(C^1\)</span>-微分同胚。</p>
+<p>对于 <span class="arithmatex">\((x,0)\in V\)</span>，我们可以找到 <span class="arithmatex">\(U\)</span> 中唯一的 <span class="arithmatex">\((x,y)\)</span> 与其对应。即 <span class="arithmatex">\(G^{-1}(x,0)=(x,y)\)</span>，即 <span class="arithmatex">\(F(x,y)=0\)</span>。</p>
+<p>设 <span class="arithmatex">\(\sec(x,y)=y\)</span>，表示取数对的第二个数。我们可以找到 <span class="arithmatex">\(x_0\)</span> 的邻域 <span class="arithmatex">\(U_1\)</span>，使得 <span class="arithmatex">\((U_1,0)\subset V\)</span>。设 <span class="arithmatex">\(V’=(U_1,0)\)</span>，<span class="arithmatex">\(U’=G^{-1}(V’)\)</span>，则 <span class="arithmatex">\(G|_{U’}:U’\to V’\)</span> 是 <span class="arithmatex">\(C^1\)</span>-微分同胚，且对于任意 <span class="arithmatex">\(x\in U_1\)</span>，总能找到唯一的 <span class="arithmatex">\(y\)</span> 使得 <span class="arithmatex">\((x,y)\in U’\)</span>，<span class="arithmatex">\(F(x,y)=0\)</span>。设</p>
+<div class="arithmatex">\[
+\begin{aligned}
+&amp; f:U_1 \to \mathbb{R}^n\\
+&amp; f(x)=\sec(G^{-1}(x,0))
+\end{aligned}
+\]</div>
+<p>根据 <span class="arithmatex">\(G^{-1}\)</span> 的连续性可知 <span class="arithmatex">\(f\)</span> 也连续。考虑求导：（设 <span class="arithmatex">\(\text{upd}(x)=(x,0)\)</span>）</p>
+<div class="arithmatex">\[
+\begin{aligned}
+J_f(x) &amp;=J_{\sec}(G^{-1}(x,0))\times J_{G^{-1}}(x,0)\times J_{\text{upd}}(x)\\
+&amp;=J_{\sec}(x,f(x))\times J_G(x,f(x))^{-1}\times J_{\text{upd}}(x)\\
+&amp;=\begin{bmatrix} O &amp; I_n \end{bmatrix}\times 
+\begin{bmatrix} I_m &amp; O \\J_{F_x}(x,f(x)) &amp; J_{F_y}(x,f(x))\end{bmatrix}^{-1}\times \begin{bmatrix} I_m \\ O \end{bmatrix}\\
+&amp;=\begin{bmatrix} O &amp; I_n \end{bmatrix}\times 
+\begin{bmatrix} I_m &amp; O \\-J_{F_y}(x,f(x))^{-1}J_{F_x}(x,f(x)) &amp; J_{F_y}(x,f(x))^{-1}\end{bmatrix}\times \begin{bmatrix} I_m \\ O \end{bmatrix}\\
+&amp;=-J_{F_y}(x,f(x))^{-1}J_{F_x}(x,f(x))
+\end{aligned}
+\]</div>
+<p>证毕。</p>
+<p>隐函数定理是解方程理论的基础：如果要从方程 <span class="arithmatex">\(F(x,y)=0\)</span> 解出 <span class="arithmatex">\(y=f(x)\)</span>，且 <span class="arithmatex">\(f\)</span> 存在、唯一、光滑，我们就得用隐函数定理。</p>
+<blockquote>
+<p>其实我们看看上面的思路中得到的线性代数版本的答案：<span class="arithmatex">\(f=\begin{bmatrix}O &amp; I_n\end{bmatrix}\begin{bmatrix}I_m &amp; O \\ X &amp; Y \end{bmatrix}^{-1}\begin{bmatrix}I_m \\ O\end{bmatrix}\)</span>，这和我们在最后得到的一般函数的答案：<span class="arithmatex">\(f(x)=\sec(G^{-1}(x,0))\)</span> 是完全吻合的：<span class="arithmatex">\(\sec\)</span> 就是 <span class="arithmatex">\(\begin{bmatrix}O &amp; I_n\end{bmatrix}\)</span>，<span class="arithmatex">\(G^{-1}\)</span> 就是 <span class="arithmatex">\(\begin{bmatrix}I_m &amp; O \\ X &amp; Y \end{bmatrix}^{-1}\)</span>，<span class="arithmatex">\(\text{upd}\)</span> 就是 <span class="arithmatex">\(\begin{bmatrix}I_m \\ O\end{bmatrix}\)</span>。</p>
+<p>这告诉了我们一个深刻的道理：隐函数定理的证明，本质上就是把线性情形的“解方程组”步骤，逐字逐句地翻译成非线性语言，然后每一步用逆映射定理来保证“非线性版本的可逆性”存在。对于其它的定理，我们也可以先思考它的线性代数版本，再把过程翻译成非线性的微分语言进行证明。</p>
+</blockquote>
+<h2 id="_7">秩定理</h2>
+<p>接下来我们通过探究线性映射中秩的性质，通过微分的方式将其拓展到非线性函数。</p>
+<p>我们知道：一个线性映射像的维数=矩阵的秩，而一个非线性映射 <span class="arithmatex">\(f\)</span> 的局部行为可以由它的 Jacobi 矩阵 <span class="arithmatex">\(J_f(x_0)\)</span> 近似刻画。</p>
+<p>对于任意 <span class="arithmatex">\(n\)</span> 阶方阵 <span class="arithmatex">\(A\)</span>，如果 <span class="arithmatex">\(\operatorname{rank}(A)=k\)</span>，则其存在相抵标准型：<span class="arithmatex">\(A=P\begin{bmatrix} I_k &amp; O \\ O &amp; O\end{bmatrix} Q^{-1}\)</span>，其中 <span class="arithmatex">\(P,Q\)</span> 可逆。</p>
+<p>其几何意义是：选取两组线性无关的基 <span class="arithmatex">\(\{e_{1\cdots n}\}\)</span>，<span class="arithmatex">\(\{f_{1\cdots n}\}\)</span>，<span class="arithmatex">\(f\)</span> 可以写成如下的线性变换：<span class="arithmatex">\(f(e_i)=f_i\)</span>（<span class="arithmatex">\(i\le k\)</span>），<span class="arithmatex">\(f(e_j)=0\)</span>（<span class="arithmatex">\(j&gt;k\)</span>）。而 <span class="arithmatex">\(P,Q\)</span> 就是标准基向 <span class="arithmatex">\(e,f\)</span> 这两组基的过渡矩阵。</p>
+<p>我们希望对于连续可微函数 <span class="arithmatex">\(f:\mathbb{R}^n\to\mathbb{R}^m\)</span>，如果它在定义域上每一点 <span class="arithmatex">\(x\)</span> 都有 <span class="arithmatex">\(\operatorname{rank}{J_f(x_0)}=k\)</span>，那么对于任意 <span class="arithmatex">\(x_0\)</span>，存在 <span class="arithmatex">\(x_0\)</span> 的邻域 <span class="arithmatex">\(X\)</span> 和 <span class="arithmatex">\(f(x_0)=y_0\)</span> 的邻域 <span class="arithmatex">\(Y\)</span>，可以通过 <span class="arithmatex">\(C^1\)</span>-微分同胚（即“可逆的坐标变换函数”）<span class="arithmatex">\(\psi:Y\to V\)</span> 和 <span class="arithmatex">\(\varphi:X\to U\)</span>，</p>
+<p>使得 <span class="arithmatex">\(\psi\circ f\circ \varphi^{-1}:U\to V\)</span> 有表示：</p>
+<div class="arithmatex">\[
+\psi\circ f\circ \varphi^{-1} (x^1,x^2,\cdots,x^n)=(x^1,x^2,\cdots,x^k,0,0,\cdots,0)
+\]</div>
+<p>我们把它称之为 <strong>秩定理</strong>。在证明之前，我们先做一些准备工作，考虑一些特殊情况：</p>
+<p><strong>（秩定理：行满秩情况）设 <span class="arithmatex">\(D\)</span> 为 <span class="arithmatex">\(x_0\in\mathbb{R}^{m+n}\)</span> 的一个邻域，<span class="arithmatex">\(f\in C^1(D,\mathbb{R}^m)\)</span>。若 <span class="arithmatex">\(J_f(x_0)\)</span> 行满秩，前 <span class="arithmatex">\(m\)</span> 列可逆，则存在 <span class="arithmatex">\(x_0\)</span> 的邻域 <span class="arithmatex">\(U\subset D\)</span> 和微分同胚 <span class="arithmatex">\(\varphi:U\to V\subset \mathbb{R}^{m+n}\)</span> 使得映射 <span class="arithmatex">\(f\circ\varphi^{-1}:V\to \mathbb{R}^m\)</span> 有表示：</strong></p>
+<div class="arithmatex">\[
+f\circ\varphi^{-1}(x^1,x^2,\cdots,x^{n+m})=(x^1,x^2,\cdots,x^m,0,0,\cdots,0)
+\]</div>
+<blockquote>
+<p>可以类比：对于行满秩矩阵 <span class="arithmatex">\(A_{m\times (m+n)}\)</span>，存在可逆列变换 <span class="arithmatex">\(Q\)</span> 使得 <span class="arithmatex">\(AQ^{-1}=\begin{bmatrix} I_m &amp; 0 \end{bmatrix}\)</span>。</p>
+<p>此时 <span class="arithmatex">\(A=\begin{bmatrix} I_m &amp; 0 \end{bmatrix}Q\)</span>，即 <span class="arithmatex">\(Q\)</span> 的前 <span class="arithmatex">\(m\)</span> 行为 <span class="arithmatex">\(A\)</span>。为了让 <span class="arithmatex">\(Q\)</span> 可逆，我们让 <span class="arithmatex">\(Q_{i,i}=1\)</span>（<span class="arithmatex">\(i&gt;m\)</span>），这样就会变成可以可逆上三角阵。这样我们就构造出了一个合法的 <span class="arithmatex">\(Q\)</span>。对于一般函数我们也类似去做：</p>
+<p>假设对于 <span class="arithmatex">\(x\in \mathbb{R}^{m+n}\)</span> 有 <span class="arithmatex">\(x=x_1\times x_2\)</span>（<span class="arithmatex">\(\times\)</span> 为笛卡尔积），<span class="arithmatex">\(x_1\in\mathbb{R}^m\)</span>，<span class="arithmatex">\(x_2\in\mathbb{R}^n\)</span>。</p>
+<p>我们设 <span class="arithmatex">\(\varphi^{-1}(x_1,x_2)=(z_1,z_2)\)</span>，由题有 <span class="arithmatex">\(f(z_1,z_2)=x_1\)</span>，可以推导出 <span class="arithmatex">\(\varphi(z_1,z_2)=(x_1,x_2)=(f(z_1,z_2),x_2)\)</span>。类比于上面的线性变换情况，我们如果要让 <span class="arithmatex">\(\varphi\)</span> 可逆，只需令 <span class="arithmatex">\(z_2=x_2\)</span> 即可。</p>
+</blockquote>
+<p>证明：定义映射 <span class="arithmatex">\(\varphi:\mathbb{R}^m\times \mathbb{R}^n\to \mathbb{R}^m\times \mathbb{R}^n\)</span>，有 <span class="arithmatex">\(\varphi(x_1,x_2)=(f(x_1,x_2),x_2)\)</span>，由题可知 <span class="arithmatex">\(J_\varphi(x)\)</span> 在 <span class="arithmatex">\(x_0\)</span> 附近可逆。根据逆映射定理，存在 <span class="arithmatex">\(x_0\)</span> 的邻域 <span class="arithmatex">\(U\)</span> 使得 <span class="arithmatex">\(\varphi|_U:U\to V\ (V=f(U))\)</span> 是微分同胚。</p>
+<p>设 <span class="arithmatex">\(x=(x_1,x_2)\in V\)</span>，<span class="arithmatex">\(\varphi^{-1}(x_1,x_2)=(y_1,y_2)\)</span>，由定义有 <span class="arithmatex">\(x_1=f(y_1,y_2),x_2=y_2\)</span>。则 <span class="arithmatex">\(f(y_1,y_2)=x_1\)</span>，即 <span class="arithmatex">\(f\circ\varphi^{-1}(x_1,x_2)=x_1\)</span>，证毕。</p>
+<p><strong>（秩定理：列满秩情况）设 <span class="arithmatex">\(D\)</span> 为 <span class="arithmatex">\(x_0\in \mathbb{R}^n\)</span>，<span class="arithmatex">\(f\in C^1(D,\mathbb{R}^{n+m})\)</span>。若 <span class="arithmatex">\(J_f(x_0)\)</span> 列满秩，且前 <span class="arithmatex">\(n\)</span> 行可逆，则存在 <span class="arithmatex">\(x_0\)</span> 的邻域 <span class="arithmatex">\(U\subset D\)</span> 和 <span class="arithmatex">\(y_0=f(x_0)\)</span> 的邻域 <span class="arithmatex">\(W\)</span>，<span class="arithmatex">\(0\in \mathbb{R}^m\)</span> 的邻域 <span class="arithmatex">\(V\)</span>，以及微分同胚 <span class="arithmatex">\(\psi: W\to U\times V\)</span>，使得映射 <span class="arithmatex">\(\psi\circ f: U\to U\times V\)</span> 有表示：</strong></p>
+<div class="arithmatex">\[
+\psi\circ f(x^1,x^2,\cdots,x^n)=(x^1,x^2,\cdots,x^n,0,0,\cdots,0)
+\]</div>
+<blockquote>
+<p>可以类比：对于列满秩矩阵 <span class="arithmatex">\(A_{(n+m)\times n}\)</span>，存在可逆行变换 <span class="arithmatex">\(P\)</span> 使得 <span class="arithmatex">\(PA=\begin{bmatrix}I_n \\ O\end{bmatrix}\)</span>。类似地，我们有 <span class="arithmatex">\(A=P^{-1}\begin{bmatrix}I_n \\ O\end{bmatrix}\)</span>，即 <span class="arithmatex">\(P^{-1}\)</span> 的前 <span class="arithmatex">\(n\)</span> 列是 <span class="arithmatex">\(A\)</span>。为了让 <span class="arithmatex">\(P^{-1}\)</span> 可逆，只需要让 <span class="arithmatex">\(P^{-1}_{i,i}=1\ (i&gt;n)\)</span> 即可。对于一般函数，使用类似的做法即可。</p>
+<p>两种情况在一般函数的证法都是类似的，只需要构造 <span class="arithmatex">\(\varphi,\psi^{-1}\)</span> 使得它的 Jacobi 矩阵与 <span class="arithmatex">\(Q\)</span> 或 <span class="arithmatex">\(P^{-1}\)</span> 形式相同，再利用逆映射定理即可。</p>
+</blockquote>
+<p>我们设 <span class="arithmatex">\(\psi^{-1}(x_1,x_2)=f(x_1)+(0,x_2)\)</span>，由题可知 <span class="arithmatex">\(\psi^{-1}(x_1,x_2)\)</span> 在 <span class="arithmatex">\((x_1,0)\)</span> 附近可逆。存在 <span class="arithmatex">\((x_0,0)\)</span> 的邻域 <span class="arithmatex">\(U\times V\)</span>，使得 <span class="arithmatex">\(\psi^{-1}|_{U\times V}: (U\times V)\to W\ (W=f(U\times V))\)</span> 是微分同胚。</p>
+<p>因为 <span class="arithmatex">\(\psi^{-1}(x_0,0)=f(x_0)\)</span>，所以 <span class="arithmatex">\(\psi\circ f(x_0)=(x_0,0)\)</span>，证毕。</p>
+<p>最后我们回到秩定理的证明：</p>
+<p><strong>（秩定理）对于连续可微函数 <span class="arithmatex">\(f:\mathbb{R}^n\to\mathbb{R}^m\)</span>，如果它在定义域上每一点 <span class="arithmatex">\(x\)</span> 都有 <span class="arithmatex">\(\operatorname{rank}{J_f(x_0)}=k\)</span>，那么对于任意 <span class="arithmatex">\(x_0\)</span>，存在 <span class="arithmatex">\(x_0\)</span> 的邻域 <span class="arithmatex">\(X\)</span> 和 <span class="arithmatex">\(f(x_0)=y_0\)</span> 的邻域 <span class="arithmatex">\(Y\)</span>，可以通过 <span class="arithmatex">\(C^1\)</span>-微分同胚 <span class="arithmatex">\(\psi:Y\to V\)</span> 和 <span class="arithmatex">\(\varphi:X\to U\)</span>，使得 <span class="arithmatex">\(\psi\circ f\circ \varphi^{-1}:U\to V\)</span> 有表示：</strong></p>
+<div class="arithmatex">\[
+\psi\circ f\circ \varphi^{-1} (x^1,x^2,\cdots,x^n)=(x^1,x^2,\cdots,x^k,0,0,\cdots,0)
+\]</div>
+<blockquote>
+<p>根据相抵标准型理论，对于 <span class="arithmatex">\(m\times n\)</span> 的矩阵 <span class="arithmatex">\(A\)</span>，若 <span class="arithmatex">\(\operatorname{rank}(A)=k\)</span>，则存在可逆阵 <span class="arithmatex">\(P,Q\)</span> 使得 <span class="arithmatex">\(PAQ^{-1}=\begin{bmatrix}I_k &amp; O \\ O &amp; O \end{bmatrix}\)</span>，即
+<span class="arithmatex">\(A=P^{-1}\begin{bmatrix}I_k &amp; O \\ O &amp; O \end{bmatrix}Q=P^{-1}\begin{bmatrix} I_k \\ O \end{bmatrix}\times \begin{bmatrix} I_k &amp; O \end{bmatrix} Q=P_1^{-1}\times Q_1\)</span></p>
+<p>其中 <span class="arithmatex">\(P_1^{-1}\)</span> 是 <span class="arithmatex">\(P\)</span> 的前 <span class="arithmatex">\(k\)</span> 列，<span class="arithmatex">\(Q_1\)</span> 是 <span class="arithmatex">\(Q\)</span> 的前 <span class="arithmatex">\(k\)</span> 行。假定 <span class="arithmatex">\(A\)</span> 的前 <span class="arithmatex">\(k\)</span> 行和前 <span class="arithmatex">\(k\)</span> 列形成的子矩阵可逆，那我们就令 <span class="arithmatex">\(Q\)</span> 的前 <span class="arithmatex">\(k\)</span> 行是 <span class="arithmatex">\(A\)</span> 的前 <span class="arithmatex">\(k\)</span> 行，<span class="arithmatex">\(Q_{i,i}=1\ (i&gt;k)\)</span> 保证可逆。此时 <span class="arithmatex">\(P_1\)</span> 唯一确定且 <span class="arithmatex">\(P_1\)</span> 的前 <span class="arithmatex">\(k\)</span> 行是单位阵，然后再令 <span class="arithmatex">\(P_{i,i}=1\ (i&gt;k)\)</span> 保证可逆即可。</p>
+<p>对于一般情况，我们只需要让 <span class="arithmatex">\(\varphi,\psi^{-1}\)</span> 的 Jacobi 矩阵与 <span class="arithmatex">\(Q,P^{-1}\)</span> 的形式一样即可。</p>
+</blockquote>
+<p>证明：不妨令 <span class="arithmatex">\(J_f(x_0)\)</span> 前 <span class="arithmatex">\(k\)</span> 行和前 <span class="arithmatex">\(k\)</span> 列形成的子矩阵可逆。令 <span class="arithmatex">\(\varphi(x^1,x^2,\cdots,x^n)=(f^1(x),f^2(x),\cdots,f^k(x),x^{k+1},x^{k+2},\cdots,x^n)\)</span>，则 <span class="arithmatex">\(\varphi(x_0)\)</span> 可逆。因此存在 <span class="arithmatex">\(x_0\)</span> 的邻域 <span class="arithmatex">\(X\)</span>，<span class="arithmatex">\(\varphi|_X:X\to U\ (U=\varphi(x))\)</span> 是微分同胚。</p>
+<p>设 <span class="arithmatex">\(u=(u^1,u^2,\cdots,u^n)\in U\)</span>，设 <span class="arithmatex">\(\varphi^{-1}(u)=x=(x^1,x^2,\cdots,x^n)\)</span>，则有 <span class="arithmatex">\(u^i=f^i(x)\ (i\le k)\)</span>，<span class="arithmatex">\(u^j=x^j\ (j&gt;k)\)</span>。此时 <span class="arithmatex">\(f\circ\varphi^{-1}(u)=f(x)=(u^1,u^2,\cdots,u^k,f^{k+1}(x),\cdots,f^m(x))\)</span>。设 <span class="arithmatex">\(f^i(x)=f^i(\varphi^{-1}(u))=h^i(u)\)</span>，则 <span class="arithmatex">\(f\circ\varphi^{-1}(u)=(u^1,u^2,\cdots,u^k,h^{k+1}(u),\cdots,h^m(u))\)</span>。</p>
+<p>注意到 <span class="arithmatex">\(J_{f\circ \varphi^{-1}}(u)=J_f(x)\times J_{\varphi^{-1}}(u)\)</span>，由于 <span class="arithmatex">\(J_{\varphi^{-1}}(u)\)</span> 可逆，所以 <span class="arithmatex">\(\operatorname{rank}(J_{f\circ\varphi^{-1}}(u))=\operatorname{rank}(J_f(x))=k\)</span>。而 <span class="arithmatex">\(J_{f\circ\varphi^{-1}}(u)=\begin{bmatrix}I_k &amp; O \\ (\dfrac{\partial h^{k+i}}{\partial u^{i}})(u) &amp; (\dfrac{\partial h^{k+i}}{\partial u^{k+i}})(u)\end{bmatrix}\)</span>。</p>
+<p>根据秩为 <span class="arithmatex">\(k\)</span> 的性质，<span class="arithmatex">\((\dfrac{\partial h^{k+i}}{\partial u^{k+i}})(u)=O\)</span>。这意味着 <span class="arithmatex">\(h^{k+i}(u)\)</span> 与 <span class="arithmatex">\(u^{k+1\cdots n}\)</span> 无关，即 <span class="arithmatex">\(h^{k+i}(u)\)</span> 是 <span class="arithmatex">\(u^{1\cdots k}\)</span> 的函数，设为 <span class="arithmatex">\(g^{k+i}(u^1,u^2,\cdots,u^k)\)</span>。</p>
+<p>综上，我们有 <span class="arithmatex">\(f\circ \varphi^{-1}(u)=(u^1,u^2,\cdots,u^k,g^{k+1}(u^{1\cdots k}),g^{k+2}(u^{1\cdots k}),\cdots,g^m(u^{1\cdots k}))\)</span>。</p>
+<p>再设 <span class="arithmatex">\(\psi^{-1}(u)=(u^1,u^2,\cdots,u^k,g^{k+1}(u^{1\cdots k})+u^{k+1},g^{k+2}(u^{1\cdots k})+u^{k+2},\cdots,g^m(u^{1\cdots k})+u^m)\)</span>。则 <span class="arithmatex">\(J_{\psi^{-1}}(u)\)</span> 是对角线均为 1 的下三角阵，必定可逆。令 <span class="arithmatex">\(\varphi(x_0)=u_0\)</span>，则 <span class="arithmatex">\(\psi^{-1}(u_0^1,u_0^2,\cdots,u_0^k,0,0,\cdots,0)=f\circ\varphi^{-1}(u_0)=f(x_0)=y_0\)</span>，所以必存在 <span class="arithmatex">\((u_0^1,u_0^2,\cdots,u_0^k,0,0,\cdots,0)\)</span> 的邻域 <span class="arithmatex">\(V\)</span> 和 <span class="arithmatex">\(y_0\)</span> 的邻域 <span class="arithmatex">\(Y\)</span> 使得 <span class="arithmatex">\(\psi^{-1}|_V:V\to Y\)</span> 是微分同胚。</p>
+<p>此时 <span class="arithmatex">\(\psi\circ f\circ \varphi^{-1}(u)=\psi(u^1,u^2,\cdots,u^k,g^{k+1}(u^{1\cdots k}),g^{k+2}(u^{1\cdots k}),\cdots,g^m(u^{1\cdots k}))=(u^1,u^2,\cdots,u^k,0,0,\cdots,0)\)</span>。</p>
+<p>证毕。</p>
+<h2 id="_8">条件极值</h2>
+<p>现在我们回到多元函数的视角。由于值域只有一维，我们可以暂时放下微分“线性拟合”的概念，转而用更传统的分析方法和分析视角来进行研究。</p>
+<p>这一节我们将讨论限制在区域 <span class="arithmatex">\(D\in\mathbb{R}^n\)</span> 的连续可微函数 <span class="arithmatex">\(f\)</span> 在 <span class="arithmatex">\(m\)</span> 个条件 <span class="arithmatex">\(\varphi^{1\cdots m}(x)=0\)</span> 情况下的极值。</p>
+<p>不过在此之前，我们先做一点有趣的引入：</p>
+<p>考虑物理意义。我们设 <span class="arithmatex">\(f(x)\)</span> 表示粒子在 <span class="arithmatex">\(x\)</span> 处的动能。而 <span class="arithmatex">\(\operatorname{grad} f(x)\)</span> 则表示 <span class="arithmatex">\(x\)</span> 这一点处的力（包括大小和方向）。而通过微分导出的切线公式 <span class="arithmatex">\(f(x_0+t)-f(x_0)=t\cdot \operatorname{grad} f(x_0)\)</span> 就是动能定理。</p>
+<p>对于任意一条经过 <span class="arithmatex">\(x_0\)</span> 的曲线 <span class="arithmatex">\(\gamma(x):[-1,1]\to D\)</span>，其中 <span class="arithmatex">\(\gamma(0)=x_0\)</span>，<span class="arithmatex">\(\gamma’(t)\not=0\)</span>，如果 <span class="arithmatex">\(x_0\)</span> 是粒子经过这一条曲线中动能极值所在的点，那么这一点处的功率一定为零，即 <span class="arithmatex">\(\operatorname{grad} f(x_0)\cdot \gamma’(0)=0\)</span>。</p>
+<p>回到正题，我们以 <span class="arithmatex">\(n=3\)</span>，<span class="arithmatex">\(m=1\)</span> 为例来进行说明。</p>
+<p>假设 <span class="arithmatex">\(\varphi(x)\in C^1(D)\)</span>，<span class="arithmatex">\(\varphi(x_0)=0\)</span>，<span class="arithmatex">\(\operatorname{grad} \varphi(x)\not=0\ (\forall x\in D)\)</span>。</p>
+<p>不妨令 <span class="arithmatex">\(\dfrac{\partial \varphi}{\partial x^3}\not=0\)</span>，根据隐函数定理，存在 <span class="arithmatex">\((x_0^1,x_0^2)\)</span> 的一个邻域 <span class="arithmatex">\(X’\subset \mathbb{R}^2\)</span>，对于 <span class="arithmatex">\((x^1,x^2)\in X’\)</span>，存在恰好唯一的一个 <span class="arithmatex">\(x^3=h(x^1,x^2)\)</span> 使得 <span class="arithmatex">\(\varphi(x^1,x^2,x^3)=0\)</span>。</p>
+<p>令 <span class="arithmatex">\(X=X’\times h(X’)\)</span>，这是包含 <span class="arithmatex">\(x_0\)</span> 的一个联通开邻域。再设 <span class="arithmatex">\(S=\{x\in X\mid \varphi(x)=0\}\)</span>，它构成了 <span class="arithmatex">\(\mathbb{R}^3\)</span> 中的一张二维曲面。由于对于每个 <span class="arithmatex">\((x^1,x^2)\)</span> 只有恰好一个 <span class="arithmatex">\(x^3\)</span> 符合要求，它也可以等同于 <span class="arithmatex">\(\mathbb{R}^2\)</span> 中的某个区域。</p>
+<p>对于任意一条经过 <span class="arithmatex">\(x_0\)</span> 的曲线 <span class="arithmatex">\(\gamma(x):[-1,1]\to X\)</span>，其中 <span class="arithmatex">\(\gamma(0)=x_0\)</span>，<span class="arithmatex">\(\gamma’(t)\not=0\)</span>，都可以按照如下方式表示：<span class="arithmatex">\(\gamma(t)=(x^1(t),x^2(t),h(x^1(t),x^2(t)))\)</span>。</p>
+<p><span class="arithmatex">\(\gamma(t)\)</span> 在 <span class="arithmatex">\(x_0\)</span> 处的切向量可以表示为：</p>
+<div class="arithmatex">\[
+\gamma’(0)=\begin{bmatrix}(x^1)’(0)\\ (x^2)’(0) \\ \dfrac{\partial h}{\partial x^1}(x_0^1,x_0^2)(x^1)’(0)+\dfrac{\partial h}{\partial x^2}(x_0^1,x_0^2)(x^2)’(0)\end{bmatrix}=(x^1)’(0)\vec{v_1}+(x^2)’(0)\vec{v_2}
+\]</div>
+<p>其中 <span class="arithmatex">\(\vec{v_1},\vec{v_2}\)</span> 在 <span class="arithmatex">\(x_0\)</span> 处是固定且线性无关的。当 <span class="arithmatex">\(\gamma(t)\)</span> 不同时，变化的只有 <span class="arithmatex">\((x^1)’(0)\)</span> 和 <span class="arithmatex">\((x^2)’(0)\)</span>。因此 <span class="arithmatex">\(v_1,v_2\)</span> 在 <span class="arithmatex">\(x_0\)</span> 这一点张成出了一个平面，我们称之为 <span class="arithmatex">\(S\)</span> 在 <span class="arithmatex">\(x_0\)</span> 处的切平面。</p>
+<p>上文中我们提到了 <span class="arithmatex">\(\operatorname{grad} f(x_0)\cdot \gamma’(0)=0\)</span>，这意味着如果 <span class="arithmatex">\(x_0\)</span> 是 <span class="arithmatex">\(S\)</span> 中的极值点，那么 <span class="arithmatex">\(\operatorname{grad} f(x_0)\)</span> 垂直于切平面。现在我们来严格证明一下：根据复合函数链式求导法则，<span class="arithmatex">\(f(\gamma(0))’=f’(\gamma(0))\times \gamma’(0)=\operatorname{grad} f(x_0)\cdot \gamma’(0)=0\)</span>（第一个 <span class="arithmatex">\(\times\)</span> 是矩阵乘法，第二个 <span class="arithmatex">\(\cdot\)</span> 是点积）</p>
+<p>还有哪些向量垂直于切平面？注意到 <span class="arithmatex">\(\varphi(x)\)</span> 自己就是个函数，而 <span class="arithmatex">\(\operatorname{grad}\varphi(x)\)</span> 表示函数沿着这个方向移动最快。我们还是把 <span class="arithmatex">\(\varphi(x)\)</span> 想象成另一个动能函数，那么 <span class="arithmatex">\(\operatorname{grad}\varphi(x)\)</span> 就是力的方向，根据动能定理（切线公式） <span class="arithmatex">\(\varphi(x_0+t)=\varphi(x_0)+\operatorname{grad}\varphi(x_0)\cdot t\)</span>。我们如果想要让 <span class="arithmatex">\(\varphi(x_0+t)\)</span> 等于零，那么就必须不做功，速度方向 <span class="arithmatex">\(t\)</span> 需要垂直于力的方向 <span class="arithmatex">\(\operatorname{grad} \varphi(x_0)\)</span>。对应到曲线 <span class="arithmatex">\(\gamma(t)\)</span> 上，也就是 <span class="arithmatex">\(\operatorname{grad}\varphi(x_0)\cdot \gamma’(0)=0\)</span>。</p>
+<p>严谨证明一下：<span class="arithmatex">\(\varphi(\gamma(t))\equiv 0\)</span>，所以 <span class="arithmatex">\(\varphi(\gamma(0))’=\operatorname{grad}\varphi(x_0)\cdot \gamma’(0)=0\)</span>。</p>
+<p>由于切平面是二维，总的空间维度是三维，这意味着法空间只能是一维。既然 <span class="arithmatex">\(\operatorname{grad} \varphi(x_0)\)</span>，<span class="arithmatex">\(\operatorname{grad} f(x_0)\)</span> 都在法空间，这意味着它们线性相关，也就是说存在唯一的 <span class="arithmatex">\(\lambda\)</span> 使得 <span class="arithmatex">\(\operatorname{grad} f(x_0)+\lambda\operatorname{grad}\varphi(x_0)=0\)</span>。</p>
+<p>现在我们尝试推广到 <span class="arithmatex">\(n,m\)</span> 更高的情况。对于 <span class="arithmatex">\(\varphi(x)=(\varphi^1(x),\cdots,\varphi^m(x))\)</span>，假设 <span class="arithmatex">\(\varphi(x_0)=0\)</span>，<span class="arithmatex">\(\operatorname{rank}(J_\varphi(x))=m\)</span>。（即所有条件互不相关，<span class="arithmatex">\(\operatorname{grad}\varphi^1,\operatorname{grad}\varphi^2,\cdots,\operatorname{grad}\varphi^m\)</span> 线性无关）</p>
+<p>不妨假设 <span class="arithmatex">\(J_{\varphi}(x_0)\)</span> 的后 <span class="arithmatex">\(m\)</span> 列线性无关，根据隐函数定理，可以找到包含 <span class="arithmatex">\(x_0\)</span> 的联通开邻域 <span class="arithmatex">\(X\)</span>，使得 <span class="arithmatex">\(S=\{\varphi(x)=0\mid x\in X\}\)</span> 构成一个 <span class="arithmatex">\(n-m\)</span> 维曲面，并由前 <span class="arithmatex">\(n-m\)</span> 维 <span class="arithmatex">\(x^{1\cdots n-m}\)</span> 唯一控制。也就是说，可以构造函数：<span class="arithmatex">\(x^{n-m+i}=h^i(x^1,x^2,\cdots,x^{n-m})\)</span>。</p>
+<p>按照同样方式定义曲线 <span class="arithmatex">\(\gamma(t)=(x^1(t),\cdots,x^{n-m}(t),h^1(x^{1\cdots n-m}(t)),\cdots,h^m(x^{1\cdots n-m}(t)))\)</span>。可以求得</p>
+<div class="arithmatex">\[
+\gamma’(0)=\begin{bmatrix}
+(x^1)’(0)\\
+(x^2)’(0)\\
+\vdots \\
+(x^{n-m})’(0) \\
+\sum_{i=1}^{n-m}\dfrac{\partial h^1}{\partial x^i}(x_0^{1\cdots n-m})(x^i)’(0)\\
+\sum_{i=1}^{n-m}\dfrac{\partial h^2}{\partial x^i}(x_0^{1\cdots n-m})(x^i)’(0)\\
+\vdots \\
+\sum_{i=1}^{n-m}\dfrac{\partial h^m}{\partial x^i}(x_0^{1\cdots n-m})(x^i)’(0)\\
+\end{bmatrix}=\sum_{i=1}^{n-m}(x^i)’(0)\vec{v_i}
+\]</div>
+<p><span class="arithmatex">\(S\)</span> 在 <span class="arithmatex">\(x_0\)</span> 处的切空间由 <span class="arithmatex">\(\vec{v}_{1\cdots n-m}\)</span> 这 <span class="arithmatex">\(n-m\)</span> 个线性无关的向量所张成，共 <span class="arithmatex">\(n-m\)</span> 维。根据之前的证明，<span class="arithmatex">\(\operatorname{grad}\varphi^i(x_0)\cdot \gamma’(0)=0\)</span>，这 <span class="arithmatex">\(m\)</span> 个线性无关的向量构成了 <span class="arithmatex">\(x_0\)</span> 处的法空间，共 <span class="arithmatex">\(m\)</span> 维。同理有 <span class="arithmatex">\(\operatorname{grad} f(x_0)=0\)</span>，它也在法空间内，因此它可以由 <span class="arithmatex">\(\operatorname{grad}\varphi^i(x_0)\)</span> 线性组合而成。也就是说，存在一组唯一的实数 <span class="arithmatex">\(\lambda_0^{1\cdots m}\)</span>，使得：</p>
+<div class="arithmatex">\[
+\operatorname{grad} f(x_0)+\sum_{i=1}^m\lambda_0^i\operatorname{grad} \varphi^i(x_0)=0
+\]</div>
+<p>我们就找到了 <span class="arithmatex">\(x_0\)</span> 是 <span class="arithmatex">\(f\)</span> 在 <span class="arithmatex">\(\varphi^{1\cdots m}\)</span> 这些条件下的极值的必要条件。</p>
+<p>现在的问题是：怎么快速找到符合条件的 <span class="arithmatex">\(x_0\)</span>？梳理一下需要的条件：首先有 <span class="arithmatex">\(\varphi^i(x_0)=0\)</span>，其次是上面的条件。怎么样能够把它们一网打尽？</p>
+<p>设 <span class="arithmatex">\(F(x,\lambda^{1\cdots m}):\mathbb{R}^n\times \mathbb{R}^m\to \mathbb{R}\)</span>，有：</p>
+<div class="arithmatex">\[
+F(x,\lambda^{1\cdots m})=f(x)+\sum_{i=1}^m\lambda^i\varphi^i(x)
+\]</div>
+<p>对 <span class="arithmatex">\(F\)</span> 求偏导：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\dfrac{\partial F}{\partial x^i}(x_0,\lambda_0) &amp;=\dfrac{\partial f}{\partial x^i}(x_0)+\sum_{i=1}^m\lambda_0^i \dfrac{\partial \varphi^i}{\partial x^i}(x_0)\\
+\dfrac{\partial F}{\partial \lambda^i}(x_0,\lambda_0)&amp;=\varphi^i(x_0)
+\end{aligned}
+\]</div>
+<p>注意到对 <span class="arithmatex">\(x\)</span> 求偏导等于零构成了 <span class="arithmatex">\(\operatorname{grad} f(x_0)+\sum_{i=1}^m\lambda_0^i\operatorname{grad} \varphi^i(x_0)=0\)</span> 的方程，对 <span class="arithmatex">\(\lambda^i\)</span> 求偏导等于零构成了 <span class="arithmatex">\(\varphi^i(x_0)=0\)</span> 的方程。</p>
+<p>也就是说，如果我们对 <span class="arithmatex">\(F\)</span> 求偏导，得出所有的偏导均为零，我们就能找到合法的 <span class="arithmatex">\(x_0\)</span>（当然还有对应的 <span class="arithmatex">\(\lambda_0\)</span>）。上述求出条件极值的方法称作 <strong>Lagrange 乘子法</strong>。</p>
+<p>但是这只是必要条件。对于驻点（可能不是极值点）来说，它也可能满足所有的方程。如果判断 <span class="arithmatex">\(x_0\)</span> 是否是真正的极值点？</p>
+<p>一个经典的错误是直接求 <span class="arithmatex">\(f(x)\)</span> 在 <span class="arithmatex">\(x_0\)</span> 处的 Hessian 矩阵，然后看其限制在切空间方向是否是正定（或负定）的。这样做有什么问题？</p>
+<p>事实上，这样做只能判断在切空间这个截面上 <span class="arithmatex">\(f(x)\)</span> 是极值。但真正的曲面绝不可能是严格按照切空间的截面在走，沿曲面移动时，位移不是纯切向量。也就是说，<span class="arithmatex">\(x_0\)</span> 到曲面上近旁的另一个点 <span class="arithmatex">\(y_0\)</span> 的位移中会不可避免的混入法方向的向量，所以这样做是有问题的。</p>
+<p>那怎么办？下面的定理给出了一个方法：</p>
+<p><strong>（条件极值的充分条件）若 <span class="arithmatex">\(F(x,\lambda_0)\)</span> 在 <span class="arithmatex">\(x_0\)</span> 处的 Hessian 二次型对于任意切空间中的 <span class="arithmatex">\(v\)</span> 均正定（或负定），则 <span class="arithmatex">\(x_0\)</span> 是条件极值点。如果是不定的，则不是条件极值点。</strong></p>
+<blockquote>
+<p>如果我们要使用 Hessian 二次型，我们就需要想办法把条件极值变为一般的函数极值。我们之前提到过，根据隐函数定理，在 <span class="arithmatex">\(x_0\)</span> 的近旁形成的是一个 <span class="arithmatex">\(k=n-m\)</span> 维的曲面，且可以由 <span class="arithmatex">\(k\)</span> 个维度直接控制。假设由前 <span class="arithmatex">\(k\)</span> 维控制，那么我们可以令 <span class="arithmatex">\(\Phi(u^{1\cdots k})=(u,h(u))\)</span>，其中 <span class="arithmatex">\(h:\mathbb{R}^k\to \mathbb{R}^{n-k}\)</span> 由隐函数定理唯一给出。令 <span class="arithmatex">\(x_0=\Phi(u_0)\)</span>，我们只需要证明 <span class="arithmatex">\(u_0\)</span> 是 <span class="arithmatex">\(\psi(u)=F(\Phi(u))\)</span> 的一般极值点即可。（<span class="arithmatex">\(\lambda_0\)</span> 是定值所以省略）</p>
+<p>对于一阶导，注意到 <span class="arithmatex">\(J_{\psi}(u_0)=J_F(x_0)\times J_\Phi(u_0)=O\)</span>，所以可以利用 Hessian 二次型判别极值。</p>
+</blockquote>
+<p>证明：由 Taylor 公式可知，当 <span class="arithmatex">\(h\to 0\)</span> 时：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\psi(u_0+h)-\psi(u_0)&amp;=\dfrac{1}{2}\sum_{i,j=1}^k\dfrac{\partial^2\psi}{\partial u^i\partial u^j}(x_0)h^ih^j+o(h^2)
+\end{aligned}
+\]</div>
+<p>问题来了：怎么求二阶导？</p>
+<p>先讲解一下记号：设 <span class="arithmatex">\(\partial_iF=\dfrac{\partial F}{\partial x^i}\)</span>，<span class="arithmatex">\(\partial _i\Phi^j=\dfrac{\partial \Phi^j}{\partial u^i}\)</span>。</p>
+<p>先求一阶导：</p>
+<div class="arithmatex">\[
+\dfrac{\partial \psi}{\partial u^\alpha}(u)=\sum_{i=1}^n \partial_i F(\Phi(u))\partial_\alpha \Phi^i(u)
+\]</div>
+<p>然后推式子：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\dfrac{\partial \psi}{\partial u^\alpha \partial u^\beta}(u)&amp;=\dfrac{\partial}{\partial u^\beta}(\sum_{i=1}^n \partial_i F(\Phi(u))\partial_\alpha \Phi^i(u))\\
+&amp;= \sum_{i=1}^n\dfrac{\partial}{\partial u^\beta}(\partial_i F(\Phi(u))\partial_\alpha \Phi^i(u))\\
+&amp;= \sum_{i=1}^n \partial_i F(\Phi(u))\dfrac{\partial}{\partial u^\beta} (\partial_\alpha\Phi^i(u))+\partial_\alpha\Phi^i(u)\dfrac{\partial}{\partial u^\beta}(\partial_i F(\Phi(u)))
+\end{aligned}
+\]</div>
+<p>先处理第一项：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+&amp; \sum_{i=1}^n \partial_i F(\Phi(u))\dfrac{\partial}{\partial u^\beta} (\partial_\alpha\Phi^i(u))\\
+= &amp; \sum_{i=1}^n \partial_i F(\Phi(u))\dfrac{\partial^2\Phi^i}{\partial u^\alpha\partial u^\beta}(u)
+\end{aligned}
+\]</div>
+<p>当 <span class="arithmatex">\(u=u_0\)</span> 时，<span class="arithmatex">\(\partial_i F(\Phi(u))=\partial_iF(x_0)=0\)</span>，所以这一项可以忽略。</p>
+<p>再处理第二项：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+&amp; \dfrac{\partial}{\partial u^\beta}(\partial_i F(\Phi(u))) \\
+= &amp; \sum_{j=1}^n \dfrac{\partial^2 F}{\partial x^i\partial x^j}(\Phi(u))\partial_\beta\Phi^j(u)\\
+&amp; \sum_{i=1}^n \partial_\alpha\Phi^i(u)\dfrac{\partial}{\partial u^\beta}(\partial_i F(\Phi(u)))\\
+=&amp; \sum_{i=1}^n\partial_\alpha\Phi^i(u)(\sum_{j=1}^n \dfrac{\partial^2 F}{\partial x^i\partial x^j}(\Phi(u))\partial_\beta\Phi^j(u))\\
+=&amp; \sum_{i,j=1}^n\partial_\alpha\Phi^i(u)\times \partial_\beta\Phi^j(u)\times \dfrac{\partial^2 F}{\partial x^i\partial x^j}(\Phi(u))
+\end{aligned}
+\]</div>
+<p>带入 <span class="arithmatex">\(u=u_0\)</span>，就可以求出二阶导：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+ \psi’’(u_0)&amp;=(\sum_{i,j=1}^n\partial_\alpha\Phi^i(u_0)\times \partial_\beta\Phi^j(u_0)\times \dfrac{\partial^2 F}{\partial x^i\partial x^j}(x_0))_{\alpha,\beta=1}^n \\
+&amp;= \Phi’(u_0)^T\times H_F(x_0)\times \Phi’(u_0)
+\end{aligned}
+\]</div>
+<p>而 <span class="arithmatex">\(\Phi’(u_0)=\begin{bmatrix}I_k \\ h’(u_0)\end{bmatrix}=\begin{bmatrix} \vec{v_1} &amp; \vec{v_2} &amp;\cdots &amp; \vec{v_k}\end{bmatrix}\)</span>。对于任意 <span class="arithmatex">\(h\in\mathbb{R}^k\)</span>，都有 <span class="arithmatex">\(\Phi’(u_0)h\)</span> 是切空间中的向量。</p>
+<p>这正是我们想要看到的：切空间中的向量，<span class="arithmatex">\(F\)</span> 中的 Hessian 二次型。证毕。</p>
+<h2 id="_9">从一重积分到多重积分</h2>
+<p>先做一些符号说明：设 <span class="arithmatex">\(I_{a,b}=\{x\mid a^i\le x^i\le b^i,i=1,2,\cdots,n\}\)</span> 为 <span class="arithmatex">\(\mathbb{R}^n\)</span> 中的闭区间（长方体）。<span class="arithmatex">\(\mu(I)=\prod_{i=1}^n b_i-a_i\)</span> 表示它的体积。</p>
+<p>我们先来考虑闭区间上的积分。还是一样的，我们对于每一维构造一个分点序列 <span class="arithmatex">\(x_0^i=a^i&lt;x_1^i&lt;x_2^i&lt;\cdots&lt;x_k^i=b^i\)</span>，那么整个长方体 <span class="arithmatex">\(I_{a,b}\)</span> 就可以分成若干个小块 <span class="arithmatex">\(I_{p_{1\cdots n}}=\{x\mid x^i_{p_i}\le x\le x^i_{p_{i+1}},\ i=1,2,\cdots,n \}\)</span>。当切的小块足够细时，每个小块内 <span class="arithmatex">\(f\)</span> 的值近似相等，所以我们求出 <span class="arithmatex">\(\sum_{p_{1\cdots n}} f(I_p)\mu(I_p)\)</span> 就可以作为 <span class="arithmatex">\(f\)</span> 在 <span class="arithmatex">\(I\)</span> 上的积分 <span class="arithmatex">\(\int_I f(x)\mathrm{d} x\)</span>。</p>
+<p>当我们需要积分的区域不是规整的长方体（即闭区间）时，我们也可以进行积分。对于有界集合 <span class="arithmatex">\(E\)</span>，设 <span class="arithmatex">\(\chi_E(x)=\begin{cases} 1, &amp; x\in E\\ 0, &amp; x\not\in E\end{cases}\)</span> 作为其示性函数。若 <span class="arithmatex">\(I\)</span> 是闭区间，且 <span class="arithmatex">\(E\subset I\)</span>，利用示性函数我们可以把有界集合上的积分变成闭区间上的积分：</p>
+<div class="arithmatex">\[
+\int_E f(x) \mathrm{d} x=\int_I f(\chi_E(x))\mathrm{d} x
+\]</div>
+<p>我们将有界集合 <span class="arithmatex">\(E\)</span> 上的可积函数构成的集合记为 <span class="arithmatex">\(\mathcal{R}(E)\)</span>。问题来了，什么样的函数可积？（这里的可积均指 Riemann 可积）</p>
+<p>回到一重积分，我们有 Lebesgue 定理：若 <span class="arithmatex">\(f(x)\)</span> 在有界闭区间 <span class="arithmatex">\([L,R]\)</span> 中的不连续点为零测集，则 <span class="arithmatex">\(f(x)\)</span> 在该区间可积。再回顾零测集的定义：对于任意 <span class="arithmatex">\(\epsilon&gt;0\)</span>，总存在该集合的，由至多可数个开区间组成的开覆盖 <span class="arithmatex">\(\bigcup_{i=1}^{\infty}(a_i,b_i)\)</span>，且 <span class="arithmatex">\(\sum_{i=1}^{\infty} b_i-a_i&lt;\epsilon\)</span>。</p>
+<p>推广到高维情形，就是：若 <span class="arithmatex">\(f(x)\)</span> 在有界闭区间 <span class="arithmatex">\(I\)</span> 中的不连续点为零测集，则 <span class="arithmatex">\(f(x)\)</span> 在该区间可积。这里的零测集定义变为：对于任意 <span class="arithmatex">\(\epsilon&gt;0\)</span>，总存在该集合的，由至多可数个开长方体组成的开覆盖 <span class="arithmatex">\(\bigcup_{i=1}^{\infty}I’_{i}\)</span>，且 <span class="arithmatex">\(\sum_{i=1}^{\infty} \mu(I’_i)&lt;\epsilon\)</span>。（这里不仅是开长方体还是闭长方体均等价，<span class="arithmatex">\(I’\)</span> 表示该长方体为开长方体）</p>
+<p>现在我们来考虑有界集合 <span class="arithmatex">\(E\)</span> 上的的积分。我们希望这个集合有比较好的性质——至少它的示性函数 <span class="arithmatex">\(\chi_E(x)\)</span> 可积。要不然，<span class="arithmatex">\(E\)</span> 上的绝大多数函数是没法积分的。对于示性函数 <span class="arithmatex">\(\chi_E(x)\)</span>，它的不连续点就是集合 <span class="arithmatex">\(E\)</span> 的边界点。如果边界点是零测集，那么 <span class="arithmatex">\(\chi_E(x)\)</span> 就是可积的。接下来我们定义：</p>
+<p><strong>（Jordan 可测）设 <span class="arithmatex">\(E\subset \mathbb{R}^n\)</span> 为一有界集合，如果 <span class="arithmatex">\(E\)</span> 上的常值函数 <span class="arithmatex">\(f\equiv 1\)</span> 在 <span class="arithmatex">\(E\)</span> 上可积，则称 <span class="arithmatex">\(E\)</span> 是 Jordan 可测的，并且记 <span class="arithmatex">\(\mu(E)=\int_E 1\mathrm{d} x\)</span> 为 <span class="arithmatex">\(E\)</span> 的 Jordan 测度。特别的，如果 <span class="arithmatex">\(\mu(E)=0\)</span>，则称 <span class="arithmatex">\(E\)</span> 为 Jordan 零测集。</strong></p>
+<p>我们发现 Jordan 测度的定义和体积是相容的。换句话说，一个集合的 Jordan 测度就是它的“体积”。</p>
+<p>现在我们可以把有界闭区间上的可积性理论推广到 Jordan 可测集：如果 <span class="arithmatex">\(E\)</span> 为 Jordan 可测集，<span class="arithmatex">\(f:E\to \mathbb{R}\)</span>，<span class="arithmatex">\(f\)</span> 可积的充要条件是它在 <span class="arithmatex">\(E\)</span> 上有界且不连续点为零测集。</p>
+<h2 id="_10">变量代换公式</h2>
+<p>我们先看看一重积分里面的变量代换公式：（假设 <span class="arithmatex">\(\varphi’(t)\ge 0\)</span> 对 <span class="arithmatex">\(\forall t\in[a,b]\)</span> 均成立）</p>
+<div class="arithmatex">\[
+\int_{\varphi(a)}^{\varphi(b)} f(x)\mathrm{d} x=\int_a^b f(\varphi(t))\varphi’(t)  \mathrm{d} t
+\]</div>
+<p>先忽略复合函数的链式求导法则，直接从几何直觉上理解这个公式。对于 <span class="arithmatex">\([a,b]\)</span> 这个区间，我们把它分成若干个小部分 <span class="arithmatex">\([t_i,t_{i+1}]\)</span>，每个小部分的 <span class="arithmatex">\(f\circ \varphi\)</span> 值近似相同，我们设这个近似相同的值为 <span class="arithmatex">\(f_i=f(\varphi(t_i))\)</span>。</p>
+<p>在 <span class="arithmatex">\(t_i\)</span> 的近旁，<span class="arithmatex">\(\varphi(t)\)</span> 可以近似于一个线性变换。它把 <span class="arithmatex">\([t_{i},t_{i+1}]\)</span> 映射到 <span class="arithmatex">\([\varphi(t_i),\varphi(t_{i+1})]\)</span>，且这个线性变换对于区间长度的扩大倍数为 <span class="arithmatex">\(\det J_\varphi(t_i)=\varphi’(t_i)\)</span>。又因为 <span class="arithmatex">\(\varphi\)</span> 单调递增，所以 <span class="arithmatex">\([\varphi(t_i),\varphi(t_{i+1})]\)</span> 这些区间可以刚好拼成 <span class="arithmatex">\([\varphi(a),\varphi(b)]\)</span> 这个大区间且不重叠。</p>
+<div class="arithmatex">\[
+\int_{\varphi(a)}^{\varphi(b)}f(x)\mathrm{d} x=\lim_{||\pi||\to 0} \sum_i f_i(\varphi(t_{i+1})-\varphi(t_i))=\lim_{||\pi||\to 0}\sum_i f_i(t_{i+1}-t_i)\varphi’(t_i)=\int_a^b f(\varphi(t))\mathrm{d} t
+\]</div>
+<p>然后我们将其推广到多重积分。设 <span class="arithmatex">\(\varphi:D_t\to D_x\)</span> 为 <span class="arithmatex">\(\mathbb{R}^n\)</span> 中有界开集之间的微分同胚，<span class="arithmatex">\(f\)</span> 为定义在 <span class="arithmatex">\(D_x\)</span> 上的函数，<span class="arithmatex">\(\operatorname{supp} f\)</span> 为 <span class="arithmatex">\(D_x\)</span> 的紧致子集。我们猜想：<span class="arithmatex">\(f\in\mathcal{R}(D_x)\)</span> 当且仅当 <span class="arithmatex">\(f\circ\varphi\cdot|\det \varphi’|\in \mathcal{R}(D_t)\)</span>，并且如果 <span class="arithmatex">\(f\)</span> 可积则有如下的 <strong>变量代换公式</strong>：</p>
+<div class="arithmatex">\[
+\int_{D_x} f(x) \mathrm{d} x=\int_{D_t} f\circ\varphi(t) \cdot |\det \varphi’(t) | \mathrm{d} t
+\]</div>
+<p>我们按照类似的方式理解：由于 <span class="arithmatex">\(\varphi\)</span> 是微分同胚，我们将 <span class="arithmatex">\(D_t\)</span> 划分为若干个小块 <span class="arithmatex">\(D_i\)</span>，则 <span class="arithmatex">\(\varphi(D_i)\)</span> 可以不重不漏地拼合成 <span class="arithmatex">\(D_x\)</span>。每个小块内 <span class="arithmatex">\(f\circ \varphi\)</span> 的值都大致相同，设这个值为 <span class="arithmatex">\(f_i\)</span>。从 <span class="arithmatex">\(D_i\)</span> 变化成 <span class="arithmatex">\(\varphi(D_i)\)</span> 的过程类似于进行一次线性变换，变化的矩阵就是 <span class="arithmatex">\(J_\varphi(x_i)\ (x_i\in D_i)\)</span>，而线性变换的体积缩放倍数就是它的行列式 <span class="arithmatex">\(|\det J_\varphi(x_i)|\)</span>。所以我们有：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\int_{D_x} f(x) \mathrm{d} x &amp;= \lim_{||\pi||\to 0}\mu(\varphi(D_i)) f_i \\
+&amp;= \lim_{||\pi ||\to 0}\mu(D_i) |\det J_\varphi(x_i)| f_i \\
+&amp;= \int_{D_t} f\circ \varphi(t) \cdot |\varphi'(t)| \mathrm{d} t
+\end{aligned}
+\]</div>
+<p>有了直观理解，现在我们的问题是：如何证明？</p>
+<p>在这里，我们的证明思路是：从简单到复杂，从线性到一般，从容许集到平凡集。</p>
+<p>首先不管两边的积分结果如何，我们得保证两边的可积性是相同的。这需要我们对零测集进行讨论。</p>
+<p>接着我们需要兵分两路：第一路需要证明 <span class="arithmatex">\(\varphi\)</span> 是线性映射的时候成立，第二路需要证明变量代换公式在 Jordan 可测集上成立。</p>
+<p>然后我们把两路的结果综合起来，就得到了变量代换公式。</p>
+<p>最后，正如一元微积分不需要保证变量代换时的 <span class="arithmatex">\(\varphi\)</span> 单调，对于多元微积分我们也可以证明其在退化情况下成立：不需要保证 <span class="arithmatex">\(|\det \varphi(x)'|\not=0\)</span>，只需要保证 <span class="arithmatex">\(\varphi\)</span> 是连续可微的一一映射，变量代换公式仍然成立。</p>
+<p>在证明之前，我们仍然需要做一些准备工作：</p>
+<p><strong>（引理一）<span class="arithmatex">\(\mathbb{R}^n\)</span> 中的任意开集都可以表示为可数多个两两之间无公共内点的闭区间（可取为立方体）的并。</strong></p>
+<p>证明：设 <span class="arithmatex">\(S_0=\{I_{a,b} \mid a^i+1=b^i,\ a^i\in \mathbb{Z},\ i=1,2,\cdots, n\}\)</span>，即按照网格线把整个空间分为若干个 <span class="arithmatex">\(1\times 1\times \cdots\times 1\)</span> 的块。再设 <span class="arithmatex">\(S_1=\{I_{a,b} \mid a^i+\dfrac{1}{2}=b^i,\ 2a^i\in \mathbb{Z},\ i=1,2,\cdots, n\}\)</span>，即把 <span class="arithmatex">\(S_0\)</span> 中的每一个块按照中心线划分为 <span class="arithmatex">\(2^n\)</span> 个小块后组成 <span class="arithmatex">\(S_1\)</span>。同理，把 <span class="arithmatex">\(S_1\)</span> 中的每一个块按照中心线划分为 <span class="arithmatex">\(2^n\)</span> 个小块后组成 <span class="arithmatex">\(S_2\)</span>，依此类推。我们有 <span class="arithmatex">\(S_i=\{I_{a,b} \mid a^i+\dfrac{1}{2^i}=b^i,\ 2^ia^i\in \mathbb{Z},\ i=1,2,\cdots, n\}\)</span>。</p>
+<p>由于 <span class="arithmatex">\(S_i\)</span> 是可数集，可数个可数集的并也是可数集，所以 <span class="arithmatex">\(S=\bigcup_{i=1}^\infty S_i\)</span> 可数。对于 <span class="arithmatex">\(S\)</span> 中的任意两个立方体，它们要么不交，要么包含。</p>
+<p>由于 <span class="arithmatex">\(D\subset \mathbb{R}^n\)</span> 是开集，对于任意 <span class="arithmatex">\(x\in D\)</span>，总能找到一个开球 <span class="arithmatex">\(B(x,\delta)\subset D\ (\delta &gt;0)\)</span>。而总有一个 <span class="arithmatex">\(S\)</span> 中的闭立方体在这个开球中。所以对于任意 <span class="arithmatex">\(x\)</span>，我们都能找到一个 <span class="arithmatex">\(S\)</span> 中包含 <span class="arithmatex">\(x\)</span> 的一个闭立方体，且它被 <span class="arithmatex">\(D\)</span> 包含。我们把所有 <span class="arithmatex">\(x\)</span> 对应的闭立方体组成的集合（注意去重了）设为 <span class="arithmatex">\(T\)</span>。然后，如果 <span class="arithmatex">\(x\in T\)</span> 存在 <span class="arithmatex">\(y\in T\)</span> 使得 <span class="arithmatex">\(x\subset y\)</span>，我们就删去 <span class="arithmatex">\(x\)</span>。这样形成的新集合 <span class="arithmatex">\(T'\)</span> 就满足：任意两个集合不交，且它们的并刚好是 <span class="arithmatex">\(D\)</span>，且可数。证毕。</p>
+<p><strong>（引理二）拟微分中值定理 - 切比雪夫版：设 <span class="arithmatex">\(||x||_{\infty} :=\max_{1\le i\le n}|x^i|\)</span>，<span class="arithmatex">\(||A||_\infty=\max_{i=1}^n \sum_{j=1}^n |A_{i,j}|\)</span>。再设 <span class="arithmatex">\(D\)</span> 为 <span class="arithmatex">\(\mathbb{R}^n\)</span> 中的区域，<span class="arithmatex">\(f: D\to \mathbb{R}^m\)</span>，<span class="arithmatex">\(x_1,x_2\in D\)</span>，<span class="arithmatex">\([x_1,x_2]\subset D\)</span>，<span class="arithmatex">\(f\)</span> 在 <span class="arithmatex">\([x_1,x_2]\)</span> 连续，<span class="arithmatex">\((x_1,x_2)\)</span> 可微，则 <span class="arithmatex">\(||f(x_2)-f(x_1)||_\infty \le \sup_{t\in(x_1,x_2)} ||J_f(t)||_\infty\cdot ||x_2-x_1||_\infty\)</span>。</strong></p>
+<p>证明：假设 <span class="arithmatex">\(||f(x_2)-f(x_1)||_\infty\)</span> 在第 <span class="arithmatex">\(i\)</span> 维取到最大值，即 <span class="arithmatex">\(||f(x_2)-f(x_1)||_\infty=|f^i(x_2)-f^i(x_1)|\)</span>。根据拟微分中值定理，存在 <span class="arithmatex">\(t\in(x_1,x_2)\)</span> 使得 <span class="arithmatex">\(f^i(x_2)-f^i(x_1)=\langle \operatorname{grad} f^i(t),x_2-x_1\rangle\)</span>。我们有：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+|f^i(x_2)-f^i(x_1)| &amp;=|\langle \operatorname{grad} f^i(t),x_2-x_1\rangle|\\
+&amp;\le \sum_{k=1}^n |\operatorname{grad} f^i(t)_k|\cdot |x_2^k-x_1^k| \\
+&amp;\le \sum_{k=1}^n |\operatorname{grad} f^i(t)_k|\cdot ||x_2-x_1||_\infty \\
+&amp;= ||J_{f^i}(t)||_\infty \cdot ||x_2-x_1||_\infty \\
+||f(x_2)-f(x_1)||_\infty &amp;\le ||J_f(t)||_\infty \cdot ||x_2-x_1||_\infty
+\end{aligned}
+\]</div>
+<p>证毕。</p>
+<h2 id="_11">变量代换公式的证明</h2>
+<h4 id="_12">第一步：对零测集进行讨论，保证两边可积性相同</h4>
+<p>首先我们希望 <span class="arithmatex">\(\chi_{D_x}(x)\)</span> 和 <span class="arithmatex">\(\chi_{D_t}(t)\)</span> 的可积性相同（即设 <span class="arithmatex">\(f\equiv1\)</span> 为常值函数）。</p>
+<p><strong>（定理一）记 <span class="arithmatex">\(\psi=\varphi^{-1}:D_x\to D_t\)</span>，则 <span class="arithmatex">\(E_x\subset D_x\)</span> 为零测集当且仅当 <span class="arithmatex">\(\psi(E_x)\subset D_t\)</span> 为零测集。</strong></p>
+<p>首先考虑必要性。根据引理一，任何一个开集都可以表示成可数多个闭立方体的并。我们设 <span class="arithmatex">\(D_x=C_1+C_2+\cdots\)</span> 为一组合法的构造。接下来我们枚举 <span class="arithmatex">\(p\)</span>，在每个 <span class="arithmatex">\(C_p\)</span> 内部进行讨论。只要我们保证对于每个 <span class="arithmatex">\(p\)</span>，<span class="arithmatex">\(\psi(E_x\cap C_p)\)</span> 都是零测集，由于可数多个零测集的并也是零测集，我们就可以证明了。接下来我们默认 <span class="arithmatex">\(E_x:=E_x\cup C_p\)</span>。</p>
+<p>又由于 <span class="arithmatex">\(E_x\)</span> 是零测集，所以对于任意 <span class="arithmatex">\(\epsilon&gt;0\)</span>，都存在可数多个立方体 <span class="arithmatex">\(I=I_1,I_2,\cdots\)</span> 使得 <span class="arithmatex">\(E_x\subset \bigcup_{i=1}^\infty I_i\)</span> 且 <span class="arithmatex">\(\sum_{i=1}^\infty \mu(I_i)&lt;\epsilon\)</span>。</p>
+<p>于是我们得到了 <span class="arithmatex">\(\psi(E_x)\)</span> 的一个覆盖 <span class="arithmatex">\(\psi(I)\)</span>。根据引理二，<span class="arithmatex">\(||\psi(x)-\psi(x_0)||_\infty\le \sup_{t\in (x,x_0)} ||J_\psi(t)||_\infty \cdot ||x-x_0||_\infty\)</span>。由于 <span class="arithmatex">\(C_p\)</span> 紧致，<span class="arithmatex">\(J_\psi(x)\)</span> 连续，所以它在 <span class="arithmatex">\(C_p\)</span> 中存在最大值：设 <span class="arithmatex">\(M=\max_{x\in C_p} ||J_\psi(x)||\)</span>。所以上面的公式可以改写成：<span class="arithmatex">\(||\psi(x)-\psi(x_0)||_\infty\le M||x-x_0||_\infty\)</span>。</p>
+<p>对于 <span class="arithmatex">\(I_i\)</span> 这个立方体，设 <span class="arithmatex">\(x_0\)</span> 为它的中心，则 <span class="arithmatex">\(\forall x\in I_i\)</span> 都有 <span class="arithmatex">\(||\psi(x)-\psi(x_0)||_\infty \le M||x-x_0||_\infty\)</span>，这意味着如果把 <span class="arithmatex">\(I_i\)</span> 以 <span class="arithmatex">\(x_0\)</span> 为中心点，每条边长扩大到原来的 <span class="arithmatex">\(M\)</span> 倍变为 <span class="arithmatex">\(I’_i\)</span>，然后将 <span class="arithmatex">\(\varphi(x_0)\)</span> 作为新的中心点，那么 <span class="arithmatex">\(\varphi(x)\)</span> 肯定在 <span class="arithmatex">\(I’_i\)</span> 内。所以 <span class="arithmatex">\(\varphi(I_i)\subset I’_i\)</span>。</p>
+<p>而 <span class="arithmatex">\(\sum_{i=1}^\infty \mu(I’_i)=M^n\sum_{i=1}^\infty \mu(I_i)&lt;M^n\epsilon\)</span>，故 <span class="arithmatex">\(\varphi(E_x)\)</span> 为零测集，证毕。</p>
+<p>然后考虑充分性。注意到 <span class="arithmatex">\(\varphi,\psi\)</span> 互为逆函数，根据对称性，充分性也成立。</p>
+<p>根据这个定理我们有一个简单的推论：<span class="arithmatex">\(D_x\)</span> 和 <span class="arithmatex">\(D_t\)</span> 要么同时为容许集，要么同时都不为容许集。</p>
+<p>接下来我们再讨论 <span class="arithmatex">\(f\)</span> 为任意函数的情况。</p>
+<p><strong>（定理二）<span class="arithmatex">\(f\in \mathcal{R} (D_x)\)</span> 当且仅当 <span class="arithmatex">\(f\circ \varphi\cdot |\varphi’|\in \mathcal{R}(D_t)\)</span>。</strong></p>
+<p>根据 <span class="arithmatex">\(f\)</span> 在上一节的设定，<span class="arithmatex">\(\operatorname{supp} f\subset D_x\)</span>，<span class="arithmatex">\(\varphi\)</span> 是微分同胚，所以 <span class="arithmatex">\(\operatorname{supp} f\circ\varphi \subset D_t\)</span>。这意味着 <span class="arithmatex">\(f(\chi_{D_x}(x))\)</span> 和 <span class="arithmatex">\(f\circ \varphi(\chi_{D_t}(t))\)</span> 分别在 <span class="arithmatex">\(\partial D_x\)</span> 和 <span class="arithmatex">\(\partial D_t\)</span> 没有不连续点。这意味着我们不需要考虑边界上的情况，可以安心的讨论 <span class="arithmatex">\(D_x\)</span> 和 <span class="arithmatex">\(D_t\)</span> 内部的情况。</p>
+<p>根据定理一，<span class="arithmatex">\(f\)</span> 在 <span class="arithmatex">\(D_x\)</span> 上的不连续点为零测集，当且仅当 <span class="arithmatex">\(f\circ\varphi\)</span> 在 <span class="arithmatex">\(D_t\)</span> 上的不连续点为零测集。而 <span class="arithmatex">\(\varphi\)</span> 是微分同胚，这意味着 <span class="arithmatex">\(|\det \varphi’|\not=0\)</span>，所以定理成立。</p>
+<h4 id="varphi">第二步：证明 <span class="arithmatex">\(\varphi\)</span> 是线性映射的情况下成立</h4>
+<p>回顾我们的直观理解，最重要的一步就是告诉我们对于 <span class="arithmatex">\(D_t\)</span> 中的一个小区域 <span class="arithmatex">\(D_i\)</span>，经过映射 <span class="arithmatex">\(\varphi\)</span> 后体积的缩放倍数为 <span class="arithmatex">\(|\det \varphi’|\)</span>。我们先证明 <span class="arithmatex">\(\varphi\)</span> 是线性映射时这个几何直观是成立的。</p>
+<p><strong>（定理三）设 <span class="arithmatex">\(\varphi\in \mathbb{R}^n\)</span> 是可逆线性变换，<span class="arithmatex">\(E_t\)</span> 为 <span class="arithmatex">\(\mathbb{R}^n\)</span> 中的 Jordan 可测集，则 <span class="arithmatex">\(\mu(\varphi(E_t))=\mu(E_t)\cdot |\det \varphi’|\)</span>。</strong></p>
+<p>证明：对于任意可逆线性变换，它都可以表示成有限个初等行变换的复合。我们先证明对于任意初等线性变换定理成立。</p>
+<p>对于第一类初等行变换：交换第 <span class="arithmatex">\(i,j\ (i&lt;j)\)</span> 行，即</p>
+<div class="arithmatex">\[
+\varphi_1:(x^1,x^2,\cdots,x^n)\to(x^1,\cdots,x^{i-1},x^j,x^{i+1},\cdots,x_{j-1},x^i,x^{j+1},\cdots,x^n)
+\]</div>
+<p>此时 <span class="arithmatex">\(|\det \varphi_1’|=1\)</span>。设 <span class="arithmatex">\(E_t\subset I_{a,b}\)</span>，则</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\mu(E_t) &amp;=\int_{a_i}^{b_i}\mathrm{d} x^i\int_{a^j}^{b^j}\mathrm{d} x^j\int_{E’}\chi_{E_t}(x)\mathrm{d} x\\
+\mu(\varphi(E_t)) &amp;=\int_{a^i}^{b^i} \mathrm{d} x^j\int_{a^j}^{b^j}\mathrm{d} x^i \int_{E’} \chi_{E_t}(x)\mathrm{d} x=\mu(E_t) |\det \varphi_1’|
+\end{aligned}
+\]</div>
+<p>对于第二类初等行变换：将第 <span class="arithmatex">\(i\)</span> 行乘上非零常数 <span class="arithmatex">\(c\)</span>，即：</p>
+<div class="arithmatex">\[
+\varphi_2:(x^1,x^2,\cdots,x^n)\to(x^1,\cdots,x^{i-1},cx^i,x^{i+1},\cdots,x^n)
+\]</div>
+<p>此时 <span class="arithmatex">\(|\det \varphi_2’|=|c|\)</span>。则</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\mu(\varphi_2(E_t)) &amp;=\int_{E_x^{n-1}}\mathrm{d} x^1\cdots\mathrm{d} x^{i-1}\mathrm{d} x^{i+1}\cdots \mathrm{d} x^n |\int_{ca_i}^{cb_i}\chi_{\varphi_2(E_i)}(x)\mathrm{d} x^i|\\
+&amp;=\int_{E_x^{n-1}}\mathrm{d} x^1\cdots\mathrm{d} x^{i-1}\mathrm{d} x^{i+1}\cdots \mathrm{d} x^n \int_{a_i}^{b_i}|c|\chi_{E_i}(x)\mathrm{d} x^i\\
+&amp;= |c|\int_{E_x^{n-1}}\mathrm{d} x^1\cdots\mathrm{d} x^{i-1}\mathrm{d} x^{i+1}\cdots \mathrm{d} x^n \int_{a_i}^{b_i}\chi_{E_i}(x)\mathrm{d} x^i=|c|\mu(E_t)
+\end{aligned}
+\]</div>
+<p>对于第三类初等行变换：将第 <span class="arithmatex">\(i\)</span> 行乘上 <span class="arithmatex">\(c\)</span> 倍加到第 <span class="arithmatex">\(j\)</span> 行，即：</p>
+<div class="arithmatex">\[
+\varphi_3:(x^1,x^2,\cdots,x^n)\to (x^1,\cdots,x^{j-1},cx^i+x^{j},x^{j+1},\cdots,x^n)
+\]</div>
+<p>此时 <span class="arithmatex">\(|\det \varphi_3’|=1\)</span>，则</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\mu(\varphi_3(E_t)) &amp;=\int_{E_x^{n-1}}\mathrm{d} x^1\cdots\mathrm{d} x^{j-1}\mathrm{d} x^{j+1}\cdots \mathrm{d} x^n \int_{E(x^1,\cdots,x^{j-1},x^{j+1},\cdots,x^n)} \mathrm{d} x^j\\
+&amp;=\int_{E_t^{n-1}}\mathrm{d} t^1\cdots\mathrm{d} t^{j-1}\mathrm{d} t^{j+1}\cdots \mathrm{d} t^n \int_{E(t^1,\cdots,t^{j-1},t^{j+1},\cdots,t^n)+ct^i} \mathrm{d} t^j\\
+&amp;=\mu(E_t) \cdot |\det \varphi_3’|
+\end{aligned}
+\]</div>
+<p>对于初等行变换有限次复合的情况，注意到根据定理一，Jordan 可测集经过线性变换后仍是 Jordan 可测集，利用数学归纳法不断归纳，就可以得到对于任意线性变换 <span class="arithmatex">\(\varphi\)</span>，都有 <span class="arithmatex">\(\mu(\varphi(E_t))=\mu(E_t)\cdot |\det \varphi’|\)</span>。</p>
+<h4 id="jordan">第三步：证明 Jordan 可测集中定理成立</h4>
+<p>我们先考虑这个 Jordan 可测集性质较好的情况，即它就是个闭区间：</p>
+<p><strong>（定理四）设 <span class="arithmatex">\(C\)</span> 为 <span class="arithmatex">\(D_t\)</span> 中的一个立方体，则成立 <span class="arithmatex">\(\mu(\varphi(C))=\int_C |\det \varphi’(t)| \mathrm{d} t\)</span>。</strong></p>
+<blockquote>
+<p>如何证明？按照几何直观思考，将正方体分为若干块小正方体 <span class="arithmatex">\(D_i\)</span>，我们需要证明 <span class="arithmatex">\(\varphi(D_i)\)</span> 和 <span class="arithmatex">\(\varphi’(D_i)\)</span> 形成的区域足够像，它们的误差是可以控制的。</p>
+<p>也就是说，<span class="arithmatex">\(\varphi’^{-1}\circ \varphi(D_i)\)</span> 形成的区域跟 <span class="arithmatex">\(D_i\)</span> 本身很像，且这两块区域的误差可以控制。如果我们能够找到两个正方体，一个完全在 <span class="arithmatex">\(\varphi’^{-1} \circ \varphi(D_i)\)</span> 内部，一个完全包含 <span class="arithmatex">\(\varphi’^{-1}\circ \varphi(D_i)\)</span>，且这两个正方体在 <span class="arithmatex">\(D_i\)</span> 足够小时均趋近于 <span class="arithmatex">\(D_i\)</span>，这样我们就可以证明误差可控了。</p>
+<p>如何证明一个正方体 <span class="arithmatex">\(I\)</span> 完全在 <span class="arithmatex">\(\varphi^{-1}\circ \varphi(D_i)\)</span> 内部？换句话说，就是 <span class="arithmatex">\(\forall s\in I\)</span>，都能找到一个 <span class="arithmatex">\(t\in D_t\)</span> 使得 <span class="arithmatex">\(\varphi^{-1}\circ \varphi(t)=s\)</span>。回顾我们证明逆映射定理的过程，这种类型的证明，可以用压缩映射定理实现。判断一个正方体包含于 <span class="arithmatex">\(\varphi^{-1}\circ \varphi(D_i)\)</span> 也是类似的。</p>
+<p>类似于逆映射定理的证明，构造函数 <span class="arithmatex">\(\Phi_s(t)=t-\varphi^{-1}\circ \varphi(t)+s\)</span>。我们需要证明它是压缩映射。即证 <span class="arithmatex">\(||\Phi_s(t_1)-\Phi_s(t_2)||\le \lambda||t_1-t_2||\)</span>（本定理中我们默认所用的范数均为无穷范数 <span class="arithmatex">\(||x||=||x||_\infty\)</span>，由于压缩映射定理的证明只利用了范数的基本性质，所以对于任意范数均成立），也就是 <span class="arithmatex">\(d_\infty(t_1-\varphi’^{-1}\circ \varphi(t_1),t_2-\varphi’^{-1}\circ \varphi(t_2))\le \lambda||t_1-t_2||\)</span> 即可。我们只需要考虑 <span class="arithmatex">\(t-\varphi’^{-1} \circ \varphi(t)\)</span> 的性质就好了。类似逆映射定理，同样用拟微分中值定理进行控制即可。</p>
+</blockquote>
+<p>证明：对给定的 <span class="arithmatex">\(N\in \mathbb{N}_+\)</span>，将 <span class="arithmatex">\(C\)</span> 的每一条边进行 <span class="arithmatex">\(N\)</span> 等分，得到 <span class="arithmatex">\(C\)</span> 的一个分割 <span class="arithmatex">\(P=\{I_j\}_{j=1}^{N^n}\)</span>。则我们有 <span class="arithmatex">\(\mu(\varphi(C))=\sum_{j=1}^{N^n}\mu(\varphi(I_j))\)</span>。接下来我们对于每个 <span class="arithmatex">\(j\)</span> 进行考虑：记 <span class="arithmatex">\(t_j\)</span> 为 <span class="arithmatex">\(I_j\)</span> 的中心，<span class="arithmatex">\(\lambda_j=\varphi'(t_j)\)</span>。不妨令 <span class="arithmatex">\(t_j=0\)</span>，<span class="arithmatex">\(\varphi(t_j)=x_j=0\)</span>。</p>
+<p>由于 <span class="arithmatex">\(I_j\)</span> 紧致，<span class="arithmatex">\(\varphi'(t)\)</span> 连续，所以 <span class="arithmatex">\(\varphi'(t)\)</span> 一致连续，所以 <span class="arithmatex">\(\forall \epsilon&gt;0\)</span>，当 <span class="arithmatex">\(N\)</span> 足够大时，对于任意 <span class="arithmatex">\(t_1,t_2\in I_j\)</span>，都有 <span class="arithmatex">\(||\varphi'(t_1)-\varphi'(t_2)||&lt;\epsilon\)</span>。</p>
+<p>设 <span class="arithmatex">\(f(t)=\varphi(t)-\lambda_j(t)\)</span>，则 <span class="arithmatex">\(||f'(t)||=||\varphi'(t)-\varphi'(t_0)||&lt;\epsilon\)</span>。根据引理二，<span class="arithmatex">\(||f(t_1)-f(t_2)||\le \sup_{p\in I_j} ||f'(p)||\cdot ||t_1-t_2||&lt;\epsilon ||t_1-t_2||\)</span>。</p>
+<p>设 <span class="arithmatex">\(||\lambda^{-1}_j(t)||=M\)</span>，有 <span class="arithmatex">\(||\lambda^{-1}_j f(t_1)-\lambda^{-1}_j f(t_2)||\le ||\lambda^{-1}_j||\cdot ||f(t_1)-f(t_2)||&lt;M\epsilon||t_1-t_2||\)</span>，即 <span class="arithmatex">\(d_{\infty}(t_1-\lambda^{-1}_j\circ \varphi(t_1),t_2-\lambda^{-1}_j\circ \varphi(t_2))&lt;\epsilon M ||t_1-t_2||\)</span>。由于 <span class="arithmatex">\(t_j=\varphi(t_j)=0\)</span>，上式代入 <span class="arithmatex">\(t_j\)</span> 后变为 <span class="arithmatex">\(||t-\lambda^{-1}_j\circ \varphi(t)||&lt;\epsilon M ||t||\)</span>。</p>
+<p>我们取 <span class="arithmatex">\(\epsilon\)</span> 足够小使得 <span class="arithmatex">\(M\epsilon&lt;1\)</span>。设正方体的边长为 <span class="arithmatex">\(2a\)</span>，上面这个式子告诉我们原先正方体的边界和 <span class="arithmatex">\(\lambda^{-1}_j\circ \varphi\)</span> 这个变换形成的边界之间的距离不超过 <span class="arithmatex">\(\epsilon Ma\)</span>，也就是说它至少应该包含一个边长为 <span class="arithmatex">\(2a(1-\epsilon M)\)</span> 的正方体。下面我们用压缩映射定理来证明这一点。</p>
+<p>设 <span class="arithmatex">\(\Phi_s(t)=t-\lambda_j^{-1}\circ \varphi(t)+s\)</span>，<span class="arithmatex">\(\forall ||s||\le a(1-\epsilon M)\)</span>。我们有 <span class="arithmatex">\(||\Phi_s(t)|| \le ||t-\lambda_j^{-1}\circ \varphi(t)||+||s||&lt;\epsilon Ma+(1-\epsilon M)a=a\)</span>，所以 <span class="arithmatex">\(\Phi_s(t)\)</span> 在 <span class="arithmatex">\(I_j\)</span> 内封闭。而上文的不等式告诉了我们 <span class="arithmatex">\(||\Phi_s(t_1)-\Phi_s(t_2)||&lt;\epsilon M||t_1-t_2||\)</span>，所以我们证明了 <span class="arithmatex">\(\Phi_s(t)\)</span> 在 <span class="arithmatex">\(I_j\)</span> 内为压缩映射。</p>
+<p>这意味着 <span class="arithmatex">\(\forall ||s||\le a(1-\epsilon M)\)</span>，都存在恰好一个 <span class="arithmatex">\(t\)</span> 使得 <span class="arithmatex">\(\Phi_s(t)=t\)</span>，即 <span class="arithmatex">\(\lambda^{-1}_j\circ \varphi(t)=s\)</span>。这说明 <span class="arithmatex">\(I_1=\{s \mid ||s||\le a(1-\epsilon M) \}\subset \lambda^{-1}_j\circ \varphi(I_j)\)</span>。也就是说，<span class="arithmatex">\(\mu(I_1)=[2a(1-\epsilon M)]^n\le \mu(\lambda^{-1}_j \circ \varphi(I_j))\)</span>。</p>
+<p>还是一样，既然原先正方体的边界和 <span class="arithmatex">\(\lambda^{-1}_j\circ \varphi\)</span> 这个变换形成的边界之间的距离不超过 <span class="arithmatex">\(\epsilon Ma\)</span>，也就是说它也应该被一个边长为 <span class="arithmatex">\(2a(1+\epsilon M)\)</span> 的正方体包含。</p>
+<p>这一部分较为简单：<span class="arithmatex">\(||\lambda^{-1}\circ \varphi(t)||\le ||t||+||t-\lambda^{-1}\circ \varphi(t) || &lt; a+\epsilon M||t||\le a(1+\epsilon M)\)</span>。所以 <span class="arithmatex">\(\lambda^{-1}_j\circ \varphi(I_j) \subset I_2=\{ s\mid ||s||\le a(1+\epsilon M)\}\)</span>。也就是说，<span class="arithmatex">\(\mu(\lambda^{-1}_j\circ \varphi(I_j))\le \mu(I_2)=[2a(1+\epsilon M)]^n\)</span>。</p>
+<p>整理一下我们得到的两个不等式：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+[2a(1-\epsilon M)]^n &amp;\le \mu(\lambda^{-1}_j\circ \varphi(I_j)) &amp;&amp;\le [2a(1+\epsilon M)]^n \\
+[2a(1-\epsilon M)]^n|\det \lambda_j| &amp;\le \mu(\lambda_j\circ\lambda^{-1}_j\circ \varphi(I_j)) &amp;&amp;\le [2a(1+\epsilon M)]^n |\det \lambda_j| \\
+(1-\epsilon M)^n\mu(I_j)|\det \lambda_j| &amp;\le \mu(\varphi(I_j)) &amp;&amp;\le (1+\epsilon M)^n\mu(I_j) |\det \lambda_j|
+\end{aligned}
+\]</div>
+<p>不等式的第二行由定理三得到。（注意到 <span class="arithmatex">\(\lambda_j\)</span> 是线性映射）</p>
+<p>当 <span class="arithmatex">\(N\to\infty\)</span> 时，<span class="arithmatex">\(\epsilon\to 0\)</span>，根据夹逼准则，<span class="arithmatex">\(\mu(\varphi(I_j))\to \mu(I_j)|\det \lambda_j|\)</span>。由于 <span class="arithmatex">\(\varphi'(t)\)</span> 非退化，我们有 <span class="arithmatex">\(\mu(\varphi(C))=\int_C |\det \varphi’(t)| \mathrm{d} t\)</span>，证毕。</p>
+<p>显然这一定理可以容易地推广到 <span class="arithmatex">\(C\)</span> 为 <span class="arithmatex">\(D_t\)</span> 中任意闭区间的情形。</p>
+<blockquote>
+<p>有没有觉得证明的思路和过程跟逆映射定理很像？逆映射定理告诉我们：可逆的线性近似可以推导出局部的微分同胚。而这个定理则告诉了我们：微分，这个局部的线性近似，对于体积的变换幅度和原函数相同。二者的证明思路都是一致的，就是证明原函数和微分在局部产生的变换是几乎一致的，而产生的误差可以用压缩映射定理进行控制。</p>
+</blockquote>
+<p>现在我们将定理推广到 Jordan 可测集的情形：</p>
+<p><strong>（定理五）设 <span class="arithmatex">\(C\)</span> 为 <span class="arithmatex">\(D_t\)</span> 中的 Jordan 可测集，且 <span class="arithmatex">\(\overline{C}\subset D_t\)</span>，则 <span class="arithmatex">\(\mu(\varphi(C))=\int_C |\det \varphi'(t)| \mathrm{d} t\)</span>。</strong></p>
+<p>利用 Jordan 可测集边界点是零测集的性质：由于 <span class="arithmatex">\(\overline{C}\subset D_t\)</span>，我们可以作 <span class="arithmatex">\(D_t\)</span> 中的紧致集 <span class="arithmatex">\(K\)</span> 使得 <span class="arithmatex">\(\overline{C}\subset K^\circ\)</span>。由于 <span class="arithmatex">\(C\)</span> 是 Jordan 可测集，对于 <span class="arithmatex">\(\forall \epsilon&gt;0\)</span>，存在可数个闭区间 <span class="arithmatex">\(I_{1,2,\cdots}\)</span> 使得 <span class="arithmatex">\(I_i\subset K\)</span>，<span class="arithmatex">\(\partial C\subset \bigcup_{i=1}^\infty I_i^\circ\)</span>，<span class="arithmatex">\(\sum_{i=1}^\infty \mu(I_i)&lt;\epsilon\)</span>。由于紧致集的性质：任意开覆盖必有有限子覆盖。我们找到 <span class="arithmatex">\(K\)</span> 的一个开覆盖 <span class="arithmatex">\(\{K-\partial C,I^\circ_1,I^\circ_2,\cdots\}\)</span>，其中必有有限子覆盖。这意味着存在有限个闭区间 <span class="arithmatex">\(I_{1\cdots m}\)</span> 使得</p>
+<div class="arithmatex">\[
+I_i\subset K,\ \partial C\subset \bigcup_{i=1}^m I_i^\circ, \ \sum_{i=1}^m \mu(I_i)&lt;\epsilon
+\]</div>
+<p>现取 <span class="arithmatex">\(n\)</span> 维区间 <span class="arithmatex">\(I\)</span> 使得 <span class="arithmatex">\(D_t\subset I\)</span>，并将区间 <span class="arithmatex">\(I_1,I_2,\cdots,I_m\)</span> 的各边延长得到 <span class="arithmatex">\(I\)</span> 的一个分割 <span class="arithmatex">\(P_0\)</span>。则对 <span class="arithmatex">\(I\)</span> 的任一由 <span class="arithmatex">\(P_0\)</span> 加细得到的分割 <span class="arithmatex">\(P\)</span>，我们将其小区间分成如下三类：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+P_1 &amp;=\{J\in P \mid J\subset C^\circ \} \\
+P_2 &amp;=\{J\in P \mid J\cap \partial C \not= \varnothing\} \\
+P_3 &amp;=\{J\in P \mid J \cap \overline{C}=\varnothing \}
+\end{aligned}
+\]</div>
+<blockquote>
+<p>为什么任何区间一定在这三类当中？我们其实需要证明，对于任意闭区间 <span class="arithmatex">\(I\)</span>，如果它既包含 <span class="arithmatex">\(\overline{C}\)</span> 的内点和外点，那么它必然要包含一个边界点。</p>
+<p>设 <span class="arithmatex">\(p_0,q_0\)</span> 分别为 <span class="arithmatex">\(I\)</span> 中的内点和外点，<span class="arithmatex">\(d(p_0,q_0)=d\)</span>。考虑如下构造：若 <span class="arithmatex">\(p_i,q_i\)</span> 组成线段的中点是内点，则令 <span class="arithmatex">\(p_{i+1}=\dfrac{p_i+q_i}{2}\)</span>，<span class="arithmatex">\(q_{i+1}=q_i\)</span>；否则 <span class="arithmatex">\(p_{i+1}=p_i\)</span>，<span class="arithmatex">\(q_{i+1}=\dfrac{p_i+q_i}{2}\)</span>。</p>
+<p>按照这种构造方式，<span class="arithmatex">\(p_i\)</span> 必定为内点，<span class="arithmatex">\(q_i\)</span> 必定为外点，且 <span class="arithmatex">\(d(p_i,q_i)=\dfrac{d}{2^i}\)</span>。根据 Cauchy 收敛准则，<span class="arithmatex">\(p,q\)</span> 均为 Cauchy 列，且它们最终会收敛到同一个点 <span class="arithmatex">\(p_\infty=q_\infty\)</span>。这个点必然是边界点。证毕。</p>
+</blockquote>
+<p>记 <span class="arithmatex">\(M=\sup_{t\in K} |\det \varphi'(t) |\)</span>。则我们有：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\underline{S}(|\det \varphi'|\chi_C, P) &amp;=\sum_{J\in P_1} \inf_{t\in J}|\det \varphi'(t)|\mu(J)\\
+&amp; \le \sum_{J\in P_1}\int_J |\det \varphi'(t)|\mathrm{d} t\\
+&amp;=\sum_{J\in P_1}\mu(\varphi(J))\le \mu(\varphi(C))\\
+\overline{S}(|\det \varphi'|\chi_C, P) &amp;= \sum_{J\in P_1}\sup_{t\in J}|\det \varphi'(t)|\mu(J)+\sum_{J\in P_2}\sup_{t\in J} |\det \varphi'(t)| \chi_C \mu(J)\\
+&amp; \ge \sum_{J\in P_1}\sup_{t\in J}|\det \varphi'(t)|\mu(J)+\sum_{J\in P_2}\sup_{t\in J} |\det \varphi'(t)| \mu(J)-M\sum_{j\in P_2}\mu(J) \\
+&amp; \ge \sum_{J\in P_1\cup P_2} \int_J|\det \varphi'(t)| \mathrm{d} t-M\epsilon \\
+&amp; \ge \mu(\varphi(C))-M\epsilon 
+\end{aligned}
+\]</div>
+<p>当 <span class="arithmatex">\(||P||\to 0\)</span> 时，<span class="arithmatex">\(\epsilon\to 0\)</span>，此时可以得到：<span class="arithmatex">\(\underline{S}(|\det \varphi'|\chi_C, P)=\overline{S}(|\det \varphi'|\chi_C, P)=\mu(\varphi(C))\)</span>，即 <span class="arithmatex">\(\int_C |\det \varphi'(t)|\mathrm{d} t=\mu(\varphi(C))\)</span>。证毕。</p>
+<h4 id="_13">第四步：证明变量代换公式</h4>
+<p>证明：取 <span class="arithmatex">\(n\)</span> 维区间 <span class="arithmatex">\(I\)</span> 使得 <span class="arithmatex">\(D_x\subset I^\circ\)</span>，考虑 <span class="arithmatex">\(I\)</span> 的分割 <span class="arithmatex">\(P\)</span> 使得其对小区间 <span class="arithmatex">\(J\)</span> 如果有 <span class="arithmatex">\(J\cap \operatorname{supp} f\not=\varnothing\)</span>，则 <span class="arithmatex">\(J\subset D_x\)</span>。记这样的小区间组成的集合为 <span class="arithmatex">\(P'\)</span>。对于 <span class="arithmatex">\(I\)</span> 这样任一的分割 <span class="arithmatex">\(P\)</span>，我们有：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\underline{S}(f\chi_{D_x},P) &amp;= \sum_{J\in P'}\inf_{x\in J}f(x)\mu(J)=\sum_{J\in P'}\inf_{x\in J}f(x)\mu(\varphi\circ \varphi^{-1}(J))\\
+&amp;= \sum_{J\in P'}\inf_{t\in \varphi^{-1}(J)} f\circ \varphi(t)\int_{\varphi^{-1}(J)}|\det \varphi'(t)|\mathrm{d} t\\
+&amp; \le \sum_{J\in P'}\int_{\varphi^{-1}(J)}f\circ \varphi(t)\cdot |\det \varphi'(t)|\mathrm{d} t\\
+&amp; = \int_{D_t}f\circ \varphi(t)\cdot |\det \varphi'(t)| \mathrm{d} t \\
+&amp; \le \sum_{J\in P'}\sup_{t\in \varphi^{-1}(J)} f\circ \varphi(t)\int_{\varphi^{-1}(J)}|\det \varphi'(t)|\mathrm{d} t\\
+&amp; = \sum_{J\in P'}\sup_{x\in J}f(x)\mu(J)\le \overline{S}(f\chi_{D_x},P)
+\end{aligned}
+\]</div>
+<p>令 <span class="arithmatex">\(||P||\to 0\)</span>，此时 <span class="arithmatex">\(\underline{S}(f\chi_{D_x},P)=\overline{S}(f\chi_{D_x},P)\)</span>，我们得到</p>
+<div class="arithmatex">\[
+\int_{D_x} f(x)\mathrm{d} x=\int_{D_t}f\circ \varphi(t)\cdot |\det \varphi'(t)| \mathrm{d} t
+\]</div>
+<p>因此变量代换公式成立，证毕。</p>
+<h2 id="-">变量代换公式证明 - 退化情况</h2>
+<p><strong>（变量代换公式 - 退化情况）设 <span class="arithmatex">\(\varphi:D_t\to D_x\)</span> 为 <span class="arithmatex">\(\mathbb{R}^n\)</span> 中有界开集之间的双射，且 <span class="arithmatex">\(\varphi\)</span> 连续可微，<span class="arithmatex">\(f\)</span> 为定义在 <span class="arithmatex">\(D_x\)</span> 上的函数，<span class="arithmatex">\(\operatorname{supp} f\)</span> 为 <span class="arithmatex">\(D_x\)</span> 的紧致子集。如果 <span class="arithmatex">\(f\in\mathcal{R}(D_x)\)</span>，则 <span class="arithmatex">\(f\circ\varphi\cdot|\det \varphi’|\in \mathcal{R}(D_t)\)</span>，并且有：</strong></p>
+<div class="arithmatex">\[
+\int_{D_x} f(x) \mathrm{d} x=\int_{D_t} f\circ\varphi(t) \cdot |\det \varphi’(t) | \mathrm{d} t
+\]</div>
+<p>注意上述推论中我们不再假定 <span class="arithmatex">\(|\det \varphi'(t)|\not= 0\)</span> 对 <span class="arithmatex">\(\forall t\in D_t\)</span> 成立，也即 <span class="arithmatex">\(\varphi^{-1}:D_x\to D_t\)</span> 不一定可微。为证明此推论，我们可以在 <span class="arithmatex">\(D_t\)</span> 和 <span class="arithmatex">\(D_x\)</span> 中分别挖去集合 <span class="arithmatex">\(E=\{t\in D_t \mid \det \varphi'(t)=0 \}\)</span> 以及 <span class="arithmatex">\(\varphi(E)\)</span>。</p>
+<p>集合 <span class="arithmatex">\(E\)</span> 可以不是零测集，因为被积函数在 <span class="arithmatex">\(E\)</span> 上取值为零，不会影响积分值。但 <span class="arithmatex">\(\varphi(E)\)</span> 上 <span class="arithmatex">\(f(x)\)</span> 不一定为零，为此我们希望 <span class="arithmatex">\(\varphi(E)\)</span> 足够小，最好是一个零测集。事实证明确实如此：</p>
+<p><strong>（Sard 定理）设 <span class="arithmatex">\(D\)</span> 为 <span class="arithmatex">\(\mathbb{R}^n\)</span> 中的开集，<span class="arithmatex">\(\varphi: D\to \mathbb{R}^n\)</span> 为连续可微映射。记 <span class="arithmatex">\(E=\{t\in D\mid \det \varphi'(t) =0\}\)</span>，则 <span class="arithmatex">\(\varphi(E)\)</span> 为一零测集。</strong></p>
+<p>这个定理的几何直观是显然的：在 <span class="arithmatex">\(\varphi'(t)=0\)</span> 的附近，<span class="arithmatex">\(\varphi\)</span> 相当于降维打击，<span class="arithmatex">\(\varphi(E)\)</span> 自然是要多小就有多小。</p>
+<p>我们先对 <span class="arithmatex">\(n=1\)</span> 的情况进行证明。对 <span class="arithmatex">\(D\)</span> 中任一闭区间 <span class="arithmatex">\([\alpha,\beta]\)</span>，我们来证明 <span class="arithmatex">\(\varphi(E\cap [\alpha,\beta])\)</span> 为零测集。因为 <span class="arithmatex">\(\varphi'(t)\)</span> 连续，在闭区间上则一致连续，因此 <span class="arithmatex">\(\forall \epsilon&gt;0\)</span>，都有 <span class="arithmatex">\(\delta&gt;0\)</span> 使得 <span class="arithmatex">\(|t_1-t_2|&lt;\delta\)</span> 时 <span class="arithmatex">\(|\varphi'(t_1)-\varphi'(t_2)|&lt;\epsilon\)</span>。</p>
+<p>由 Lagrange 中值定理，<span class="arithmatex">\(\varphi(x)-\varphi(x_0)=\varphi'(t)(x-x_0) \ (t\in (x,x_0))\)</span>。当 <span class="arithmatex">\(|x-x_0|&lt;\delta\)</span> 时，<span class="arithmatex">\(|\varphi'(t)-\varphi'(x_0)|&lt;\epsilon\)</span>，因此 <span class="arithmatex">\(|\varphi(x)-\varphi(x_0)-\varphi'(x_0)(x-x_0)|\le \epsilon|x-x_0|\)</span>。</p>
+<p>注意到不等式左边其实是原函数和切线方程的误差，这个不等式告诉我们误差可以由 <span class="arithmatex">\(|x-x_0|\)</span> 控制。于是我们将 <span class="arithmatex">\([\alpha,\beta]\)</span> 作 <span class="arithmatex">\(N\)</span> 等分使得 <span class="arithmatex">\(\dfrac{\beta -\alpha}{N}&lt;\dfrac{\delta}{2}\)</span>，记所得区间为 <span class="arithmatex">\(I_{1\cdots n}\)</span>。如果 <span class="arithmatex">\(I_k\cap E\not=\varnothing\)</span>，则对任意 <span class="arithmatex">\(x_k\in I_k\cap E\)</span>，我们有 <span class="arithmatex">\(\varphi'(x_k)=0\)</span>，并且 <span class="arithmatex">\(\forall x\in I_k\)</span> 都有：</p>
+<div class="arithmatex">\[
+|\varphi(x)-\varphi(x_k)|&lt;\epsilon|x-x_k|\le \epsilon\dfrac{\beta -\alpha}{N}
+\]</div>
+<p>所以</p>
+<div class="arithmatex">\[
+\varphi(I_k\cap E)\subset \varphi(I_k)\subset (\varphi(x_k)-\epsilon\dfrac{b-a}{N},\varphi(x_k)+\epsilon\dfrac{b-a}{N})=E_k
+\]</div>
+<p>由此我们得到</p>
+<div class="arithmatex">\[
+\varphi([\alpha,\beta]\cap E)\subset \bigcup_{i=1}^N E_i,\ \sum_{i=1}^n\mu(E_i)\le 2(b-a)\epsilon
+\]</div>
+<p>由 <span class="arithmatex">\(\epsilon\)</span> 的任意性可知 <span class="arithmatex">\(\varphi([\alpha,\beta]\cap E)\)</span> 为零测集。根据引理一，<span class="arithmatex">\(D\)</span> 可以写成可数个区间的不交并，<span class="arithmatex">\(\varphi(E)\)</span> 为零测集。</p>
+<p>接下来我们考虑一般情况，照葫芦画瓢：</p>
+<p>设 <span class="arithmatex">\(I\subset D\)</span> 为一闭立方体，我们来证明 <span class="arithmatex">\(\varphi(I\cap E)\)</span> 为零测集。因为 <span class="arithmatex">\(\varphi'(t)\)</span> 连续，所以在紧致集 <span class="arithmatex">\(I\)</span> 上一致连续。对于任意 <span class="arithmatex">\(\epsilon&gt;0\)</span>，存在 <span class="arithmatex">\(\delta&gt;0\)</span> 使得 <span class="arithmatex">\(||x_1-x_2||&lt;\delta\)</span> 时 <span class="arithmatex">\(||\varphi'(x_1)-\varphi'(x_2)||&lt;\epsilon\)</span>。</p>
+<p>由拟微分中值定理，<span class="arithmatex">\(\varphi(x)-\varphi(x_0)=\varphi'(t)(x-x_0)\ (t\in(x,x_0))\)</span>。当 <span class="arithmatex">\(||x-x_0||&lt;\delta\)</span> 时，<span class="arithmatex">\(||\varphi(x)-\varphi(x_0)-\varphi'(x_0)(x-x_0)||&lt;\epsilon ||x-x_0||\)</span>。</p>
+<p>我们将 <span class="arithmatex">\(I\)</span> 的每条边作 <span class="arithmatex">\(N\)</span> 等分使得 <span class="arithmatex">\(\dfrac{a}{N}&lt;\dfrac{\delta}{2}\)</span>。（设 <span class="arithmatex">\(I\)</span> 的边长为 <span class="arithmatex">\(a\)</span>）记所得区间为 <span class="arithmatex">\(I_{1\cdots N^n}\)</span>。如果 <span class="arithmatex">\(I_k\cap E\not=\varnothing\)</span>，则对任意 <span class="arithmatex">\(x_k\in I_k\cap E\)</span>，我们有 <span class="arithmatex">\(\det \varphi'(x_k)=0\)</span>，并且 <span class="arithmatex">\(\forall x\in I_k\)</span> 都有：</p>
+<div class="arithmatex">\[
+||\varphi(x)-\varphi(x_k)-\varphi'(x_k)(x-x_k)||&lt;\epsilon ||x-x_k||
+\]</div>
+<blockquote>
+<p>这是什么意思？假如 <span class="arithmatex">\(n=2\)</span>，<span class="arithmatex">\(\operatorname{rank} \varphi'(x_k)=1\)</span>，这意味着参数方程 <span class="arithmatex">\(x\to \varphi(x_k)+\varphi'(x_k)(x-x_k)\)</span> 是一条直线，如果限制 <span class="arithmatex">\(x\in I_k\)</span> 就是一条线段。这个不等式告诉我们 <span class="arithmatex">\(\varphi(x)\)</span> 这个点与这条线段的距离 <span class="arithmatex">\(&lt;\epsilon ||x-x_k||\le \epsilon\dfrac{a}{N}\sqrt n\)</span>。那我们只需要算出来与这条线段距离 <span class="arithmatex">\(\le \epsilon\dfrac{a}{N}\sqrt n\)</span> 的点形成的集合（像一根木棍），就可以覆盖 <span class="arithmatex">\(I_k\)</span> 了，且木棍的体积可以用 <span class="arithmatex">\(\epsilon\)</span> 控制。</p>
+<p>对于更高维的空间也是类似。</p>
+</blockquote>
+<p>此时 <span class="arithmatex">\(\{\varphi'(x_k)(x-x_k) \mid x\in I_k\}\)</span> 包含于 <span class="arithmatex">\(\mathbb{R^n}\)</span> 的一个 <span class="arithmatex">\(n-1\)</span> 维子空间中 <span class="arithmatex">\(V\)</span> 中。而对 <span class="arithmatex">\(\forall x\in I_k\)</span>，<span class="arithmatex">\(\varphi(x)\)</span> 与超平面 <span class="arithmatex">\(\varphi(x_0)+V\)</span> 的距离小于 <span class="arithmatex">\(\epsilon\dfrac{a}{N}\sqrt n\)</span>。由于 <span class="arithmatex">\(\varphi'\)</span> 在紧致集 <span class="arithmatex">\(I_k\)</span> 中存在最大值 <span class="arithmatex">\(M\)</span>，因此有 <span class="arithmatex">\(||\varphi(y)-\varphi(x)||\le M||y-x||\)</span> 对任意 <span class="arithmatex">\(x,y\in I_k\)</span> 均成立。</p>
+<p>由此可知 <span class="arithmatex">\(\varphi(x)\)</span> 包含在一个柱体 <span class="arithmatex">\(E_k\)</span> 内，其高小于 <span class="arithmatex">\(2\dfrac{a}{N}\sqrt n\epsilon\)</span>，其底为半径小于 <span class="arithmatex">\(\dfrac{a}{N}M\)</span> 的 <span class="arithmatex">\(n-1\)</span> 维球。因此</p>
+<div class="arithmatex">\[
+\varphi(I\cap E)\subset \bigcup_{k=1}^{N^n} E_k,\ \sum_{k=1}^{N^n}\mu(E_k)\le N^nc\dfrac{\epsilon}{N^n}=c\epsilon
+\]</div>
+<p>其中 <span class="arithmatex">\(c\)</span> 为可以计算的常数。由 <span class="arithmatex">\(\epsilon\)</span> 的任意性和引理一，Sard 定理得证。</p>
+<p>最后我们根据 Sard 定理来证明变量代换公式的退化情况。</p>
+<p>还是一样，先证可积性，再证积分值正确。假设 <span class="arithmatex">\(f\in \mathcal{R}(D_x)\)</span>，<span class="arithmatex">\(\operatorname{supp} f\subset D_x\)</span>，则 <span class="arithmatex">\(f\)</span> 在 <span class="arithmatex">\(D_x\)</span> 上几乎处处连续。由于 <span class="arithmatex">\(\varphi:D_t\to D_x\)</span> 为 1-1 的连续单射，故 <span class="arithmatex">\(\operatorname{supp} f\circ\varphi \subset D_t\)</span>。因此要证明 <span class="arithmatex">\(f\circ \varphi \cdot |\det \varphi'|\in \mathcal{R}(D_t)\)</span>，只要证明 <span class="arithmatex">\(g=f\circ \varphi \cdot |\det \varphi'|\)</span> 在 <span class="arithmatex">\(D_t\)</span> 上几乎处处连续即可。（而不用考虑 <span class="arithmatex">\(D_x\)</span> 或 <span class="arithmatex">\(D_t\)</span> 的边界问题）</p>
+<blockquote>
+<p>还记得我们原来是怎么证明可积性的吗？定理一要求 <span class="arithmatex">\(\varphi\)</span> 是微分同胚，如果 <span class="arithmatex">\(\varphi\)</span> 是微分同胚，那么 <span class="arithmatex">\(f\)</span> 在 <span class="arithmatex">\(D_x\)</span> 上是零测集，就意味着 <span class="arithmatex">\(f\circ\varphi\)</span> 在 <span class="arithmatex">\(D_t\)</span> 上是零测集。</p>
+<p>根据 <span class="arithmatex">\(\varphi'\)</span> 的连续性和 <span class="arithmatex">\(f\)</span> 的有界性，<span class="arithmatex">\(g\)</span> 在满足 <span class="arithmatex">\(\det \varphi'(t)=0\)</span> 的点上一定连续。只要我们挖去这些点，剩下的点就满足 <span class="arithmatex">\(\det \varphi'(t)\not= 0\)</span>，微分同胚这不就来了吗！</p>
+</blockquote>
+<p>记 <span class="arithmatex">\(D(f)\)</span> 为 <span class="arithmatex">\(f\)</span> 在 <span class="arithmatex">\(D_x\)</span> 上的不连续点集合，<span class="arithmatex">\(D(g)\)</span> 为 <span class="arithmatex">\(g\)</span> 在 <span class="arithmatex">\(D_t\)</span> 上的不连续点集合。则由 <span class="arithmatex">\(\varphi,\varphi'\)</span> 的连续性，如果 <span class="arithmatex">\(f\)</span> 在 <span class="arithmatex">\(x_0\)</span> 处连续，那么 <span class="arithmatex">\(g\)</span> 在 <span class="arithmatex">\(\varphi^{-1}(x_0)\)</span> 处连续。那么它的逆否命题 <span class="arithmatex">\(\varphi(D(g))\subset D(f)\)</span> 也成立。</p>
+<p>因此 <span class="arithmatex">\(\varphi(D(g))\)</span> 为零测集。又由 <span class="arithmatex">\(\varphi'\)</span> 的连续性和 <span class="arithmatex">\(f\)</span> 的有界性可知 <span class="arithmatex">\(g\)</span> 在满足 <span class="arithmatex">\(\det \varphi'(t)=0\)</span> 的点上一定连续，也就是说：</p>
+<div class="arithmatex">\[
+D(g)\subset D_t\backslash E_t, \ E_t:=\{t\in D_t \mid \det \varphi'(t)=0\}
+\]</div>
+<p>注意在 <span class="arithmatex">\(D_t\backslash E_t\)</span> 这个范围有 <span class="arithmatex">\(\det \varphi'(t)\not=0\)</span>，根据逆映射定理，<span class="arithmatex">\(\varphi: D_t\backslash E_t\to D_x\backslash \varphi(E_t)\)</span> 在定义域内任意一点的局部是微分同胚。又由于 <span class="arithmatex">\(\varphi\)</span> 是整体 1-1 映射，所以 <span class="arithmatex">\(\varphi\)</span> 整体也是微分同胚。</p>
+<p>再根据定理一，此时 <span class="arithmatex">\(\varphi(D(g))\)</span> 是零测集，故 <span class="arithmatex">\(D(g)\)</span> 也是零测集，从而 <span class="arithmatex">\(g\in \mathcal{R}(D_t)\)</span>。</p>
+<p>接下来我们证明积分值正确。</p>
+<blockquote>
+<p>还是一样，我们把 <span class="arithmatex">\(\det \varphi'(t)=0\)</span> 的点称为坏点（即 <span class="arithmatex">\(E_t\)</span> 中的点），其余点为好点。根据上文，好点区域是微分同胚，这意味着可以直接使用变量代换公式得到正确的积分值。而对于坏点区域，我们则必须保证 <span class="arithmatex">\(f\)</span> 在 <span class="arithmatex">\(\varphi(E_t)\)</span> 这个区域的积分为零，即证 <span class="arithmatex">\(\varphi(E_t)\)</span> 是 Jordan 零测集。</p>
+<p>也就是说，<span class="arithmatex">\(\int_{D_t} f\circ \varphi(t)\cdot |\det \varphi'(t)|\mathrm{d} t=\int_{E_t} f\circ \varphi(t)\cdot |\det \varphi'(t)|\mathrm{d} t+\int_{D_t\backslash E_t}  f\circ \varphi(t)\cdot |\det \varphi'(t)|\mathrm{d} t\)</span>，然后又等于 <span class="arithmatex">\(0+\int_{D_t\backslash E_t}  f\circ \varphi(t)\cdot |\det \varphi'(t)|\mathrm{d} t=\int_{D_x} f(x)\mathrm{d} x\)</span>，对吧，很完美啊！</p>
+<p>这样子就证明完了……吗？</p>
+<p>我们做一个简单的类比：我们把 <span class="arithmatex">\([0,1]\)</span> 区域划分为 <span class="arithmatex">\([0,1]\)</span> 中的有理数和无理数两块分别积分。可以这样做吗？当然不可以！上面的“证明”也是一样。我们完全没有保证 <span class="arithmatex">\(E_t\)</span> 是 Jordan 可测集就把它拎出来积分，虽然这一部分积分确实是零没错，但你也没有保证 <span class="arithmatex">\(D_t\backslash E_t\)</span> 是 Jordan 可测集啊！</p>
+<p>那我们该如何处理？</p>
+<p>我们既然不能直接在 <span class="arithmatex">\(E_t\)</span> 上积分，我们就用有限个正方体组成的集合 <span class="arithmatex">\(N\)</span> 来覆盖 <span class="arithmatex">\(E_t\)</span>，而 <span class="arithmatex">\(N\)</span> 根据定义显然是 Jordan 可测的。在 <span class="arithmatex">\(N\)</span> 上，我们可以积分，并且因为 <span class="arithmatex">\(|\det \varphi'|\)</span> 很小，可以控制它的贡献任意小；而在 <span class="arithmatex">\(D_t\backslash N\)</span> 上，我们就可以直接用一般的变量代换公式即可。然后我们取极限 <span class="arithmatex">\(N\to E_t\)</span>，得到最终的退化版公式。</p>
+<p>这样，我们就不需要 <span class="arithmatex">\(E_t\)</span> 本身是 Jordan 可测的，只需要它能被 Jordan 可测集任意逼近即可。</p>
+</blockquote>
+<p>我们在 <span class="arithmatex">\(D_t\)</span> 中取（由有限个闭区间的并组成的）紧致集 <span class="arithmatex">\(\Omega_t\)</span> 使得 <span class="arithmatex">\(\operatorname{supp} f\circ \varphi\subset \Omega_t^\circ\)</span>。设 <span class="arithmatex">\(E_t’=E_t\cap \Omega_t\)</span>，<span class="arithmatex">\(E_x’=\varphi(E’_t)\)</span>。</p>
+<blockquote>
+<p>为什么可以是有限个闭区间的并？</p>
+<p><span class="arithmatex">\(\forall x\in D_t\)</span>，由于 <span class="arithmatex">\(D_t\)</span> 是开集，我们总能找到一个开区间使得它的闭包在 <span class="arithmatex">\(D_t\)</span> 中。这些开区间都在 <span class="arithmatex">\(D_t\)</span> 内且形成了紧致集 <span class="arithmatex">\(\operatorname{supp} f\circ \varphi\)</span> 的开覆盖。</p>
+<p>那么它一定存在有限子覆盖。我们取这一组子覆盖中所有开区间的闭包即可构造。</p>
+</blockquote>
+<p>由 Sard 定理可知 <span class="arithmatex">\(E’_x\)</span> 为零测集。注意到 <span class="arithmatex">\(E_t\)</span> 为紧致集（有界连续函数的零点集合紧致，证明见第二周作业），而 <span class="arithmatex">\(E’_t\)</span> 为两个紧致集的交一定也紧致。所以 <span class="arithmatex">\(E’_x\)</span> 也为紧致集。由于紧致集上任意开覆盖必有有限子覆盖，所以 <span class="arithmatex">\(\forall \epsilon&gt;0\)</span> 存在有限个开区间 <span class="arithmatex">\(I_{1\cdots k}\)</span> 使得：</p>
+<div class="arithmatex">\[
+\overline{I_i}\subset D_x,\ E’_x\subset \bigcup_{i=1}^k I_i,\ \sum_{i=1}^k \mu(I_i)&lt;\epsilon
+\]</div>
+<p>而利用 <span class="arithmatex">\(\varphi\)</span> 和 <span class="arithmatex">\(\varphi’\)</span> 的连续性和 <span class="arithmatex">\(E’_t\)</span> 的紧致性，我们可以找到有限个开区间 <span class="arithmatex">\(J_{1\cdots m}\)</span> 使得：</p>
+<ol>
+<li><span class="arithmatex">\(\overline{J_i}\subset \Omega_t\)</span>，<span class="arithmatex">\(E’_t\subset \bigcup_{i=1}^m J_i\)</span>。</li>
+<li>对每一 <span class="arithmatex">\(J_i\)</span> 存在 <span class="arithmatex">\(I_p\)</span> 使得 <span class="arithmatex">\(\varphi(\overline{J_i})\subset I_p\)</span> 且 <span class="arithmatex">\(\forall t\in J_i\)</span> 都有 <span class="arithmatex">\(|\det \varphi’(t)|&lt;\epsilon\)</span>。</li>
+</ol>
+<blockquote>
+<p>为什么可以这样构造？</p>
+<p>由于 <span class="arithmatex">\(I_i\)</span> 是开集，<span class="arithmatex">\(\varphi\)</span> 连续，对于任意 <span class="arithmatex">\(x\in I_i\)</span>，都存在 <span class="arithmatex">\(\delta&gt;0\)</span> 使得 <span class="arithmatex">\(B(x,\delta)\subset I_i\)</span>，然后存在 <span class="arithmatex">\(\alpha&gt;0\)</span> 使得 <span class="arithmatex">\(\varphi(B(\varphi^{-1}(x),\alpha))\subset B(x,\delta)\)</span>。</p>
+<p>由于 <span class="arithmatex">\(E_t’\)</span> 紧致，所以 <span class="arithmatex">\(\varphi’(t)\)</span> 在其中一致连续。这告诉我们在第一步可以让 <span class="arithmatex">\(\alpha\)</span> 足够小，使得任意 <span class="arithmatex">\(t\in B(\varphi^{-1}(x),\alpha)\)</span> 都满足 <span class="arithmatex">\(|\det \varphi’(t)|&lt;\epsilon\)</span>。</p>
+<p>我们把所有的 <span class="arithmatex">\(B(\varphi^{-1}(x),\alpha)\)</span> 提取出来，它构成了 <span class="arithmatex">\(E_t’\)</span> 的一个开覆盖，且所有的 <span class="arithmatex">\(\varphi(B(\varphi^{-1}(x),\alpha))\)</span> 都完全在 <span class="arithmatex">\(I\)</span> 中的某一个区间内。而紧致集 <span class="arithmatex">\(E_t’\)</span> 中任意开覆盖都有有限子覆盖，我们取其中的一个有限子覆盖即可。</p>
+</blockquote>
+<p>根据上面的分析，我们知道：<span class="arithmatex">\(\cup\overline{J}\)</span>，<span class="arithmatex">\(\Omega_t\)</span>，和 <span class="arithmatex">\(\Omega_x=\varphi(\Omega_t)\)</span> 都是 Jordan 可测集，这意味着上面的积分是良定义的。而 <span class="arithmatex">\(\Omega_t\backslash \cup \overline{J}\)</span> 这个区域中 <span class="arithmatex">\(\varphi\)</span> 是微分同胚，可以使用一般形式的变量代换公式。我们有：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\int_{\Omega_x\backslash \cup \varphi(\overline{J})} f(x) \mathrm{d} x &amp;= \int_{\Omega_t \backslash \cup \overline{J}} f\circ \varphi(t) \cdot |\det \varphi’(t)|\mathrm{d} t\\
+\int_{D_x} f(x) \mathrm{d} x-\int_{\cup \varphi(\overline{J})}f(x)\mathrm{d} x &amp;=
+\int_{D_t} f\circ \varphi(t) \cdot |\det \varphi’(t)|\mathrm{d} t-
+\int_{\cup \overline{J}} f\circ \varphi(t) \cdot |\det \varphi’(t)|\mathrm{d} t
+\end{aligned}
+\]</div>
+<p>设 <span class="arithmatex">\(M=\max_{x\in D_x} |f(x)|\)</span>，我们有：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+|\int_{\cup \varphi(\overline{J})}f(x)\mathrm{d} x| &amp;\le M\sum_{i=1}^k\mu(I_i)&lt;M\epsilon \\
+|\int_{\cup \overline{J}} f\circ \varphi(t) \cdot |\det \varphi’(t)|\mathrm{d} t| &amp;&lt; M\epsilon\mu(E_t)
+\end{aligned}
+\]</div>
+<p>当 <span class="arithmatex">\(\epsilon\to 0\)</span> 时，上面两式均趋近于零。这个时候我们有：</p>
+<div class="arithmatex">\[
+\int_{D_x} f(x) \mathrm{d} x=
+\int_{D_t} f\circ \varphi(t) \cdot |\det \varphi’(t)|\mathrm{d} t
+\]</div>
+<p>变量代换公式（退化情况）成立。</p>
+<h2 id="lebesgue">*尾声：为什么我们需要 Lebesgue 积分</h2>
+<p>回到退化情况的证明。我们用一个 Jordan 可测集（<span class="arithmatex">\(\cup \overline{J}\)</span>）逼近一个不一定 Jordan 可测的集合（<span class="arithmatex">\(E_t\)</span>）。我们的问题是：这个跟直接拆分成 <span class="arithmatex">\(\int_{E_t} g(t)\mathrm d t\)</span> 和 <span class="arithmatex">\(\int_{D_t\backslash E_t} g(t)\mathrm{d} t\)</span>（上面的经典错误做法）有什么区别？为什么我们不可以直接拆，但可以通过 Jordan 可测集逼近 + 取极限的方法来达成一样的效果？如果可以用 Jordan 可测集逼近，那什么集合是可以通过 Jordan 可测集逼近的？那 Jordan 可测集又有什么用？</p>
+<p>我们先来回顾一个问题：Jordan 可测集是什么？</p>
+<p>它指的是示性函数可积的区域，边界点为零测集的区域，可以用有限多个闭区间内外逼近的区域。在这个区域中，<span class="arithmatex">\(f\)</span> 是否可积只取决于 <span class="arithmatex">\(f\)</span> 在这块区域的内部不连续点是否为零测集，而不用管区域点边界情况。这告诉我们，Riemann 积分在这样子的区域才是良定义的。</p>
+<p>如果一个区域可以写成有限多个闭区间的并集。那么通过延长所有闭区间的边，它也可以写成有限多个闭区间的不交并。那它肯定可以用有限多个区间内外逼近（内和外都一样了，那肯定能逼近）。那么这样的区间一定 Jordan 可测。在上面一章的证明中，我们就是利用这样的性质证明了 <span class="arithmatex">\(\Omega_t\)</span> 和 <span class="arithmatex">\(\cup \overline{J}\)</span> 是 Jordan 可测的。</p>
+<p>那什么样的区域可以用 Jordan 可测集逼近？根据上一段，可以写成可数多个闭区间并集的区域自然可以用 Jordan 可测集（有限多个闭区间并集形成的区域）来逼近。根据引理一，开集可以用 Jordan 可测集逼近。开集的补集，也就是并集，也可以用 Jordan 可测集逼近。</p>
+<p>而 <span class="arithmatex">\(E_t,E_x\)</span> 是闭集，所以它自然能用 Jordan 可测集逼近。上面的证明告诉我们，能够用 Jordan 可测集逼近的区域，和 Jordan 可测集看起来同样也是积分良定义的。</p>
+<p>我们假设有一个这样的积分，它对于能用 Jordan 可测集逼近的区域也是良定义的，那上面的“经典错误”方法就对了，我们就可以直接证明了：</p>
+<div class="arithmatex">\[
+\int_{D_t} g(t)\mathrm{d} t=\int_{D_t\backslash E_t} g(t)\mathrm{d}t+\int_{E_t} g(t)\mathrm{d} t=\int_{D_x\backslash \varphi(E_t)} f(x) \mathrm{d} x+0=\int_{D_x} f(x) \mathrm{d} x
+\]</div>
+<p>这就是我们为什么需要 Lebesgue 积分。</p>
+<p>上面的积分就是 Lebesgue 积分。可以写成可数多个闭区间并集的区域是 Lebesgue 可测集中的一种，而退化情况的证明方法，就是用 Riemann 积分的工具，去实现 Lebesgue 积分的思想。</p>
+        </div>
+    </article>
+    <aside class="article-toc">
+        <div class="toc-title">目录</div>
+        <div class="toc">
+<ul>
+<li><a href="#_1">多元微积分单核攻略，简单好抄</a><ul>
+<li><a href="#_2">前言</a></li>
+<li><a href="#_3">从一元函数到多元函数</a></li>
+<li><a href="#_4">从多元函数到多元映射</a></li>
+<li><a href="#_5">逆映射定理</a></li>
+<li><a href="#_6">隐函数定理</a></li>
+<li><a href="#_7">秩定理</a></li>
+<li><a href="#_8">条件极值</a></li>
+<li><a href="#_9">从一重积分到多重积分</a></li>
+<li><a href="#_10">变量代换公式</a></li>
+<li><a href="#_11">变量代换公式的证明</a><ul>
+<li><a href="#_12">第一步：对零测集进行讨论，保证两边可积性相同</a></li>
+<li><a href="#varphi">第二步：证明 \(\varphi\) 是线性映射的情况下成立</a></li>
+<li><a href="#jordan">第三步：证明 Jordan 可测集中定理成立</a></li>
+<li><a href="#_13">第四步：证明变量代换公式</a></li>
+</ul>
+</li>
+<li><a href="#-">变量代换公式证明 - 退化情况</a></li>
+<li><a href="#lebesgue">*尾声：为什么我们需要 Lebesgue 积分</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+        <ul class="toc-fallback-list" style="display:none"><li><a href="#article-title" class="toc-fallback">多元微积分单核攻略，简单好抄</a></li></ul>
+    </aside>
+</div>
+
+<div class="back-link">
+    <a href="/GraphcityBlog/">← 返回文章列表</a>
+</div>
+
+    </main>
+    <footer>
+        <div class="theme-switcher">
+            <span class="theme-dot" data-theme="teal" style="background:#339596" title="青绿"></span>
+            <span class="theme-dot" data-theme="blue" style="background:#3360AB" title="蓝色"></span>
+            <span class="theme-dot" data-theme="rose" style="background:#d4627c" title="玫红"></span>
+            <span class="theme-dot" data-theme="orange" style="background:#e08a3e" title="橘橙"></span>
+            <span class="theme-dot" data-theme="purple" style="background:#7c5aa8" title="紫色"></span>
+            <span class="theme-dot" data-theme="green" style="background:#4a9c5d" title="草绿"></span>
+            <span class="theme-dot" data-theme="slate" style="background:#5a7a8a" title="灰蓝"></span>
+            <span class="theme-dot" data-theme="sky" style="background:#4A90D9" title="天蓝"></span>
+        </div>
+        <p>&copy; 2026 Graphcity</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+    <script>
+        // 目录兜底：除兜底链接外没有其他链接时显示文章标题
+        (function() {
+            const toc = document.querySelector('.article-toc');
+            if (!toc) return;
+            const fallback = toc.querySelector('.toc-fallback-list');
+            const links = toc.querySelectorAll('a[href^="#"]:not(.toc-fallback)');
+            if (fallback) fallback.style.display = links.length ? 'none' : '';
+        })();
+
+        // TOC 滚动高亮
+        (function() {
+            const tocAside = document.querySelector('.article-toc');
+            if (!tocAside) return;
+            const headings = document.querySelectorAll('.article-body h1[id], .article-body h2[id], .article-body h3[id], .article-body h4[id]');
+            if (!headings.length) return;
+            const tocMap = {};
+            tocAside.querySelectorAll('a[href^="#"]').forEach(a => {
+                const id = a.getAttribute('href').slice(1);
+                tocMap[id] = a;
+            });
+            function update() {
+                const scrollTop = window.scrollY + 100;
+                let activeId = null;
+                headings.forEach(h => {
+                    if (h.getBoundingClientRect().top + window.scrollY <= scrollTop) activeId = h.id;
+                });
+                tocAside.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+                if (activeId && tocMap[activeId]) tocMap[activeId].classList.add('active');
+            }
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) { requestAnimationFrame(() => { update(); ticking = false; }); ticking = true; }
+            });
+            update();
+        })();
+
+        // 禁用 B 站外链自动播放
+        document.querySelectorAll('iframe[src*="bilibili"]').forEach(f => {
+            if (f.src.includes('autoplay=')) {
+                f.src = f.src.replace(/([?&])autoplay=1/, '$1autoplay=0');
+            } else {
+                f.src += (f.src.includes('?') ? '&' : '?') + 'autoplay=0';
+            }
+        });
+    </script>
+    <script>
+        const themes = {
+            teal:    { primary:'#339596', primaryDark:'#277576', codeBg:'#1a2e2f', codeText:'#d6e2f5', shadowRgb:'51,149,150', badgeBg:'#eaf4f4' },
+            blue:    { primary:'#3360AB', primaryDark:'#254a85', codeBg:'#1a2540', codeText:'#d0dcf0', shadowRgb:'51,96,171', badgeBg:'#eef2fa' },
+            rose:    { primary:'#d4627c', primaryDark:'#a3435c', codeBg:'#2f1a22', codeText:'#f0d6e0', shadowRgb:'212,98,124', badgeBg:'#faf0f4' },
+            orange:  { primary:'#e08a3e', primaryDark:'#b06828', codeBg:'#2f2218', codeText:'#f0e2d4', shadowRgb:'224,138,62', badgeBg:'#faf4ec' },
+            purple:  { primary:'#7c5aa8', primaryDark:'#5c3e86', codeBg:'#1f1a2f', codeText:'#dcd4f0', shadowRgb:'124,90,168', badgeBg:'#f4f0fa' },
+            green:   { primary:'#4a9c5d', primaryDark:'#357a44', codeBg:'#182a1e', codeText:'#d4f0dc', shadowRgb:'74,156,93', badgeBg:'#eefaf0' },
+            slate:   { primary:'#5a7a8a', primaryDark:'#3f5d6b', codeBg:'#1a242a', codeText:'#d4e0e8', shadowRgb:'90,122,138', badgeBg:'#f0f4f6' },
+            sky:     { primary:'#4A90D9', primaryDark:'#3570ad', codeBg:'#19253a', codeText:'#d4e2f4', shadowRgb:'74,144,217', badgeBg:'#eef3fa' },
+        };
+        const saved = localStorage.getItem('blog-theme') || 'teal';
+        function applyTheme(name) {
+            const t = themes[name];
+            const r = document.querySelector(':root');
+            r.style.setProperty('--primary', t.primary);
+            r.style.setProperty('--primary-dark', t.primaryDark);
+            r.style.setProperty('--code-bg', t.codeBg);
+            r.style.setProperty('--code-text', t.codeText);
+            r.style.setProperty('--shadow-rgb', t.shadowRgb);
+            r.style.setProperty('--badge-bg', t.badgeBg);
+            document.querySelectorAll('.theme-dot').forEach(d => d.classList.toggle('active', d.dataset.theme === name));
+            localStorage.setItem('blog-theme', name);
+        }
+        applyTheme(saved);
+        document.querySelectorAll('.theme-dot').forEach(dot => {
+            dot.onclick = () => applyTheme(dot.dataset.theme);
+        });
+
+        document.querySelectorAll('pre').forEach(pre => {
+            const btn = document.createElement('button');
+            btn.className = 'copy-btn';
+            btn.textContent = '复制';
+            btn.onclick = () => {
+                navigator.clipboard.writeText(pre.textContent).then(() => {
+                    btn.textContent = '已复制';
+                    setTimeout(() => btn.textContent = '复制', 1500);
+                });
+            };
+            pre.style.position = 'relative';
+            pre.appendChild(btn);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,315 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GraphcityBlog — Graphcity Blog</title>
+    <link rel="stylesheet" href="/GraphcityBlog/static/blog/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
+    
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <a class="brand" href="/GraphcityBlog/">Graphcity Blog</a>
+            <div class="nav-links">
+                <a href="/GraphcityBlog/articles/">文章</a>
+                <a href="/GraphcityBlog/projects/">项目</a>
+                <a href="/GraphcityBlog/archive/">归档</a>
+                <a href="/GraphcityBlog/about/">关于</a>
+            </div>
+            <div class="nav-right">
+                <form action="/GraphcityBlog/search/" method="get" class="search-form">
+                    <input type="text" name="q" placeholder="搜索文章、项目…" value="">
+                    <button type="submit">搜索</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <main>
+        
+<header class="article-header">
+    <div class="article-header-bar"></div>
+    <div class="article-header-body">
+        <h1 id="article-title">GraphcityBlog</h1>
+        <div class="proj-tags"><a href="/GraphcityBlog/archive/Python/?tab=project" class="proj-lang" style="text-decoration:none">Python</a></div>
+        <p class="proj-desc">个人博客（即本站）。Django + Markdown + 7 种主题色，支持 LaTeX、代码高亮、图片网格、GitHub Pages 部署。</p>
+        <p class="proj-link"><strong>项目地址：</strong><a href="https://github.com/Graphcity123/GraphcityBlog" target="_blank">https://github.com/Graphcity123/GraphcityBlog</a></p>
+    </div>
+</header>
+
+<div class="article-layout">
+    <article>
+        <div class="article-body">
+            <h1 id="graphcity-blog">Graphcity Blog</h1>
+<p>基于 Django 的个人博客。文章以 Markdown 文件存储，项目页自动拉取 GitHub README，无需数据库。</p>
+<h2 id="_1">功能</h2>
+<ul>
+<li><strong>Markdown 渲染</strong>：LaTeX 数学公式、代码高亮（JetBrains Mono）、删除线、表格</li>
+<li><strong>7 种主题色</strong>：青绿 / 蓝 / 玫红 / 橘橙 / 紫 / 草绿 / 灰蓝，点击切换，自动记忆</li>
+<li><strong>图片网格</strong>：<code>img-grid-1</code> ~ <code>img-grid-4</code>，自动排版</li>
+<li><strong>代码块复制</strong>：hover 显示复制按钮</li>
+<li><strong>B 站外链</strong>：自动撑满宽度，禁用自动播放</li>
+<li><strong>侧边目录</strong>：文章/项目页自动生成目录，滚动高亮当前标题</li>
+<li><strong>GitHub Pages 部署</strong>：一键构建静态站点</li>
+</ul>
+<h2 id="_2">目录结构</h2>
+<div class="codehilite"><pre><span></span><code>graphcity_blog/
+├── config/                 # Django 配置
+├── blog/                   # 主应用
+│   ├── views.py            # 首页、文章详情、项目详情、关于
+│   ├── templatetags/       # markdown 渲染 filter
+│   ├── templates/blog/     # HTML 模板（base / home / article / project / about）
+│   └── static/blog/        # CSS + 字体（HarmonyOS Sans SC）
+├── content/                # 内容目录
+│   ├── articles/           # 文章（每个文件夹一篇）
+│   │   └── &lt;slug&gt;/
+│   │       ├── index.md    # 文章正文（YAML front matter）
+│   │       └── *.png       # 附件图片
+│   └── projects.json       # 项目配置
+├── build.py                # 静态站点构建脚本
+├── deploy.bat              # 一键部署到 GitHub Pages
+└── requirements.txt
+</code></pre></div>
+
+<h2 id="_3">快速开始</h2>
+<div class="codehilite"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+python<span class="w"> </span>manage.py<span class="w"> </span>runserver
+</code></pre></div>
+
+<p>访问 http://127.0.0.1:8000/</p>
+<h2 id="_4">添加文章</h2>
+<p>在 <code>content/articles/</code> 下新建文件夹（任意名称作为 slug），放入 <code>index.md</code>：</p>
+<div class="codehilite"><pre><span></span><code>---
+title: 文章标题
+date: 2026-07-10
+<span class="gu">tags: Python, 博客</span>
+<span class="gu">---</span>
+
+正文内容...
+
+![<span class="nt">图片</span>](<span class="na">image.png</span>)
+</code></pre></div>
+
+<p>图片等附件放在同一文件夹，markdown 里用相对路径引用。</p>
+<h2 id="_5">添加项目</h2>
+<p>编辑 <code>content/projects.json</code>：</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;项目名&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://github.com/...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;repo&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;owner/repo&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;desc&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;一句话描述&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;lang&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Python&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>项目页自动拉取并渲染仓库的 README.md。</p>
+<h2 id="markdown">Markdown 特性</h2>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$$E=mc^2$$</code></td>
+<td>LaTeX 数学公式</td>
+</tr>
+<tr>
+<td><code>~~删除~~</code></td>
+<td>删除线</td>
+</tr>
+<tr>
+<td><code>`code`</code></td>
+<td>行内代码（JetBrains Mono）</td>
+</tr>
+<tr>
+<td><code>```python ```</code></td>
+<td>代码块 + 复制按钮</td>
+</tr>
+<tr>
+<td><code>&lt;div class="img-grid-2" markdown="1"&gt;</code></td>
+<td>2 列图片网格</td>
+</tr>
+<tr>
+<td>目录自动生成</td>
+<td>文章内标题自动抽取为侧边栏目录</td>
+</tr>
+</tbody>
+</table>
+<h2 id="github-pages">部署到 GitHub Pages</h2>
+<div class="codehilite"><pre><span></span><code>deploy.bat
+</code></pre></div>
+
+<p>或手动：</p>
+<div class="codehilite"><pre><span></span><code>python<span class="w"> </span>build.py
+<span class="nb">cd</span><span class="w"> </span>_deploy
+git<span class="w"> </span>add<span class="w"> </span>-A<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;update&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>gh-pages<span class="w"> </span>--force
+</code></pre></div>
+
+<p>GitHub Pages 设置中 Source 选 <code>gh-pages</code> 分支。</p>
+<h2 id="url">URL 路由</h2>
+<table>
+<thead>
+<tr>
+<th>路径</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/</code></td>
+<td>首页（文章列表 + 项目卡片）</td>
+</tr>
+<tr>
+<td><code>/article/&lt;slug&gt;/</code></td>
+<td>文章详情</td>
+</tr>
+<tr>
+<td><code>/project/&lt;name&gt;/</code></td>
+<td>项目详情（拉取 GitHub README）</td>
+</tr>
+<tr>
+<td><code>/about/</code></td>
+<td>关于页</td>
+</tr>
+</tbody>
+</table>
+        </div>
+    </article>
+    <aside class="article-toc">
+        <div class="toc-title">目录</div>
+        <div class="toc">
+<ul>
+<li><a href="#graphcity-blog">Graphcity Blog</a><ul>
+<li><a href="#_1">功能</a></li>
+<li><a href="#_2">目录结构</a></li>
+<li><a href="#_3">快速开始</a></li>
+<li><a href="#_4">添加文章</a></li>
+<li><a href="#_5">添加项目</a></li>
+<li><a href="#markdown">Markdown 特性</a></li>
+<li><a href="#github-pages">部署到 GitHub Pages</a></li>
+<li><a href="#url">URL 路由</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+        <ul class="toc-fallback-list" style="display:none"><li><a href="#article-title" class="toc-fallback">GraphcityBlog</a></li></ul>
+    </aside>
+</div>
+
+<div class="back-link">
+    <a href="/GraphcityBlog/">← 返回首页</a>
+</div>
+
+    </main>
+    <footer>
+        <div class="theme-switcher">
+            <span class="theme-dot" data-theme="teal" style="background:#339596" title="青绿"></span>
+            <span class="theme-dot" data-theme="blue" style="background:#3360AB" title="蓝色"></span>
+            <span class="theme-dot" data-theme="rose" style="background:#d4627c" title="玫红"></span>
+            <span class="theme-dot" data-theme="orange" style="background:#e08a3e" title="橘橙"></span>
+            <span class="theme-dot" data-theme="purple" style="background:#7c5aa8" title="紫色"></span>
+            <span class="theme-dot" data-theme="green" style="background:#4a9c5d" title="草绿"></span>
+            <span class="theme-dot" data-theme="slate" style="background:#5a7a8a" title="灰蓝"></span>
+            <span class="theme-dot" data-theme="sky" style="background:#4A90D9" title="天蓝"></span>
+        </div>
+        <p>&copy; 2026 Graphcity</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+    <script>
+        // 目录兜底：除兜底链接外没有其他链接时显示文章标题
+        (function() {
+            const toc = document.querySelector('.article-toc');
+            if (!toc) return;
+            const fallback = toc.querySelector('.toc-fallback-list');
+            const links = toc.querySelectorAll('a[href^="#"]:not(.toc-fallback)');
+            if (fallback) fallback.style.display = links.length ? 'none' : '';
+        })();
+
+        // TOC 滚动高亮
+        (function() {
+            const tocAside = document.querySelector('.article-toc');
+            if (!tocAside) return;
+            const headings = document.querySelectorAll('.article-body h1[id], .article-body h2[id], .article-body h3[id], .article-body h4[id]');
+            if (!headings.length) return;
+            const tocMap = {};
+            tocAside.querySelectorAll('a[href^="#"]').forEach(a => {
+                const id = a.getAttribute('href').slice(1);
+                tocMap[id] = a;
+            });
+            function update() {
+                const scrollTop = window.scrollY + 100;
+                let activeId = null;
+                headings.forEach(h => {
+                    if (h.getBoundingClientRect().top + window.scrollY <= scrollTop) activeId = h.id;
+                });
+                tocAside.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+                if (activeId && tocMap[activeId]) tocMap[activeId].classList.add('active');
+            }
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) { requestAnimationFrame(() => { update(); ticking = false; }); ticking = true; }
+            });
+            update();
+        })();
+
+        // 禁用 B 站外链自动播放
+        document.querySelectorAll('iframe[src*="bilibili"]').forEach(f => {
+            if (f.src.includes('autoplay=')) {
+                f.src = f.src.replace(/([?&])autoplay=1/, '$1autoplay=0');
+            } else {
+                f.src += (f.src.includes('?') ? '&' : '?') + 'autoplay=0';
+            }
+        });
+    </script>
+    <script>
+        const themes = {
+            teal:    { primary:'#339596', primaryDark:'#277576', codeBg:'#1a2e2f', codeText:'#d6e2f5', shadowRgb:'51,149,150', badgeBg:'#eaf4f4' },
+            blue:    { primary:'#3360AB', primaryDark:'#254a85', codeBg:'#1a2540', codeText:'#d0dcf0', shadowRgb:'51,96,171', badgeBg:'#eef2fa' },
+            rose:    { primary:'#d4627c', primaryDark:'#a3435c', codeBg:'#2f1a22', codeText:'#f0d6e0', shadowRgb:'212,98,124', badgeBg:'#faf0f4' },
+            orange:  { primary:'#e08a3e', primaryDark:'#b06828', codeBg:'#2f2218', codeText:'#f0e2d4', shadowRgb:'224,138,62', badgeBg:'#faf4ec' },
+            purple:  { primary:'#7c5aa8', primaryDark:'#5c3e86', codeBg:'#1f1a2f', codeText:'#dcd4f0', shadowRgb:'124,90,168', badgeBg:'#f4f0fa' },
+            green:   { primary:'#4a9c5d', primaryDark:'#357a44', codeBg:'#182a1e', codeText:'#d4f0dc', shadowRgb:'74,156,93', badgeBg:'#eefaf0' },
+            slate:   { primary:'#5a7a8a', primaryDark:'#3f5d6b', codeBg:'#1a242a', codeText:'#d4e0e8', shadowRgb:'90,122,138', badgeBg:'#f0f4f6' },
+            sky:     { primary:'#4A90D9', primaryDark:'#3570ad', codeBg:'#19253a', codeText:'#d4e2f4', shadowRgb:'74,144,217', badgeBg:'#eef3fa' },
+        };
+        const saved = localStorage.getItem('blog-theme') || 'teal';
+        function applyTheme(name) {
+            const t = themes[name];
+            const r = document.querySelector(':root');
+            r.style.setProperty('--primary', t.primary);
+            r.style.setProperty('--primary-dark', t.primaryDark);
+            r.style.setProperty('--code-bg', t.codeBg);
+            r.style.setProperty('--code-text', t.codeText);
+            r.style.setProperty('--shadow-rgb', t.shadowRgb);
+            r.style.setProperty('--badge-bg', t.badgeBg);
+            document.querySelectorAll('.theme-dot').forEach(d => d.classList.toggle('active', d.dataset.theme === name));
+            localStorage.setItem('blog-theme', name);
+        }
+        applyTheme(saved);
+        document.querySelectorAll('.theme-dot').forEach(dot => {
+            dot.onclick = () => applyTheme(dot.dataset.theme);
+        });
+
+        document.querySelectorAll('pre').forEach(pre => {
+            const btn = document.createElement('button');
+            btn.className = 'copy-btn';
+            btn.textContent = '复制';
+            btn.onclick = () => {
+                navigator.clipboard.writeText(pre.textContent).then(() => {
+                    btn.textContent = '已复制';
+                    setTimeout(() => btn.textContent = '复制', 1500);
+                });
+            };
+            pre.style.position = 'relative';
+            pre.appendChild(btn);
+        });
+    </script>
+</body>
+</html>

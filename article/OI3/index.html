@@ -1,0 +1,501 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OI 后日谈 3 — Graphcity Blog</title>
+    <link rel="stylesheet" href="/GraphcityBlog/static/blog/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
+    
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <a class="brand" href="/GraphcityBlog/">Graphcity Blog</a>
+            <div class="nav-links">
+                <a href="/GraphcityBlog/articles/">文章</a>
+                <a href="/GraphcityBlog/projects/">项目</a>
+                <a href="/GraphcityBlog/archive/">归档</a>
+                <a href="/GraphcityBlog/about/">关于</a>
+            </div>
+            <div class="nav-right">
+                <form action="/GraphcityBlog/search/" method="get" class="search-form">
+                    <input type="text" name="q" placeholder="搜索文章、项目…" value="">
+                    <button type="submit">搜索</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <main>
+        
+<header class="article-header">
+    <div class="article-header-bar"></div>
+    <div class="article-header-body">
+        <h1 id="article-title">OI 后日谈 3</h1>
+        <div class="tags"><a href="/GraphcityBlog/archive/OI%E5%90%8E%E6%97%A5%E8%B0%88/?tab=article" class="tag-pill" style="text-decoration:none">OI后日谈</a></div>
+        <time>2025-01-22</time>
+    </div>
+</header>
+
+<div class="article-layout">
+    <article>
+        <div class="article-body">
+            <h1 id="part-i-graphcity">Part I. 探究：Graphcity 的记忆系统</h1>
+<blockquote>
+<p><strong>案例一</strong></p>
+<p>词义辨析：contact / contest / content / context / contract / contrast</p>
+<p>我知道！分别是联系 / 比赛 / 满意的 / 文本 / 合同 / 对比！</p>
+<p><strong>案例二</strong></p>
+<p>词义辨析：adapt / adept / adopt</p>
+<p>我知道！分别是适应 / 精通 / 采纳</p>
+<p><strong>案例三</strong></p>
+<p>词义辨析：contrary / contradictory / controversial / contradict</p>
+<p>我知道...吗？我不会啊！</p>
+</blockquote>
+<p>分析：graphcity 在记忆英文单词时，采用的哈希算法可能是记忆它的前 <span class="arithmatex">\(k\ (k\le 5)\)</span> 个字母和它的含义。但当部分单词过于相像时，graphcity 可能会将其放入连续的内存区一起记忆（如案例二）。如果一些单词含义类似，前 <span class="arithmatex">\(k\)</span> 个字母差别不大时，可能会造成哈希冲突。</p>
+<blockquote>
+<p><strong>案例一</strong></p>
+<p>discipline：纪律</p>
+<p>interdisciplinary：<del>有纪律的</del> 跨学科的</p>
+<p>remark：评论</p>
+<p>remarkable：<del>可以评论的</del> 引人注目的</p>
+<p>agree：同意</p>
+<p>agreeably：<del>同意地</del> 愉悦地</p>
+<p>sequence：序列</p>
+<p>consequence：<del>序列？</del> 结果</p>
+</blockquote>
+<p>分析：graphcity 在面对自己熟悉的子串时，会自动进行语义推断。但英语确实是一门神奇的语言，语义推断此时有可能会失效。<del>完形填空中尤其可能出现这种特殊情况</del></p>
+<blockquote>
+<p><strong>案例一</strong></p>
+<p>君人者，诚能见可欲则思知足 __ 自戒；将有作则思知止 __ 安人；念高危则思谦冲 __ 自牧；惧满溢则思江海下百川；乐盘游则思三驱 __ 为度；忧懈怠则思慎始 __ 敬终；虑壅蔽则思虚心 __ 纳下；想谗邪则思正身 __ 黜恶；恩所加则思无因喜 __ 谬赏；罚所及则思无因怒 __ 滥刑。</p>
+<p>CPU 烧了。</p>
+<p>（正确答案：以；以；而；以；而；以；以；以；而）</p>
+<p><strong>案例二</strong></p>
+<p>引壶觞 __ 自酌，眄庭柯 __ 怡颜。倚南窗 __ 寄傲，审容膝 __ 易安。园日涉 __ 成趣，门虽设 __ 常关。策扶老 __ 流憩，时矫首 __ 遐观。云无心 __ 出岫，鸟倦飞 __ 知还。景翳翳 __ 将入，抚孤松 __ 盘桓。</p>
+<p>我知道正确答案！以；以；以；之；以；而；以；而；以；而；以；而。</p>
+<p><strong>案例三</strong></p>
+<p>(  ) 自其变者而观之，(  ) 天地曾不能以一瞬 (  )； (  ) 自其不变者而观之，(  ) 物与我皆无尽 (  )。</p>
+<p>CPU 烧了。</p>
+<p>（正确答案：盖将；则；/ ；/ ；则；也）</p>
+</blockquote>
+<p>分析：graphcity 在记忆文言文时，会自动压缩不影响文义的信息（如虚词）。一般而言可以通过自动推断得出正确的虚词是什么。当虚词过于无序时可能会导致混乱。但当虚词较为有规律时，可能会额外对其进行特殊记忆。</p>
+<p>若一个句子前后有较多不同的虚词，自动推断有大概率失效。</p>
+<blockquote>
+<p><strong>案例一</strong></p>
+<p>纵一苇之所如，（                            ）？</p>
+<p><del>我知道：举匏樽以相属！</del> 正确答案：凌万顷之茫然。</p>
+<p><strong>案例二</strong></p>
+<p>（                            ），或植杖而耘耔。</p>
+<p><del>我知道：挟飞仙以遨游！</del> 正确答案：怀良辰以孤往。</p>
+<p><strong>案例三</strong></p>
+<p>一夫作难而七庙隳，(                        )，(                            )，何也？</p>
+<p>数十怜人困之，(                          )，(                        )。</p>
+<p>CPU 烧了。</p>
+<p>（正确答案：身死人手，为天下笑者；而身死国灭，为天下笑）</p>
+</blockquote>
+<p>分析：graphcity 在记忆文言文时，采用的哈希算法可能是记忆它的字数和大意。如果两个句子字数相同，且意思过于相近，可能会造成哈希冲突。</p>
+<blockquote>
+<p><strong>案例一</strong></p>
+<p>问：是否所有的浆细胞都是由 B 细胞产生的？</p>
+<p>答：是的。</p>
+<p>正确答案：不是的，因为 <strong>还有一部分是记忆 B 细胞产生的。</strong></p>
+</blockquote>
+<p>分析：😓</p>
+<p>graphcity 在记忆概念时，可能会进行自动推断（如记忆 B 细胞是 B 细胞）。在面对这种出题人发电的判断题中，自动推断可能会出问题。</p>
+<blockquote>
+<p><strong>案例一</strong></p>
+<p>理想斜面实验的提出者是（         ）。<br />
+提出万有引力定律的是（        ）。<br />
+测量万有引力常量的是（        ）。<br />
+测量静电力常量的是（        ）。<br />
+地心说的集大成者是（        ）。<br />
+提出日心说的是（        ）。  </p>
+<p>错误答案：牛顿；牛顿；牛顿；卡文迪许；亚里士多德；哥白尼。</p>
+<p>正确答案：伽利略；牛顿；卡文迪许；库伦；托勒密；哥白尼。</p>
+<p><strong>案例二</strong></p>
+<p>细胞学说中，研究植物的是（        ），研究动物的是（        ）。</p>
+<p>发现分离定律的是（        ），自由组合定律的是（        ）。提出基因在染色体上的假说的是（        ），证明的是（        ）。</p>
+<p>正确答案：施莱登；施旺；孟德尔；孟德尔；萨顿；摩尔根。</p>
+</blockquote>
+<p>分析：😓</p>
+<p>我在退役前从来没有想到过高考会考这玩意。graphcity 在记忆时，从来不会记忆人名。</p>
+<blockquote>
+<p><strong>案例一</strong></p>
+<p>——你知道你初中班上有多少人吗？</p>
+<p>......不知道。</p>
+<p>——你知道你初中班上有多少男生吗？</p>
+<p>......不知道。</p>
+<p>——你知道你中考成绩吗？</p>
+<p>.......不知道。</p>
+<p>——你知道你体育中考的成绩吗？</p>
+<p>知道，我扣了两分。</p>
+<p>——你知道你爸妈多少岁了吗？</p>
+<p>......不知道。</p>
+<p>——你知道你妹妹多少岁了吗？</p>
+<p>......不知道。</p>
+<p>——你知道你多少岁了吗？</p>
+<p>我靠，我好像忘了！不过我知道还差一岁就能解除防沉迷了。</p>
+</blockquote>
+<p>分析：graphcity 在记忆数字时，通常只会记住 10 及以内的数字。如果需要记忆的数字超过 10，那么他可能会通过转换法来记忆。</p>
+<blockquote>
+<p><strong>案例一</strong></p>
+<p>你知道一条抛物线的 27 个不同的二级结论吗？</p>
+<p>——我知道一个，<span class="arithmatex">\(AF=d(A,l)\)</span>。</p>
+<p>你知道一个椭圆的 15 个二级结论吗？</p>
+<p>——我知道两个，<span class="arithmatex">\(AF_1+AF_2=2a\)</span>，<span class="arithmatex">\(S=b^2\tan\dfrac{\theta}{2}\)</span>。</p>
+<p>哦现在还多知道了一个，那就是光学性质。<del>八省联考害人不浅。</del></p>
+</blockquote>
+<p>分析：graphcity 只会记忆多次长期接触到的，或者令人印象深刻的二级结论。面对一般的二级结论题目时，他可以向你表演现场推一个二级结论。</p>
+<p>如果偶遇出题人恐怖如斯，针对冷门二级结论出题，则拼尽全力无法战胜。</p>
+<blockquote>
+<p><strong>案例一</strong></p>
+<p>（12 分）人出生前，胎儿的血红蛋白由 <span class="arithmatex">\(\alpha\)</span> 珠蛋白和 <span class="arithmatex">\(\gamma\)</span> 珠蛋白组成，出生后人体血红蛋白则主要由 <span class="arithmatex">\(\alpha\)</span> 珠蛋白和 <span class="arithmatex">\(\beta\)</span> 珠蛋白组成。研究发现，<span class="arithmatex">\(\alpha\)</span> 珠蛋白位于 16 号染色体上的两个串联基因 <span class="arithmatex">\(\alpha_1,\alpha_2\)</span> 控制，<span class="arithmatex">\(\beta\)</span> 和 <span class="arithmatex">\(\gamma\)</span> 珠蛋白则分别由位于 11 号染色体上的 <span class="arithmatex">\(B\)</span> 和 <span class="arithmatex">\(D\)</span> 基因控制。调控珠蛋白合成的基因发生缺失或突变，引发的血红蛋白异常的疾病，称为地中海贫血。根据缺陷基因类型不同，将地中海贫血分为 <span class="arithmatex">\(\alpha\)</span> 珠蛋白地中海贫血（<span class="arithmatex">\(\alpha\)</span> 地贫）和 <span class="arithmatex">\(\beta\)</span> 珠蛋白地中海贫血（<span class="arithmatex">\(\beta\)</span> 地贫），某患 <span class="arithmatex">\(\alpha\)</span> 地贫遗传病的家庭中父亲及其孩子的基因组成即表型如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"></th>
+<th style="text-align: center;">父亲</th>
+<th style="text-align: center;">女儿</th>
+<th style="text-align: center;">儿子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">基因组成</td>
+<td style="text-align: center;"><span class="arithmatex">\(\alpha_1^+\alpha_2^0\)</span> / <span class="arithmatex">\(\alpha_1^0\alpha_2^0\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(\alpha_0^+\alpha_2^+\)</span> / <span class="arithmatex">\(\alpha_1^0\alpha_2^0\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(\alpha_1^+\alpha_2^+\)</span> / <span class="arithmatex">\(\alpha_1^0\alpha_2^0\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">表型</td>
+<td style="text-align: center;">中度贫血</td>
+<td style="text-align: center;">中度贫血</td>
+<td style="text-align: center;">轻度贫血</td>
+</tr>
+</tbody>
+</table>
+<p>注：<span class="arithmatex">\(\alpha^+\)</span> 表示基因正常，<span class="arithmatex">\(\alpha^0\)</span> 表示基因缺失。</p>
+<p>回答下列问题。</p>
+</blockquote>
+<p>分析：😓 让我们说中文。</p>
+<p>当 graphcity 遇到不讲人话的中文时，可能会在中英文模式之间混乱，短时记忆能力大幅度下降。</p>
+<blockquote>
+<p><strong>案例一</strong></p>
+<p>你还记得本文的第一个案例是什么吗？</p>
+</blockquote>
+<p>分析：graphcity 的短时记忆能力仅限于现代文阅读 II / 英语阅读 D 篇。如果遇到不讲人话的作者 / 出题人，短时记忆的限度可能会下降。</p>
+<h1 id="part-ii">Part II. 人物赏析：浅羽悠真</h1>
+<p>前情提要：</p>
+<p><img alt="1" src="/GraphcityBlog/content/articles/OI3/1.png" /></p>
+<p><img alt="2" src="/GraphcityBlog/content/articles/OI3/2.png" /></p>
+<h4 id="_1">「悠真精神」及其实践</h4>
+<p>可以用一张图来概括浅羽悠真所体现出的「悠真精神」：</p>
+<p><img alt="youzhen" src="/GraphcityBlog/content/articles/OI3/youzhen.jpg" /></p>
+<p>显然应该要横着读而不是竖着读。</p>
+<blockquote>
+<p><strong>2025 长沙市适应性考试作文</strong></p>
+<p>「松弛感」现在一般指面对压力时不慌张，不焦虑，从容应对，善待自己的心理状态。2024 年巴黎奥运会期间，中国队 00 后小将出征奥运表现出的「松弛感」引人瞩目。他们面对压力应对自如，以「新时代的松弛感」展现满满的青春自信，取得了令人信服的比赛成绩。</p>
+</blockquote>
+<p>悠真的松弛感，令人羡慕。</p>
+<ul>
+<li>面对压力应付自如，背后是他超凡的强大实力：</li>
+</ul>
+<div class="img-grid-1">
+<p><img alt="youzhen1" src="/GraphcityBlog/content/articles/OI3/youzhen2.png" /></p>
+<p><img alt="youzhen3" src="/GraphcityBlog/content/articles/OI3/youzhen3.png" /></p>
+</div>
+<p>从小拥有极强的以太适应体质，常被称作「天才」，在学校毕业后以格外优异的成绩进入对空部。同时，拥有「以太适性衰竭综合征」的他，在晚期发病时仍然坚持在空洞中调查，并在身体衰竭的前一刻仍然可以屏息凝神，一发命中敌人。</p>
+<ul>
+<li>作为「请假学资深执行官」，在善待自己方面无人能及：</li>
+</ul>
+<div class="img-grid-2">
+<p><img alt="y2a" src="/GraphcityBlog/content/articles/OI3/y2a.png" /></p>
+<p><img alt="y2b" src="/GraphcityBlog/content/articles/OI3/y2b.png" /></p>
+<p><img alt="y2c" src="/GraphcityBlog/content/articles/OI3/y2c.png" /></p>
+<p><img alt="y2d" src="/GraphcityBlog/content/articles/OI3/y2d.png" /></p>
+</div>
+<blockquote>
+<p>投稿人：月城柳</p>
+<p>留言：我一直认为，如果浅羽能把他在偷懒方面的灵感用在其它地方，他做什么都会成功的。</p>
+<p><img alt="yzz" src="/GraphcityBlog/content/articles/OI3/yzz.png" /></p>
+</blockquote>
+<p>性格自由散漫，我行我素，追求以最小的成本达到任务及格标准。在高效率地完成最低可交付标准的工作后，就会心安理得地抓紧一切时间休息（摸鱼）。同时声称自己选择弓作为武器是因为方便偷懒，可以有效减少跑动的频次。</p>
+<blockquote>
+<p>浅羽的指导任务顺利完成了，新队员们对「悠真真前辈」的评价很棒：「不管是与以骸周旋还是清理攒了一周的垃圾袋这样的杂物都能给予妥帖的指导和协助」，但也有「虽然悠真前辈根本没在现场出现，但那台搜救员邦布真的很可靠」这样令人困惑的报告内容 ......</p>
+</blockquote>
+<ul>
+<li>表面上不慌张，不焦虑的他，实际上背负着许多：</li>
+</ul>
+<iframe src="/GraphcityBlog//player.bilibili.com/player.html?isOutside=true&aid=113679261505072&bvid=BV1FLkzYsEDe&cid=27521845996&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+
+<p>他随时都有以骸化的风险。头上的发带是他师傅的遗物，颈部的装饰是为了掩盖密布的针孔，身上散发出的香草味则是长期服药留下的药味。当有人问及他的身体时，他也总是微微一笑地带过。</p>
+<p>他常常申请病假，没有人知道他用这些假期做了什么，但多半不是在休息。</p>
+<p>以太适性衰竭综合征的患者通常寿命较短，现有案例中寿命最长的患者在 26 岁那年去世。目前尚未存在完全治愈该疾病的方法。</p>
+<h4 id="_2">循此苦旅，终抵繁星</h4>
+<p>大家如果注意过的话，我的洛谷主页 slogan 已经在一个月之前就换成了这句话。</p>
+<p>为什么呢？其实我不知道。</p>
+<p>很多时候我都比较难用言语去表达我的喜爱之情，比如现在。</p>
+<div class="img-grid-2">
+<p><img alt="y3a" src="/GraphcityBlog/content/articles/OI3/y3a.png" /></p>
+<p><img alt="y3b" src="/GraphcityBlog/content/articles/OI3/y3b.png" /></p>
+<p><img alt="y3c" src="/GraphcityBlog/content/articles/OI3/y3c.png" /></p>
+<p><img alt="y3d" src="/GraphcityBlog/content/articles/OI3/y3d.png" /></p>
+</div>
+<p>悠真的生命旅途绝对可以称得上是「苦旅」：</p>
+<p>先天患有绝症，年幼时被父母抛弃，长大后被师傅收养，但实则是当作试验品来利用；面对随时以骸化的风险，他总是担心能不能被他人和社会接受。</p>
+<p>那「繁星」又是从何而来的呢？</p>
+<p>一方面，他收获了足够的关爱。</p>
+<p>不管是对空六课的朋友们，还是录像店的哲玲兄妹，正如他的绘本里面所描述的那样，「不管你有怎样的力量，变成什么样子，都是我们的伙伴」。悠真的师傅则在生命的最后关头加紧研制针对悠真的药物，即使变成以骸也要死死守卫仅存的特效药。在阴差阳错之下，悠真也成功拿到了师傅的特效药，在生命垂危关头起死回生。</p>
+<div class="img-grid-2">
+<p><img alt="y4a" src="/GraphcityBlog/content/articles/OI3/y4a.png" /></p>
+<p><img alt="y4b" src="/GraphcityBlog/content/articles/OI3/y4b.png" /></p>
+<p><img alt="y4c" src="/GraphcityBlog/content/articles/OI3/y4c.png" /></p>
+<p><img alt="y4d" src="/GraphcityBlog/content/articles/OI3/y4d.png" /></p>
+</div>
+<p>另一方面，他对生活有足够的热忱。</p>
+<p>他是一个细致入微的人，给对空六课成员们送的邦布中会根据原主人的性格特点加入一些特别的数据。</p>
+<p>如果你把他惹毛了，那他可能会毛茸茸地走开，「惹到我，你们可真是惹到棉花了~」</p>
+<p>在他的代理人秘闻中，面对和他处境相似的孩子们，不惜自己一人代替他们，抽取三人量的脊髓液避免他们受到更多的伤害。</p>
+<p>在这个破破烂烂，千疮百孔， 却又灿烂至极的世界里，总有坏的事存在， 但也总有美好的事情发生。</p>
+<p>为什么总有人会去追求希望？为什么总有人会为世界上所有的美好而战？我不知道。</p>
+<p>但你如果问我会不会这样做，我的答案是肯定的。我也相信绝大多数人的答案都是这样。</p>
+<h1 id="part-iii">Part III. 漫谈：高考数学中的应试与思想性</h1>
+<p>前情提要：<a href="https://www.luogu.com.cn/article/99lqwq4i">OI 后日谈 1</a></p>
+<p>假如下一届 / 下下届 / 下下下届的数学老师是刘晖的话，你可能需要这个《刘晖使用手册》：</p>
+<p><img alt="写过程" src="/GraphcityBlog/content/articles/OI3/写过程.jpg" /></p>
+<p>假如你写了一个理论正确的过程得到了正确的答案，你可能会多次听到「写的不清楚」这五个字。这个时候，切记不要惊慌，这并不意味着你的过程哪里有问题，而是大概率它跟参考答案不一样而已。</p>
+<p>这样的改卷方法在大多数题目是有效且比较合理的（包括 18 题）。但问题就出在这个不知道在干什么的 19 题。</p>
+<p>在 19 题，你可以见到：</p>
+<blockquote>
+<p><strong>1 / 选拔欧拉</strong></p>
+<p><img alt="欧拉" src="/GraphcityBlog/content/articles/OI3/欧拉.png" /></p>
+<p>评价：😓</p>
+<p>这样的题你能和参考答案写的一样，要么是你和出题人看到了同一个视频，要么你是欧拉。</p>
+<p><strong>2 /  彩票抽奖</strong></p>
+<p><img alt="九校" src="/GraphcityBlog/content/articles/OI3/九校.png" /></p>
+<p>这道题本身还可以，但问题出在阅卷标准上：第三问跟参考答案不一样，即使使用了正确的 / 部分正确的做法（如归纳等），大概率会获得小于 2 分的分数。</p>
+<p>虽然这个阅卷标准对于每个人是公平的，但它显然并不合理，如果写过程要跟抽奖一样得分的话，那干脆不要给过程分算了。</p>
+</blockquote>
+<p>当然高考数学有问题的地方显然不止这一个。</p>
+<p>我很理解出题人为了提升难度想要去给试卷来点花，但直接把大学知识下放然后来创人，这样也太不道德了。</p>
+<p>一个臭名昭著的例子就是今年的八省联考：</p>
+<p><img alt="8" src="/GraphcityBlog/content/articles/OI3/8.png" /></p>
+<p>出题人疑似有点太喜欢拓扑了。这么考完全是出题人没有能力的体现。</p>
+<h4 id="_3">新定义：创新与问题并存</h4>
+<p>在高考从 22 题改成 19 题的第二年，无数的新定义题出现在了各大月考，联考和高考试卷中。一方面，这是高考数学试图摆脱应试技巧，模版作答和二级结论的尝试，但另一方面也同样带来了很大的问题。</p>
+<p>一个优势在于：能够分配在难题的时间更多了。删掉一道多选，填空和大题，就意味着我们可以投入更多时间和精力到难题上面。思考时间将会更加充分，也可以减少在简单题上的失误概率。</p>
+<p>另一个优势在于：好的新定义题的确可以很有思想性。比如去年的新高考 I 卷和今年的长沙市联考，思路没有很难（想到 key observation 就可以解决问题），也没有超脱高考考纲，更没有无脑照搬大学知识。</p>
+<p><strong>（Update：长沙市联考的阅卷真的是妈妈生的）</strong></p>
+<p>但新定义题是否能够做到瑕不掩瑜呢？说实话并没有明显的这种感觉。</p>
+<ol>
+<li>直截了当的说，我们远远比（绝大多数）出题人和阅卷人聪明。</li>
+<li>新定义题的无脑化和套路化。具体而言，就是：照搬大学教材，直接考察其中的一个结论；照搬大学教材，给出一个毫无用处的新定义套壳，把套壳去掉之后就是传统的导数 / 解析几何题。这样的题目有没有训练价值？会不会在高考考察？我认为是没有的，高考也不会考这种无聊的东西。</li>
+<li>有相当多的新定义题三个小问之间毫无关联，或者几乎没有提示性。如果第三问非常脑筋急转弯，这就是一个灾难。</li>
+<li>阅卷过程中出现的问题。当你的解法与参考答案不一样时，你的分数完全取决于阅卷人的知识水平和他的精神状态。传统的按步骤给分在解法千奇百怪的新定义题面前并不适用。一个比较正常的解决办法是出一道解法相对单一的题目，但很显然月考和联考的出题人暂时还做不到这一点。</li>
+<li>为啥还有专门针对新定义题出的教辅啊？？？真的有任何用吗？？？？？？？</li>
+<li>其实我也不知道老师是怎么备课这种新定义题的。我们的数学老师是直接针对特定的题目出成专题然后 <del>出无穷多个变式</del>。这个能不能做到举一反三，触类旁通的效果是未知的（这个也会引出后面的一个问题）。更重要的是，我到现在还没看到两道有关联的新定义题啊？？？</li>
+</ol>
+<h4 id="_4">高中数学教育：应试与思想平衡</h4>
+<p>我感觉高中数学老师都有一个特点：高考走到哪，他们就走到哪。</p>
+<p>这样做的好处是显而易见的。在传统的高考模式中，这样做显然是最保险且有效的措施。</p>
+<p>但是现在好像出了一点问题：高考好像走在了他们前面比较远。</p>
+<p>在一些基础题（包括某些导数和解析题），追求和参考答案的一致性是正常的，因为 <del>正常人也写不出来除了参考答案以外的做法。</del>。但是新定义题这样做可能会出现一些问题。过于强调和参考答案达成一致，可能会失去一些很有意思 / 很棒的 idea（比如一些归纳，调整，或者感性理解）。同时也没有啥有效的办法在新定义题中让你的答案跟参考答案长得一样。</p>
+<p>另外参考答案也会有很多「不知道为什么要这样做」的步骤。不像一些 codeforces 题目会给出 hint，参考答案显然是没有也不可能会有这些的。但是 hint 恰恰又是一道题目最关键的部分。这样就可能会导致一个问题：我已经会了这道题，但是又不会这道题。</p>
+<p>实际上这个问题不只出现在新定义题当中。在很多导数题和解析几何题，我们不会做显然不是因为我们不会极值点偏移 / 端点效应 / 非对称韦达 / 齐次化等技巧，而是我们不知道什么时候用，或者根本没想到能够用它。高考中一道题留给我们的时间可能只有 20min 不到，试错的成本是比较高的。这个时候，能够快速找准这个题目有什么关键的提示信息至关重要。</p>
+<p>一个很棒的事情就是很多高中老师非常擅长解决传统题。他们可以在讲解题目的过程中把自己的一些解决思路融入进去。美中不足的点在于我一直期待有一个专门讲解 hint 的专题，但是现在好像并没有。</p>
+<p>所以我就自己尝试整理了一些可能有共性的题目。尽管我现在可能讲不清这里面共同的 hint 到底是什么，不过有很多 hint 确实是比较难表达的。期待雅礼的数学老师们有一个更加系统的理解。</p>
+<p>（传送门：<a href="https://www.luogu.com.cn/article/wnew69w0">感受这股劲.jpg</a>，<a href="https://www.luogu.com.cn/article/z3prmunt">利用橘子洲大桥跨过湘江</a>，<a href="https://www.luogu.com.cn/article/6lx3piza">利用调整法解决一系列极值点偏移问题</a>）</p>
+<p>对于新定义题，实际上教学的最好方法可能就是——跟竞赛教练一样，找一些优秀的，具有教育意义的题目然后给学生去做。不去刻意进行教学可能就是最好的教学。</p>
+<p>我特别喜欢一个讲座的标题：《信息学奥赛中的直觉与证明》，出自 WC2022 的第一课堂。<del>尽管里面的内容我可能已经忘得差不多了</del>，但是这个标题我是百分之百认可的。hint，或者说直觉，就是解决一道题目最最最重要的东西。有了一个正确的直觉真的可以秒了一切。</p>
+<h4 id="_5">我们的学习是否会过拟合化？</h4>
+<p>这是我在 B 站看到的一个很有意思的观点。如果把我们的大脑看成 AI（实际上可能就是的），把学习当作喂数据的话，我们的学习是否会过拟合化？</p>
+<p>这个问题其实我以前一直也想过。对此我给出的答案是肯定的。如果大量去做同质化严重，缺乏思想性和教育意义的题目，思维很有可能会被固化。</p>
+<p>这个就呼应了我前文提到的一个事情：对于新定义的某一道特定题目，会不会真正加深我们对于这道题目蕴含的理论的理解？其实我觉得不太会。</p>
+<p>我已经看到过很多题目套一个数列的壳，实际上在考进位制 / 位运算的知识。这些题目（应该可以说是）本质一模一样的，虽然长得可能不太一样。不过我在网上和在课上都没怎么听过有老师提到这个东西，更多的是在就题论题。就事论事是个很好的习惯，但是用在这里就感觉有点怪怪的。如果一个学生做了很多这种题目，看了很多所谓的参考答案，会不会对进位制本身有比较深入的理解呢？或者碰到另一道不太一样但本质相同的题目就歇菜了呢？我不知道，因为还没有人做过这个实验。<del>感兴趣的可以试试。</del></p>
+<p>这个东西用在其它学科（包括 OI）其实也是一样的。当我们题目做的足够多的时候，我们是否只会做自己曾经做过的题目？（当然这也不完全是一件坏事，如果你做过的题目足够足够足够多的话，那可能可以覆盖绝大多数考点了）</p>
+<p>这个东西也肯定不是「死读书」或者「死学习」那么......什么样呢？我也不好形容，但我感觉这两个东西不太一样。遇到一道题目的时候，大家肯定更倾向去使用自己熟悉的套路或者做法。久而久之，我们面对类似问题时，可能就丢失了去思考的能力，而只会去自己的记忆库中寻找解法。这个确实应该是人的正常生理反应（为了追求更高的解决问题的可能性和效率的正常选择），而不是说我主动放弃了自己的思考去背答案。一个是（应该可以说是）不太能避免的一个东西，另一个完全就是自己主观意愿可以操控的东西。</p>
+<p>有人可能就会说：我刻意地不去思考熟悉的解法不就行了吗？可以尝试一下，在月考的时候碰到了考前一天做过的原题，然后在月考写一个新的解法。相信一个正常人应该没有这么大的自控力去抛弃近在眼前的答案。</p>
+<p>总而言之，就是：</p>
+<ol>
+<li>重复训练大量同质化的习题会导致过拟合化。</li>
+<li>过拟合化是正常的。不能把过拟合化和死读书混为一谈。</li>
+</ol>
+<p>这个时候就会有一个很矛盾的问题：我该怎么解决过拟合化的问题呢？如果我太久不去碰类似的问题，可能直接会把它忘掉；如果再去做的话，又可能导致过拟合化的加深。</p>
+<p>大多数人的解法就是直接利用题海战术。我把所有的套路做一遍不就行了吗？不得不说这种类似于以毒攻毒的做法确实有很好的效果。不过现在出现了新定义题，再这样做恐怕是会出一些问题的。</p>
+<p>实际上，我们只需要意识到过拟合化这个东西的存在，很多由此引发的问题自然就会缓解（至少不会在高考的时候暴雷）。在平常的练习当中，可以试着去探究题目中更加本质的 idea，然后多去进行一些广泛的联想。</p>
+<p>特别提示：</p>
+<ol>
+<li>本文不适用于语文，英语等科目。</li>
+<li>如果你连试卷都做不完 / 或者数学 8 分之类的话，同样不适用于本文。</li>
+</ol>
+<h1 id="part-iv">Part IV. 回顾与展望：覆灭重生</h1>
+<p>距离我上一次发 OI 后日谈，好像已经三个月了。</p>
+<p>在这三个月的时间里面，其实是有点迷茫的：月考成绩一直都在 300 名上下，六科里面每次都是随机挑选两科考的好，其它科目要么一般要么坠机了。</p>
+<p>因为这个，我们班主任和年级主任都来找我谈过话，不过好在并没有施加一些压力。他们确实并没有怎么担心这件事。比较担心这件事的是我爸，<del>但由于我已经把他屏蔽了所以没咋影响到我。</del></p>
+<p>在这三个月中的很多时间，我都在想一件事情：什么时候可以运气好一点，让更多科目同时在一次月考中上来呢？</p>
+<p>这个问题自然是没有答案的。你也就考了这么几次考试，根本就不可能知道你在某一科考好的概率是多少。</p>
+<p>但是好就好在你确实可以通过一些方式提升你某一科考得好的概率。</p>
+<p>回顾一下这三个月都干了什么：</p>
+<ol>
+<li>自学了有机化学和水溶液的离子平衡。现在整张化学试卷我都可以看懂了！</li>
+<li>基因工程学完了。现在整张生物试卷我也可以看懂了！</li>
+<li>光学，热学和近代物理学完了。现在整张物理试卷我也可以看懂了！</li>
+<li>把原来一些用在主科的时间花在了副科，尤其是化学。顺便补了一下之前考试中看都没看一眼的有机题。</li>
+<li>降低了自己对于数学考试的期望。作为一个正常人，能够高水准地完成一周三套，75min 选填+最后三道大题，有的时候还是刘晖编的数学试卷，显然是不可能的。</li>
+</ol>
+<p>然后就快到 2025 了。</p>
+<iframe src="/GraphcityBlog//player.bilibili.com/player.html?isOutside=true&aid=113713302476284&bvid=BV16BCAYdEe7&cid=27526564132&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+
+<p>《绝区零》确实是一个很有意思的游戏。在 1.4 以前一直都是不温不火的一个状态。我们班上玩家最多的也不是原神或者铁道，而是绝区零。在我们都以为它会一直把这个状态持续下去的时候，1.4 版本来了。</p>
+<p>制作组真的在这个版本给足了诚意和热情。主线的终章，两个动画短片，底层机制的优化，<del>还有白送的浅羽悠真</del>。绝区零也在 1.4 版本（可以说是）迎来了自己的第二次新生。</p>
+<p>说实话，我确实有一些感动。在它的第一季报幕中，使用的音乐是它的公测宣传曲《覆灭重生 Come Alive》。这个使用真是恰到好处。在语文阅读里面，这个就是完美的首尾呼应，照应全文情节。从一开始的覆灭，再到现在的重生，真的能够给人带来一种振奋人心的力量。</p>
+<p>再接下来就是 2025。</p>
+<p>2025 的第一场考试就是长沙市联考。在考试之前，我的内心还是充满了不确定，尤其是做了去年的适应性考试试卷之后。好巧不巧的是，在考试前一周，我还发烧了。发烧的那几天几乎没有什么心思搞学习，基本上做完作业之后就难受到直接睡觉了。</p>
+<p>但是好就好在我在考试之前基本上恢复了。更重要的是，发烧还变相地保障了我的睡眠时间和睡眠质量，这个非常棒！</p>
+<p>考试的那段时间，可以说是「悠真精神」的成功应用。基本的考试策略就是：有思路的就做，没思路的就跳。整个考试的过程也是比较顺利，<del>因为不会做的都跳了</del>，除了英语听力。那个男的听力播报员真的是妈妈生的，我从头到尾没听清过它一句话。</p>
+<p>然后就到了发成绩的那个晚上。当我看到考试成绩的时候，真的完完全全被震惊到了。</p>
+<p><strong>班级排名：2</strong></p>
+<p><strong>年级排名：43</strong></p>
+<p>我从来没有想过这个成绩会出现在长沙市联考。太可怕了。</p>
+<p>这是我第一次语数英的选择题全对。物理单选从错两个变成了错一个，化学从错五个变成了错两个，生物单选也是第一次全对，两门赋分科目分数都是在 90 左右。</p>
+<p>当然也存在一些问题：在本场考试中，出现包括但不限于：多选想要加一个选项结果涂卡的时候涂到了单选题的位置；选择题涂的时候整体错位了；试卷上改了答案但是答题卡上没改 <span class="arithmatex">\(\cdots\cdots\)</span></p>
+<p>好在这些错误都在检查的时候发现了，<del>要不然就出大事了。</del> </p>
+<p>不过，现在的任务应该是好好休息一下，考试的时候确实有点太紧张了。</p>
+<p><strong>（Update：我的寒假作业可能并不想让我好好休息）</strong></p>
+        </div>
+    </article>
+    <aside class="article-toc">
+        <div class="toc-title">目录</div>
+        <div class="toc">
+<ul>
+<li><a href="#part-i-graphcity">Part I. 探究：Graphcity 的记忆系统</a></li>
+<li><a href="#part-ii">Part II. 人物赏析：浅羽悠真</a><ul>
+<li><a href="#_1">「悠真精神」及其实践</a></li>
+<li><a href="#_2">循此苦旅，终抵繁星</a></li>
+</ul>
+</li>
+<li><a href="#part-iii">Part III. 漫谈：高考数学中的应试与思想性</a><ul>
+<li><a href="#_3">新定义：创新与问题并存</a></li>
+<li><a href="#_4">高中数学教育：应试与思想平衡</a></li>
+<li><a href="#_5">我们的学习是否会过拟合化？</a></li>
+</ul>
+</li>
+<li><a href="#part-iv">Part IV. 回顾与展望：覆灭重生</a></li>
+</ul>
+</div>
+
+        <ul class="toc-fallback-list" style="display:none"><li><a href="#article-title" class="toc-fallback">OI 后日谈 3</a></li></ul>
+    </aside>
+</div>
+
+<div class="back-link">
+    <a href="/GraphcityBlog/">← 返回文章列表</a>
+</div>
+
+    </main>
+    <footer>
+        <div class="theme-switcher">
+            <span class="theme-dot" data-theme="teal" style="background:#339596" title="青绿"></span>
+            <span class="theme-dot" data-theme="blue" style="background:#3360AB" title="蓝色"></span>
+            <span class="theme-dot" data-theme="rose" style="background:#d4627c" title="玫红"></span>
+            <span class="theme-dot" data-theme="orange" style="background:#e08a3e" title="橘橙"></span>
+            <span class="theme-dot" data-theme="purple" style="background:#7c5aa8" title="紫色"></span>
+            <span class="theme-dot" data-theme="green" style="background:#4a9c5d" title="草绿"></span>
+            <span class="theme-dot" data-theme="slate" style="background:#5a7a8a" title="灰蓝"></span>
+            <span class="theme-dot" data-theme="sky" style="background:#4A90D9" title="天蓝"></span>
+        </div>
+        <p>&copy; 2026 Graphcity</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+    <script>
+        // 目录兜底：除兜底链接外没有其他链接时显示文章标题
+        (function() {
+            const toc = document.querySelector('.article-toc');
+            if (!toc) return;
+            const fallback = toc.querySelector('.toc-fallback-list');
+            const links = toc.querySelectorAll('a[href^="#"]:not(.toc-fallback)');
+            if (fallback) fallback.style.display = links.length ? 'none' : '';
+        })();
+
+        // TOC 滚动高亮
+        (function() {
+            const tocAside = document.querySelector('.article-toc');
+            if (!tocAside) return;
+            const headings = document.querySelectorAll('.article-body h1[id], .article-body h2[id], .article-body h3[id], .article-body h4[id]');
+            if (!headings.length) return;
+            const tocMap = {};
+            tocAside.querySelectorAll('a[href^="#"]').forEach(a => {
+                const id = a.getAttribute('href').slice(1);
+                tocMap[id] = a;
+            });
+            function update() {
+                const scrollTop = window.scrollY + 100;
+                let activeId = null;
+                headings.forEach(h => {
+                    if (h.getBoundingClientRect().top + window.scrollY <= scrollTop) activeId = h.id;
+                });
+                tocAside.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+                if (activeId && tocMap[activeId]) tocMap[activeId].classList.add('active');
+            }
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) { requestAnimationFrame(() => { update(); ticking = false; }); ticking = true; }
+            });
+            update();
+        })();
+
+        // 禁用 B 站外链自动播放
+        document.querySelectorAll('iframe[src*="bilibili"]').forEach(f => {
+            if (f.src.includes('autoplay=')) {
+                f.src = f.src.replace(/([?&])autoplay=1/, '$1autoplay=0');
+            } else {
+                f.src += (f.src.includes('?') ? '&' : '?') + 'autoplay=0';
+            }
+        });
+    </script>
+    <script>
+        const themes = {
+            teal:    { primary:'#339596', primaryDark:'#277576', codeBg:'#1a2e2f', codeText:'#d6e2f5', shadowRgb:'51,149,150', badgeBg:'#eaf4f4' },
+            blue:    { primary:'#3360AB', primaryDark:'#254a85', codeBg:'#1a2540', codeText:'#d0dcf0', shadowRgb:'51,96,171', badgeBg:'#eef2fa' },
+            rose:    { primary:'#d4627c', primaryDark:'#a3435c', codeBg:'#2f1a22', codeText:'#f0d6e0', shadowRgb:'212,98,124', badgeBg:'#faf0f4' },
+            orange:  { primary:'#e08a3e', primaryDark:'#b06828', codeBg:'#2f2218', codeText:'#f0e2d4', shadowRgb:'224,138,62', badgeBg:'#faf4ec' },
+            purple:  { primary:'#7c5aa8', primaryDark:'#5c3e86', codeBg:'#1f1a2f', codeText:'#dcd4f0', shadowRgb:'124,90,168', badgeBg:'#f4f0fa' },
+            green:   { primary:'#4a9c5d', primaryDark:'#357a44', codeBg:'#182a1e', codeText:'#d4f0dc', shadowRgb:'74,156,93', badgeBg:'#eefaf0' },
+            slate:   { primary:'#5a7a8a', primaryDark:'#3f5d6b', codeBg:'#1a242a', codeText:'#d4e0e8', shadowRgb:'90,122,138', badgeBg:'#f0f4f6' },
+            sky:     { primary:'#4A90D9', primaryDark:'#3570ad', codeBg:'#19253a', codeText:'#d4e2f4', shadowRgb:'74,144,217', badgeBg:'#eef3fa' },
+        };
+        const saved = localStorage.getItem('blog-theme') || 'teal';
+        function applyTheme(name) {
+            const t = themes[name];
+            const r = document.querySelector(':root');
+            r.style.setProperty('--primary', t.primary);
+            r.style.setProperty('--primary-dark', t.primaryDark);
+            r.style.setProperty('--code-bg', t.codeBg);
+            r.style.setProperty('--code-text', t.codeText);
+            r.style.setProperty('--shadow-rgb', t.shadowRgb);
+            r.style.setProperty('--badge-bg', t.badgeBg);
+            document.querySelectorAll('.theme-dot').forEach(d => d.classList.toggle('active', d.dataset.theme === name));
+            localStorage.setItem('blog-theme', name);
+        }
+        applyTheme(saved);
+        document.querySelectorAll('.theme-dot').forEach(dot => {
+            dot.onclick = () => applyTheme(dot.dataset.theme);
+        });
+
+        document.querySelectorAll('pre').forEach(pre => {
+            const btn = document.createElement('button');
+            btn.className = 'copy-btn';
+            btn.textContent = '复制';
+            btn.onclick = () => {
+                navigator.clipboard.writeText(pre.textContent).then(() => {
+                    btn.textContent = '已复制';
+                    setTimeout(() => btn.textContent = '复制', 1500);
+                });
+            };
+            pre.style.position = 'relative';
+            pre.appendChild(btn);
+        });
+    </script>
+</body>
+</html>
