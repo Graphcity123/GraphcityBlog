@@ -72,4 +72,46 @@
         {% endif %}
     </div>
 {% endif %}
+
+<script>
+(function() {
+    var params = new URLSearchParams(location.search);
+    var tab = params.get('tab') || 'all';
+    var tabs = document.querySelectorAll('.search-tabs .search-tab');
+
+    function update() {
+        for (var i = 0; i < tabs.length; i++) {
+            var txt = tabs[i].textContent.trim();
+            tabs[i].classList.toggle('active',
+                (i === 0 && tab === 'all') || (i === 1 && tab === 'article') || (i === 2 && tab === 'project'));
+        }
+        var showA = tab === 'all' || tab === 'article';
+        var showP = tab === 'all' || tab === 'project';
+        var articleList = document.querySelectorAll('.search-results .article-list');
+        var projectGrid = document.querySelectorAll('.search-results .project-grid');
+        for (var i = 0; i < articleList.length; i++) articleList[i].style.display = showA ? '' : 'none';
+        for (var j = 0; j < projectGrid.length; j++) projectGrid[j].style.display = showP ? '' : 'none';
+        // 区块标题
+        var titles = document.querySelectorAll('.archive-section-title');
+        for (var t = 0; t < titles.length; t++) {
+            if (titles[t].textContent.trim() === '文章') titles[t].style.display = showA ? '' : 'none';
+            else if (titles[t].textContent.trim() === '项目') titles[t].style.display = showP ? '' : 'none';
+        }
+    }
+
+    for (var i = 0; i < tabs.length; i++) {
+        tabs[i].onclick = function(e) {
+            e.preventDefault();
+            var txt = this.textContent.trim();
+            if (txt.indexOf('全部') === 0) tab = 'all';
+            else if (txt.indexOf('文章') === 0) tab = 'article';
+            else tab = 'project';
+            update();
+        };
+    }
+
+    // 初始应用 tab
+    update();
+})();
+</script>
 {% endblock %}
