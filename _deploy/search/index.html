@@ -57,26 +57,56 @@
         };
     }
 
+    function ensureContainer() {
+        let r = document.querySelector('.search-results');
+        if (!r) {
+            r = document.createElement('div');
+            r.className = 'search-results';
+            const summary = document.querySelector('.search-summary');
+            const empty = document.querySelector('.search-empty');
+            const ref = summary || empty || document.querySelector('.search-form');
+            ref.parentNode.insertBefore(r, ref.nextSibling);
+        }
+        return r;
+    }
+
     function render(result, q) {
         const { articles, projects } = result;
+        const container = ensureContainer();
         let html = '';
         const total = articles.length + projects.length;
-        if (summary) summary.textContent = '共 ' + total + ' 个结果';
-        if (articleTab) {
-            articleTab.innerHTML = `
-                <a href="#" class="search-tab active">文章 · ${articles.length}</a>
-                <a href="#" class="search-tab">项目 · ${projects.length}</a>
-            `;
-            articleTab.querySelectorAll('a').forEach((a, i) => {
-                a.onclick = function(e) {
-                    e.preventDefault();
-                    articleTab.querySelectorAll('a').forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
-                    document.getElementById('js-article-results').style.display = i === 0 ? '' : 'none';
-                    document.getElementById('js-project-results').style.display = i === 1 ? '' : 'none';
-                };
-            });
+        let sm = document.querySelector('.search-summary');
+        if (!sm) {
+            sm = document.createElement('p');
+            sm.className = 'search-summary';
+            container.parentNode.insertBefore(sm, container);
         }
+        sm.textContent = '共 ' + total + ' 个结果';
+        // 移除旧空状态
+        const empty = document.querySelector('.search-empty');
+        if (empty) empty.remove();
+
+        // Tabs
+        let tabs = document.querySelector('.search-tabs');
+        if (!tabs) {
+            tabs = document.createElement('div');
+            tabs.className = 'search-tabs';
+            container.parentNode.insertBefore(tabs, container);
+        }
+        tabs.innerHTML = `
+            <a href="#" class="search-tab active">文章 · ${articles.length}</a>
+            <a href="#" class="search-tab">项目 · ${projects.length}</a>
+        `;
+        tabs.querySelectorAll('a').forEach((a, i) => {
+            a.onclick = function(e) {
+                e.preventDefault();
+                tabs.querySelectorAll('a').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById('js-article-results').style.display = i === 0 ? '' : 'none';
+                document.getElementById('js-project-results').style.display = i === 1 ? '' : 'none';
+            };
+        });
+
         html += '<div id="js-article-results">';
         if (articles.length) {
             html += '<div class="article-list">';
@@ -106,7 +136,7 @@
             html += '<p class="search-empty">没有找到匹配的项目</p>';
         }
         html += '</div>';
-        if (results) results.innerHTML = html;
+        container.innerHTML = html;
     }
 
     form.onsubmit = async function(e) {
