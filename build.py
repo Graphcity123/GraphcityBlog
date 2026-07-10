@@ -119,12 +119,20 @@ def build():
     # 关于页
     render_to_file('/about/', 'about/index.html')
 
-    # 文章列表页
+    # 文章列表页（所有分页）
+    import math
+    total_articles = len(articles)
+    article_pages = math.ceil(total_articles / 10) if total_articles > 0 else 1
     render_to_file('/articles/', 'articles/index.html')
-    render_to_file('/articles/?page=1', 'articles/page/1/index.html')
+    for pg in range(1, article_pages + 1):
+        render_to_file(f'/articles/page/{pg}/', f'articles/page/{pg}/index.html')
 
-    # 项目列表页
+    # 项目列表页（所有分页）
+    total_projects = len(projects)
+    project_pages = math.ceil(total_projects / 12) if total_projects > 0 else 1
     render_to_file('/projects/', 'projects/index.html')
+    for pg in range(1, project_pages + 1):
+        render_to_file(f'/projects/page/{pg}/', f'projects/page/{pg}/index.html')
 
     # 搜索页
     render_to_file('/search/', 'search/index.html')

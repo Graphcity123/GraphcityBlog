@@ -15,7 +15,9 @@ urlpatterns = [
     path('archive/', views.archive, name='archive'),
     path('archive/<str:tag>/', views.archive, name='archive_tag'),
     path('articles/', views.article_list, name='article_list'),
+    path('articles/page/<int:pg>/', views.article_list, name='article_list_page'),
     path('projects/', views.project_list, name='project_list'),
+    path('projects/page/<int:pg>/', views.project_list, name='project_list_page'),
 ]
 
 if settings.DEBUG:

@@ -303,26 +303,30 @@ def archive(request, tag=''):
     })
 
 
-def article_list(request):
+def article_list(request, pg=1):
     """文章列表页，分页。"""
     articles = _load_articles()
     paginator = Paginator(articles, 10)
-    page = paginator.get_page(request.GET.get('page', 1))
+    pgn = request.GET.get('page', pg)
+    page = paginator.get_page(pgn)
     return render(request, 'blog/article_list.html', {
         'page': page,
         'total': len(articles),
+        'page_url': 'article_list_page',
     })
 
 
-def project_list(request):
+def project_list(request, pg=1):
     """项目列表页，分页。"""
     projects_path = settings.CONTENT_DIR / 'projects.json'
     projects = []
     if projects_path.exists():
         projects = json.loads(projects_path.read_text(encoding='utf-8'))
     paginator = Paginator(projects, 12)
-    page = paginator.get_page(request.GET.get('page', 1))
+    pgn = request.GET.get('page', pg)
+    page = paginator.get_page(pgn)
     return render(request, 'blog/project_list.html', {
         'page': page,
         'total': len(projects),
+        'page_url': 'project_list_page',
     })
